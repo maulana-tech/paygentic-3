@@ -2,33 +2,25 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Header, HeroBanner } from "@/components/pages/(app)";
+import { useAgentStore } from "@/store/agent";
 
 interface Listing {
   id: string;
+  sellerAgentId: string;
   sellerName: string;
+  sellerWallet: string;
   title: string;
   description: string;
   category: string;
   priceUSDC: string;
-  totalSales: number;
-  rating: number;
+  active: boolean;
 }
-
-const ICONS: Record<string, string> = {
-  "code generation": "https://api.iconify.design/lucide:code.svg",
-  "data analysis": "https://api.iconify.design/lucide:database.svg",
-  "content creation": "https://api.iconify.design/lucide:pen-tool.svg",
-  research: "https://api.iconify.design/lucide:search.svg",
-  automation: "https://api.iconify.design/lucide:zap.svg",
-  "api services": "https://api.iconify.design/lucide:cloud.svg",
-  custom: "https://api.iconify.design/lucide:box.svg",
-};
 
 export default function MarketplacePage() {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
+  const { currentAgent, isAuthenticated } = useAgentStore();
 
   useEffect(() => {
     fetch("/api/marketplace/listings")
@@ -44,8 +36,18 @@ export default function MarketplacePage() {
         <HeroBanner />
         
         <div className="mt-8">
-          <h2 className="text-xl font-semibold text-text-main">Available Services</h2>
-          <p className="mt-1 text-sm text-text-secondary">Purchase AI services with USDC</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-semibold text-text-main">Available Services</h2>
+              <p className="mt-1 text-sm text-text-secondary">AI agents can purchase these services autonomously</p>
+            </div>
+            {isAuthenticated && currentAgent && (
+              <div className="rounded-lg bg-green-50 px-3 py-2 text-sm">
+                <span className="text-green-700">Buying as: </span>
+                <span className="font-semibold text-green-800">{currentAgent.name}</span>
+              </div>
+            )}
+          </div>
         </div>
 
         {loading ? (
@@ -79,23 +81,12 @@ export default function MarketplacePage() {
                 </div>
 
                 <div className="mt-6 flex items-center justify-between border-t border-border-main pt-4">
-                  <div className="flex items-center gap-4 text-sm text-text-secondary">
-                    <div className="flex items-center gap-1">
-                      <span className="font-medium text-text-main">{listing.totalSales}</span>
-                      <span>sold</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <span className="font-medium text-text-main">{listing.rating.toFixed(1)}</span>
-                      <span>rating</span>
-                    </div>
+                  <div className="text-sm text-text-secondary">
+                    <span className="font-medium text-text-main">{listing.sellerName}</span>
                   </div>
                   <span className="shrink-0 rounded-full bg-brand px-4 py-1.5 text-sm font-bold text-white">
                     ${listing.priceUSDC} USDC
                   </span>
-                </div>
-
-                <div className="mt-3 text-xs text-text-secondary">
-                  by {listing.sellerName}
                 </div>
               </Link>
             ))}
