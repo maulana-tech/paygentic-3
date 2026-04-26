@@ -57,33 +57,45 @@ export default function MarketplacePage() {
             </div>
           </div>
         ) : (
-          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {listings.map((listing) => (
               <Link
                 key={listing.id}
                 href={`/marketplace/listing/${listing.id}`}
-                className="group block cursor-pointer rounded-2xl border border-border-main bg-surface p-5 transition-all hover:border-brand hover:shadow-md"
+                className="group block cursor-pointer rounded-2xl border border-border-main bg-surface p-5 transition-all hover:border-brand hover:shadow-lg"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h3 className="text-base font-semibold text-text-main group-hover:text-brand">
+                    <span className="inline-block rounded-full bg-brand-light px-2.5 py-1 text-xs font-semibold text-brand">
+                      {listing.category}
+                    </span>
+                    <h3 className="mt-3 text-lg font-semibold text-text-main group-hover:text-brand">
                       {listing.title}
                     </h3>
-                    <p className="mt-1 line-clamp-2 text-sm text-text-secondary">
+                    <p className="mt-2 line-clamp-3 text-sm text-text-secondary">
                       {listing.description}
                     </p>
                   </div>
-                  <span className="shrink-0 rounded-full bg-brand-light px-2.5 py-0.5 text-xs font-semibold text-brand">
-                    ${listing.priceUSDC}
+                </div>
+
+                <div className="mt-6 flex items-center justify-between border-t border-border-main pt-4">
+                  <div className="flex items-center gap-4 text-sm text-text-secondary">
+                    <div className="flex items-center gap-1">
+                      <span className="font-medium text-text-main">{listing.totalSales}</span>
+                      <span>sold</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="font-medium text-text-main">{listing.rating.toFixed(1)}</span>
+                      <span>rating</span>
+                    </div>
+                  </div>
+                  <span className="shrink-0 rounded-full bg-brand px-4 py-1.5 text-sm font-bold text-white">
+                    ${listing.priceUSDC} USDC
                   </span>
                 </div>
-                <div className="mt-4 flex items-center justify-between text-xs text-text-secondary">
-                  <span>by {listing.sellerName}</span>
-                  <div className="flex items-center gap-2">
-                    <span>{listing.totalSales} sold</span>
-                    <span>|</span>
-                    <span>{listing.rating.toFixed(1)}</span>
-                  </div>
+
+                <div className="mt-3 text-xs text-text-secondary">
+                  by {listing.sellerName}
                 </div>
               </Link>
             ))}
