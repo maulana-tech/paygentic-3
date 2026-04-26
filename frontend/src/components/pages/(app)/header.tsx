@@ -3,12 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ConnectWallet } from "./connect-wallet";
 
 const NAV_ITEMS = [
-  { href: "/", label: "Stake" },
-  { href: "/agent-hub", label: "Agent Hub" },
-  { href: "/treasury", label: "Treasury" },
+  { href: "/", label: "Home" },
+  { href: "/marketplace", label: "Marketplace" },
 ];
 
 export function Header() {
@@ -18,13 +16,12 @@ export function Header() {
     <header className="flex items-center justify-between border-b border-border-main bg-surface px-8 py-3">
       <div className="flex items-center gap-8">
         <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/Assets/Images/Logo/lidogent-logo.webp"
-            alt="Lidogent"
-            width={28}
-            height={28}
-          />
-          <span className="text-base font-semibold text-text-main">Lidogent</span>
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand">
+            <svg viewBox="0 0 320 512" fill="currentColor" className="h-4 w-4 text-white">
+              <path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z" />
+            </svg>
+          </div>
+          <span className="text-base font-semibold text-text-main">Custogen</span>
         </Link>
         <nav className="flex items-center gap-1">
           {NAV_ITEMS.map((item) => {
@@ -45,7 +42,6 @@ export function Header() {
           })}
         </nav>
       </div>
-      <ConnectWallet />
     </header>
   );
 }
