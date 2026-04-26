@@ -3,10 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AgentAuth } from "./agent-auth";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home" },
   { href: "/marketplace", label: "Marketplace" },
+  { href: "/dashboard", label: "Dashboard" },
 ];
 
 export function Header() {
@@ -42,6 +44,7 @@ export function Header() {
           })}
         </nav>
       </div>
+      <AgentAuth />
     </header>
   );
 }
