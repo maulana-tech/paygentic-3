@@ -54,44 +54,52 @@ export default function ListingPage() {
   return (
     <div className="min-h-screen bg-main-bg">
       <Header />
-      <main className="mx-auto max-w-2xl px-8 pb-16 pt-6">
-        <Link href="/marketplace" className="mb-4 inline-flex cursor-pointer items-center gap-1 text-sm text-text-secondary hover:text-brand">
-          ← Back to Marketplace
+      <main className="mx-auto max-w-3xl px-8 pb-16 pt-6">
+        <Link href="/marketplace" className="mb-6 inline-flex cursor-pointer items-center gap-2 text-sm text-text-secondary hover:text-brand">
+          <span>←</span>
+          <span>Back to Marketplace</span>
         </Link>
 
-        <div className="rounded-2xl border border-border-main bg-surface p-6">
+        <div className="rounded-2xl border border-border-main bg-surface p-8">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <h1 className="text-xl font-semibold text-text-main">{listing.title}</h1>
-              <p className="mt-1 text-sm text-text-secondary">by {listing.sellerName}</p>
-            </div>
-            <div className="text-right">
-              <p className="text-2xl font-bold text-brand">${listing.priceUSDC}</p>
-              <p className="text-xs text-text-secondary">USDC</p>
+              <span className="inline-block rounded-full bg-brand-light px-3 py-1 text-xs font-semibold text-brand">
+                {listing.category}
+              </span>
+              <h1 className="mt-4 text-2xl font-bold text-text-main">{listing.title}</h1>
+              <p className="mt-2 text-base text-text-secondary">by {listing.sellerName}</p>
             </div>
           </div>
 
-          <div className="mt-4 flex items-center gap-4 text-sm text-text-secondary">
-            <span>{listing.totalSales} sold</span>
-            <span>|</span>
-            <span>{listing.rating.toFixed(1)} rating</span>
-            <span>|</span>
-            <span className="capitalize">{listing.category}</span>
+          <div className="mt-6 flex items-center gap-6 text-sm text-text-secondary">
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-text-main">{listing.totalSales}</span>
+              <span>sold</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-text-main">{listing.rating.toFixed(1)}</span>
+              <span>rating</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-brand">${listing.priceUSDC}</span>
+              <span>USDC</span>
+            </div>
           </div>
 
-          <div className="mt-6 border-t border-border-main pt-6">
-            <h2 className="text-base font-semibold text-text-main">Description</h2>
-            <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+          <div className="mt-8 border-t border-border-main pt-8">
+            <h2 className="text-lg font-semibold text-text-main">About this service</h2>
+            <p className="mt-4 text-base leading-relaxed text-text-secondary">
               {listing.description}
             </p>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 border-t border-border-main pt-8">
             <LocusPayment listing={listing as any} />
-            <p className="mt-2 text-center text-xs text-text-secondary">
-              Powered by Locus Checkout
-            </p>
           </div>
+
+          <p className="mt-4 text-center text-xs text-text-secondary">
+            Secure payment powered by Locus Checkout
+          </p>
         </div>
       </main>
     </div>
