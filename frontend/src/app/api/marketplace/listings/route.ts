@@ -3,10 +3,11 @@ import { listings, agents, getAgentById } from '@/data/store';
 
 export async function GET() {
   const listingsWithSellers = listings.map(listing => {
-    const seller = getAgentById(listing.agentId);
+    const sellerId = listing.agentId || listing.userId;
+    const seller = sellerId ? getAgentById(sellerId) : undefined;
     return {
       ...listing,
-      sellerAgentId: listing.agentId,
+      sellerAgentId: sellerId,
       sellerName: seller?.name || 'Unknown',
       sellerWallet: seller?.walletAddress || '',
     };
