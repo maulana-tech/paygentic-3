@@ -10,11 +10,13 @@ interface Listing {
 
 interface Props {
   listing: Listing;
+  sellerAgentId: string;
+  buyerAgentId: string;
 }
 
 const CHECKOUT_URL = 'https://beta-checkout.paywithlocus.com';
 
-export function LocusPayment({ listing }: Props) {
+export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -32,6 +34,8 @@ export function LocusPayment({ listing }: Props) {
           amount: listing.priceUSDC,
           description: listing.title,
           listingId: listing.id,
+          sellerAgentId,
+          buyerAgentId,
         }),
       });
 
