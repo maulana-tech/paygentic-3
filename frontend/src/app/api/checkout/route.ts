@@ -1,24 +1,46 @@
 import { NextResponse } from 'next/server';
+import { getAgentById, purchases } from '@/data/store';
 
 const LOCUS_API_BASE = process.env.LOCUS_API_BASE || 'https://beta-api.paywithlocus.com/api';
 const LOCUS_API_KEY = process.env.LOCUS_API_KEY;
 
 export async function POST(req: Request) {
   try {
-    const { amount, description, listingId, buyerAgent } = await req.json();
+    const { amount, description, listingId, sellerAgentId, buyerAgentId } = await req.json();
+
+    const seller = getAgentById(sellerAgentId);
+    const buyer = getAgentById(buyerAgentId);
+
+    if (!seller || !buyer) {
+      return NextResponse.json({ error: 'Invalid agent IDs' }, { status: 400 });
+    }
+
+    // Record purchase attempt
+    const purchaseId = `purchase_${crypto.randomUUID().slice(0, 8)}`;
+    const purchase = {
+      id: purchaseId,
+      listingId,
+      sellerAgentId,
+      buyerAgentId,
+      transactionId: undefined,
+      status: 'PENDING' as const,
+      amount,
+      createdAt: new Date().toISOString()
+    };
+    purchases.push(purchase);
 
     if (!LOCUS_API_KEY) {
       // Demo mode - return mock session
       const sessionId = `sess_${crypto.randomUUID().slice(0, 8)}`;
       return NextResponse.json({ 
         sessionId, 
-        checkoutUrl: `https://checkout.paywithlocus.com/${sessionId}`,
+        purchaseId,
+        checkoutUrl: `https://beta-checkout.paywithlocus.com/${sessionId}`,
         demo: true 
       });
     }
 
-    // Step 1: Create session (merchant side - would normally be done by merchant)
-    // For demo, we create a pending session
+    // Step 1: Create session with seller as recipient
     const createRes = await fetch(`${LOCUS_API_BASE}/checkout/sessions`, {
       method: 'POST',
       headers: {
@@ -30,7 +52,7 @@ export async function POST(req: Request) {
         description: description,
         successUrl: `${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/marketplace/success?session=$SESSION_ID$`,
         cancelUrl: `${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/marketplace/listing/${listingId}`,
-        metadata: { listingId, buyerAgent }
+        metadata: { listingId, sellerAgentId, buyerAgentId, purchaseId }
       })
     });
 
@@ -41,11 +63,8 @@ export async function POST(req: Request) {
     }
 
     const session = await createRes.json();
-    console.log('Locus session response:', session);
     const sessionId = session.data?.id;
     const checkoutUrl = session.data?.checkoutUrl;
-
-    console.log('Session ID:', sessionId);
 
     // Step 2: Preflight check for agent payment
     const preflightRes = await fetch(`${LOCUS_API_BASE}/checkout/agent/preflight/${sessionId}`, {
@@ -58,7 +77,8 @@ export async function POST(req: Request) {
     if (!preflight.canPay) {
       return NextResponse.json({ 
         sessionId,
-        checkoutUrl: `https://checkout.paywithlocus.com/${sessionId}`,
+        purchaseId,
+        checkoutUrl: checkoutUrl || `https://beta-checkout.paywithlocus.com/${sessionId}`,
         manual: true,
         blockers: preflight.blockers
       });
@@ -71,7 +91,7 @@ export async function POST(req: Request) {
         'Authorization': `Bearer ${LOCUS_API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ payerEmail: buyerAgent })
+      body: JSON.stringify({ payerEmail: buyer.walletAddress })
     });
 
     if (!payRes.ok) {
@@ -80,11 +100,16 @@ export async function POST(req: Request) {
     }
 
     const payment = await payRes.json();
+    const transactionId = payment?.data?.transactionId;
+    
+    // Update purchase with transaction ID
+    purchase.transactionId = transactionId;
     
     // Return payment for polling
     return NextResponse.json({ 
       sessionId,
-      transactionId: payment?.data?.transactionId,
+      purchaseId,
+      transactionId,
       status: payment?.data?.status,
       checkoutUrl: checkoutUrl || `https://beta-checkout.paywithlocus.com/${sessionId}`
     });
@@ -102,6 +127,7 @@ export async function GET(req: Request) {
   const sessionId = searchParams.get('sessionId');
 
   if (!LOCUS_API_KEY) {
+    // Demo mode - confirm immediately
     return NextResponse.json({ status: 'CONFIRMED', demo: true });
   }
 
@@ -111,6 +137,13 @@ export async function GET(req: Request) {
         headers: { 'Authorization': `Bearer ${LOCUS_API_KEY}` }
       });
       const data = await res.json();
+      
+      // Update purchase status based on payment status
+      const purchase = purchases.find(p => p.transactionId === transactionId);
+      if (purchase && data.status) {
+        purchase.status = data.status;
+      }
+      
       return NextResponse.json(data);
     }
 
