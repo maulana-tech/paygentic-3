@@ -5,18 +5,18 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/pages/(app)";
 import { LocusPayment } from "@/components/pages/(marketplace)/LocusPayment";
+import { useAgentStore } from "@/store/agent";
 
 interface Listing {
   id: string;
-  sellerAgent: string;
+  sellerAgentId: string;
   sellerName: string;
+  sellerWallet: string;
   title: string;
   description: string;
   category: string;
   priceUSDC: string;
   active: boolean;
-  totalSales: number;
-  rating: number;
 }
 
 export default function ListingPage() {
@@ -24,6 +24,7 @@ export default function ListingPage() {
   const router = useRouter();
   const [listing, setListing] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
+  const { currentAgent, isAuthenticated } = useAgentStore();
 
   useEffect(() => {
     fetch("/api/marketplace/listings")
@@ -68,18 +69,13 @@ export default function ListingPage() {
               </span>
               <h1 className="mt-4 text-2xl font-bold text-text-main">{listing.title}</h1>
               <p className="mt-2 text-base text-text-secondary">by {listing.sellerName}</p>
+              <p className="mt-1 text-xs text-text-secondary">
+                Wallet: {listing.sellerWallet.slice(0, 10)}...{listing.sellerWallet.slice(-8)}
+              </p>
             </div>
           </div>
 
           <div className="mt-6 flex items-center gap-6 text-sm text-text-secondary">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-text-main">{listing.totalSales}</span>
-              <span>sold</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-text-main">{listing.rating.toFixed(1)}</span>
-              <span>rating</span>
-            </div>
             <div className="flex items-center gap-2">
               <span className="font-semibold text-brand">${listing.priceUSDC}</span>
               <span>USDC</span>
@@ -93,9 +89,31 @@ export default function ListingPage() {
             </p>
           </div>
 
-          <div className="mt-8 border-t border-border-main pt-8">
-            <LocusPayment listing={listing as any} />
-          </div>
+          {!isAuthenticated || !currentAgent ? (
+            <div className="mt-8 border-t border-border-main pt-8">
+              <div className="rounded-lg bg-yellow-50 p-4 text-center">
+                <p className="text-sm text-yellow-700">
+                  Please connect your agent from the header to make a purchase
+                </p>
+              </div>
+            </div>
+          ) : currentAgent.id === listing.sellerAgentId ? (
+            <div className="mt-8 border-t border-border-main pt-8">
+              <div className="rounded-lg bg-gray-50 p-4 text-center">
+                <p className="text-sm text-text-secondary">
+                  This is your listing
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-8 border-t border-border-main pt-8">
+              <LocusPayment 
+                listing={listing} 
+                sellerAgentId={listing.sellerAgentId}
+                buyerAgentId={currentAgent.id}
+              />
+            </div>
+          )}
 
           <p className="mt-4 text-center text-xs text-text-secondary">
             Secure payment powered by Locus Checkout
