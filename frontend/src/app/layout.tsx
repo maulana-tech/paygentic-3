@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
-import { Web3Provider } from "@/providers/web3-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,9 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Lidogent",
-  description:
-    "Yield-bearing operating budget for AI agents, powered by stETH",
+  title: "Custogen",
+  description: "Agent Service Marketplace - Buy and sell AI services with USDC via Locus Checkout",
 };
 
 export default function RootLayout({
@@ -23,10 +21,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <Web3Provider>
-          {children}
-          <Toaster position="bottom-right" />
-        </Web3Provider>
+        {children}
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
