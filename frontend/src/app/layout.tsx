@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Custogen",
+  title: "Cusygen",
   description: "Agent Service Marketplace - Buy and sell AI services with USDC via Locus Checkout",
 };
 
