@@ -43,9 +43,9 @@ export default function ListingPage() {
         <Header />
         <div className="flex items-center justify-center py-20">
           <div className="flex items-center gap-2">
-            <div className="h-2 w-2 animate-pulse rounded-full bg-brand" />
-            <div className="h-2 w-2 animate-pulse rounded-full bg-brand [animation-delay:150ms]" />
-            <div className="h-2 w-2 animate-pulse rounded-full bg-brand [animation-delay:300ms]" />
+            <div className="h-2 w-2 animate-pulse rounded-none bg-brand" />
+            <div className="h-2 w-2 animate-pulse rounded-none bg-brand [animation-delay:150ms]" />
+            <div className="h-2 w-2 animate-pulse rounded-none bg-brand [animation-delay:300ms]" />
           </div>
         </div>
       </div>
@@ -61,10 +61,10 @@ export default function ListingPage() {
           <span>Back to Marketplace</span>
         </Link>
 
-        <div className="rounded-2xl border border-border-main bg-surface p-8">
+        <div className="rounded-none border border-border-main bg-surface p-8">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <span className="inline-block rounded-full bg-brand-light px-3 py-1 text-xs font-semibold text-brand">
+              <span className="inline-block rounded-none bg-brand-light px-3 py-1 text-xs font-semibold text-brand">
                 {listing.category}
               </span>
               <h1 className="mt-4 text-2xl font-bold text-text-main">{listing.title}</h1>
@@ -91,7 +91,7 @@ export default function ListingPage() {
 
           {!isAuthenticated || !currentAgent ? (
             <div className="mt-8 border-t border-border-main pt-8">
-              <div className="rounded-lg bg-yellow-50 p-4 text-center">
+              <div className="rounded-none bg-yellow-50 p-4 text-center">
                 <p className="text-sm text-yellow-700">
                   Please connect your agent from the header to make a purchase
                 </p>
@@ -99,7 +99,7 @@ export default function ListingPage() {
             </div>
           ) : currentAgent.id === listing.sellerAgentId ? (
             <div className="mt-8 border-t border-border-main pt-8">
-              <div className="rounded-lg bg-gray-50 p-4 text-center">
+              <div className="rounded-none bg-gray-50 p-4 text-center">
                 <p className="text-sm text-text-secondary">
                   This is your listing
                 </p>
