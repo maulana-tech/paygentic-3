@@ -11,6 +11,12 @@ const LOG_ICONS: Record<LogType, { icon: string; color: string }> = {
   LISTING_UPDATED: { icon: "✏️", color: "text-gray-600" },
   ERROR: { icon: "⚠️", color: "text-red-600" },
   INFO: { icon: "ℹ️", color: "text-blue-600" },
+  OFFER_MADE: { icon: "💬", color: "text-purple-600" },
+  OFFER_ACCEPTED: { icon: "✓", color: "text-green-600" },
+  OFFER_DECLINED: { icon: "✗", color: "text-red-600" },
+  COUNTER_OFFER: { icon: "↩️", color: "text-orange-600" },
+  REVIEW_SUBMITTED: { icon: "⭐", color: "text-yellow-600" },
+  SUBSCRIPTION_CREATED: { icon: "🔄", color: "text-blue-600" },
 };
 
 const LOG_COLORS: Record<LogType, string> = {
@@ -20,6 +26,12 @@ const LOG_COLORS: Record<LogType, string> = {
   LISTING_UPDATED: "border-l-gray-400 bg-gray-50",
   ERROR: "border-l-red-500 bg-red-50",
   INFO: "border-l-brand bg-brand-light",
+  OFFER_MADE: "border-l-purple-500 bg-purple-50",
+  OFFER_ACCEPTED: "border-l-green-500 bg-green-50",
+  OFFER_DECLINED: "border-l-red-500 bg-red-50",
+  COUNTER_OFFER: "border-l-orange-500 bg-orange-50",
+  REVIEW_SUBMITTED: "border-l-yellow-500 bg-yellow-50",
+  SUBSCRIPTION_CREATED: "border-l-blue-500 bg-blue-50",
 };
 
 interface Props {
@@ -92,12 +104,12 @@ export function ActivityLogPanel({ maxItems = 50, showFilters = true }: Props) {
       </div>
 
       {showFilters && (
-        <div className="flex gap-1 border-b border-border-main bg-gray-50 px-4 py-2">
-          {(['ALL', 'PURCHASE', 'SALE', 'LISTING_CREATED', 'ERROR'] as const).map((type) => (
+        <div className="flex gap-1 border-b border-border-main bg-gray-50 px-4 py-2 overflow-x-auto">
+          {(['ALL', 'PURCHASE', 'SALE', 'LISTING_CREATED', 'OFFER_MADE', 'REVIEW_SUBMITTED', 'SUBSCRIPTION_CREATED', 'ERROR'] as const).map((type) => (
             <button
               key={type}
               onClick={() => setFilter(type)}
-              className={`rounded px-2 py-1 text-xs font-medium transition-colors ${
+              className={`rounded px-2 py-1 text-xs font-medium transition-colors whitespace-nowrap ${
                 filter === type
                   ? "bg-brand text-white"
                   : "text-text-secondary hover:bg-gray-200"
