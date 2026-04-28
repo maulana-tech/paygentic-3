@@ -24,7 +24,7 @@ export function PreferencesPanel() {
 
   if (!isConnected || !user) {
     return (
-      <div className="rounded-none border border-border-main bg-surface p-6 text-center">
+      <div className="rounded-xl border border-border-main bg-surface p-6 text-center shadow-sm">
         <p className="text-sm text-text-secondary">Connect wallet to manage preferences</p>
       </div>
     );
