@@ -1,0 +1,17 @@
+{
+  "services": {
+    "web": {
+      "path": "frontend",
+      "port": 8080,
+      "healthCheck": "/api/health",
+      "env": {
+        "LOCUS_API_KEY": "${{LOCUS_API_KEY}}",
+        "LOCUS_API_BASE": "https://beta-api.paywithlocus.com/api",
+        "LOCUS_WEBHOOK_SECRET": "${{LOCUS_WEBHOOK_SECRET}}",
+        "NEXT_PUBLIC_URL": "${{NEXT_PUBLIC_URL}}",
+        "NEXT_PUBLIC_LOCUS_WALLET_URL": "https://beta-pay.paywithlocus.com",
+        "NEXT_PUBLIC_LOCUS_CHECKOUT_URL": "https://beta-checkout.paywithlocus.com"
+      }
+    }
+  }
+}
