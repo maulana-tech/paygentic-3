@@ -53,7 +53,7 @@ export function LocusWalletConnect({ onConnect }: Props) {
     return (
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">
+          <div className="flex h-9 w-9 items-center justify-center rounded-none bg-brand text-sm font-semibold text-white">
             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" 
                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -66,8 +66,8 @@ export function LocusWalletConnect({ onConnect }: Props) {
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-1 rounded-full bg-green-100 px-2 py-1">
-          <span className="h-2 w-2 rounded-full bg-green-500"></span>
+        <div className="flex items-center gap-1 rounded-none bg-green-100 px-2 py-1">
+          <span className="h-2 w-2 rounded-none bg-green-500"></span>
           <span className="text-xs font-medium text-green-700">Base</span>
         </div>
         <button
@@ -77,7 +77,7 @@ export function LocusWalletConnect({ onConnect }: Props) {
             }
             disconnect();
           }}
-          className="rounded-md px-3 py-1.5 text-sm text-text-secondary hover:bg-gray-100"
+          className="rounded-none px-3 py-1.5 text-sm text-text-secondary hover:bg-gray-100"
         >
           Disconnect
         </button>
@@ -89,7 +89,7 @@ export function LocusWalletConnect({ onConnect }: Props) {
     <div className="relative">
       <button
         onClick={connectLocusWallet}
-        className="flex items-center gap-2 rounded-lg border border-border-main bg-surface px-4 py-2 text-sm font-medium transition-colors hover:border-brand"
+        className="flex items-center gap-2 rounded-none border border-border-main bg-surface px-4 py-2 text-sm font-medium transition-colors hover:border-brand"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" 
@@ -99,9 +99,9 @@ export function LocusWalletConnect({ onConnect }: Props) {
       </button>
 
       {showInput && (
-        <div className="absolute right-0 z-50 mt-2 w-96 rounded-xl border border-border-main bg-surface p-5 shadow-lg">
+        <div className="absolute right-0 z-50 mt-2 w-96 rounded-none border border-border-main bg-surface p-5 shadow-lg">
           <div className="mb-4 flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand">
+            <div className="flex h-8 w-8 items-center justify-center rounded-none bg-brand">
               <svg className="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="2"/>
               </svg>
@@ -120,7 +120,7 @@ export function LocusWalletConnect({ onConnect }: Props) {
             value={walletInput}
             onChange={(e) => setWalletInput(e.target.value)}
             placeholder="0x..."
-            className="w-full rounded-lg border border-border-main bg-white px-3 py-2.5 text-sm font-mono"
+            className="w-full rounded-none border border-border-main bg-white px-3 py-2.5 text-sm font-mono"
           />
           {error && (
             <p className="mt-2 text-xs text-red-500">{error}</p>
@@ -131,18 +131,18 @@ export function LocusWalletConnect({ onConnect }: Props) {
                 setShowInput(false);
                 setError(null);
               }}
-              className="flex-1 rounded-lg border border-border-main px-3 py-2 text-sm font-medium hover:bg-gray-50"
+              className="flex-1 rounded-none border border-border-main px-3 py-2 text-sm font-medium hover:bg-gray-50"
             >
               Cancel
             </button>
             <button
               onClick={handleDemoConnect}
-              className="flex-1 rounded-lg bg-brand px-3 py-2 text-sm font-semibold text-white hover:bg-brand-hover"
+              className="flex-1 rounded-none bg-brand px-3 py-2 text-sm font-semibold text-white hover:bg-brand-hover"
             >
               Connect Wallet
             </button>
           </div>
-          <div className="mt-4 rounded-lg bg-yellow-50 p-3">
+          <div className="mt-4 rounded-none bg-yellow-50 p-3">
             <p className="text-xs text-yellow-700">
               <strong>Demo Mode:</strong> Enter any valid Base wallet address to test the marketplace. 
               Locus Wallet SDK integration coming soon.
