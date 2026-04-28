@@ -523,3 +523,154 @@ Agent Behavior:
 - [ ] Auto-buy triggers automatically
 - [ ] Activity log shows all events
 - [ ] Working demo with real Locus checkout
+
+---
+
+# Phase 6: Post-Payment Service Delivery
+
+## Problem
+
+After payment is confirmed, buyer has no way to access/use the service they purchased.
+
+## Solution: Service Delivery Flow
+
+### Complete Purchase Flow
+
+```
+1. User selects service
+2. Make payment via Locus Checkout
+3. Payment CONFIRMED (webhook)
+4. Generate access credentials
+5. Notify seller of sale
+6. Deliver credentials to buyer
+7. Buyer accesses service
+8. Optional: Leave review
+```
+
+### Implementation
+
+#### 1. Add ServiceAccess Model
+
+```typescript
+interface ServiceAccess {
+  id: string;
+  purchaseId: string;
+  listingId: string;
+  buyerUserId: string;
+  accessToken: string;        // API key for service
+  accessTokenCreated: string;
+  expiresAt: string;
+  status: 'ACTIVE' | 'REVOKED';
+}
+```
+
+#### 2. Webhook Enhancement
+
+```typescript
+// /api/webhooks/locus/route.ts
+
+// After payment confirmed:
+1. Generate service access token
+2. Save ServiceAccess record
+3. Send webhook to seller
+4. Email credentials to buyer
+5. Show success page with access
+```
+
+#### 3. Success Page
+
+Create page `/purchase/success/[id]` showing:
+- Purchase confirmation
+- Service details
+- Access instructions
+- Generated credentials (if applicable)
+
+#### 4. Service API Key Generator
+
+```typescript
+// Generate simple access token
+accessToken = crypto.randomUUID().slice(0, 16)
+// Or use API key format: cusygen_[service]_[random]
+```
+
+---
+
+## Files to Create/Update
+
+### New Files
+- `src/data/service-access.ts` - Service access model
+- `src/app/api/service-access/route.ts` - Access management
+- `src/app/(main)/purchase/success/[id]/page.tsx` - Success page
+
+### Update Files
+- `src/app/api/webhooks/locus/route.ts` - Handle delivery
+- `src/components/pages/(marketplace)/LocusPayment.tsx` - Redirect to success
+
+---
+
+## Mock Service Access (for demo)
+
+For demo purposes, services don't need real API keys. Just show access instructions:
+
+```
+┌─────────────────────────────────────────┐
+│        PURCHASE COMPLETE!                │
+├─────────────────────────────────────────┤
+│ Service: Full-Stack Code Generation     │
+│ From: CodeGenius                        │
+│ Amount: $0.10 USDC                      │
+│ Status: CONFIRMED                       │
+├─────────────────────────────────────────┤
+│ Next steps:                             │
+│ 1. This service is now active         │
+│ 2. You can re-list or manage it        │
+│ 3. Leave a review after use            │
+└─────────────────────────────────────────┘
+```
+
+---
+
+## Summary: Complete Purchase Flow
+
+```
+User                         Marketplace                    Locus               Seller
+  │                              │                           │                    │
+  │── Browse services ───────────>│                           │                    │
+  │<─── Listing info ────────────│                           │                    │
+  │                              │                           │                    │
+  │── Click Buy ────────────────>│                           │                    │
+  │<─── Checkout URL ───────────│                           │                    │
+  │                              │                           │                    │
+  │─── Pay with USDC ───────────>│                           │                    │
+  │                             ─┼─── Payment ──────────────>│                    │
+  │                             │<── CONFIRMED ─────────────│                    │
+  │<───────────────────────────│                           │<── Webhook ────────│
+  │                              │                           │                    │
+  │── Success page ─────────────>│                           │                    │
+  │   (show credentials)        │                           │                    │
+  │                              │                           │                    │
+  │── Use service ─────────────>│                           │                    │
+  │   (API call / access)       │                           │                    │
+```
+
+---
+
+## Implementation Priority
+
+| Week | Feature | Effort | Impact |
+|------|---------|--------|--------|
+| 1 | Success redirect | Low | High (UX) |
+| 2 | Access token model | Medium | High (Complete) |
+| 3 | Webhook to seller | Low | Medium |
+| 4 | Email credentials | Medium | High (Real) |
+
+---
+
+## Demo Mode (Current)
+
+For hackathon demo, just show:
+- Purchase confirmation
+- Access instructions
+- Next steps
+
+No real API keys needed for demo.
