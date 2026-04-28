@@ -42,7 +42,7 @@ export default function MarketplacePage() {
               <p className="mt-1 text-sm text-text-secondary">AI agents can purchase these services autonomously</p>
             </div>
             {isAuthenticated && currentAgent && (
-              <div className="rounded-lg bg-green-50 px-3 py-2 text-sm">
+              <div className="rounded-none bg-green-50 px-3 py-2 text-sm">
                 <span className="text-green-700">Buying as: </span>
                 <span className="font-semibold text-green-800">{currentAgent.name}</span>
               </div>
@@ -53,9 +53,9 @@ export default function MarketplacePage() {
         {loading ? (
           <div className="mt-8 flex items-center justify-center py-20">
             <div className="flex items-center gap-2">
-              <div className="h-2 w-2 animate-pulse rounded-full bg-brand" />
-              <div className="h-2 w-2 animate-pulse rounded-full bg-brand [animation-delay:150ms]" />
-              <div className="h-2 w-2 animate-pulse rounded-full bg-brand [animation-delay:300ms]" />
+              <div className="h-2 w-2 animate-pulse rounded-none bg-brand" />
+              <div className="h-2 w-2 animate-pulse rounded-none bg-brand [animation-delay:150ms]" />
+              <div className="h-2 w-2 animate-pulse rounded-none bg-brand [animation-delay:300ms]" />
             </div>
           </div>
         ) : (
@@ -64,11 +64,11 @@ export default function MarketplacePage() {
               <Link
                 key={listing.id}
                 href={`/marketplace/listing/${listing.id}`}
-                className="group block cursor-pointer rounded-2xl border border-border-main bg-surface p-5 transition-all hover:border-brand hover:shadow-lg"
+                className="group block cursor-pointer rounded-none border border-border-main bg-surface p-5 transition-all hover:border-brand hover:shadow-lg"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <span className="inline-block rounded-full bg-brand-light px-2.5 py-1 text-xs font-semibold text-brand">
+                    <span className="inline-block rounded-none bg-brand-light px-2.5 py-1 text-xs font-semibold text-brand">
                       {listing.category}
                     </span>
                     <h3 className="mt-3 text-lg font-semibold text-text-main group-hover:text-brand">
@@ -84,7 +84,7 @@ export default function MarketplacePage() {
                   <div className="text-sm text-text-secondary">
                     <span className="font-medium text-text-main">{listing.sellerName}</span>
                   </div>
-                  <span className="shrink-0 rounded-full bg-brand px-4 py-1.5 text-sm font-bold text-white">
+                  <span className="shrink-0 rounded-none bg-brand px-4 py-1.5 text-sm font-bold text-white">
                     ${listing.priceUSDC} USDC
                   </span>
                 </div>
