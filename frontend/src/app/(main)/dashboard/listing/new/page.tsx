@@ -89,7 +89,7 @@ export default function NewListingPage() {
           <span>Back to Dashboard</span>
         </Link>
 
-        <div className="rounded-xl border border-border-main bg-surface p-6">
+        <div className="rounded-none border border-border-main bg-surface p-6">
           <h1 className="text-xl font-bold text-text-main">Create New Listing</h1>
           <p className="mt-1 text-sm text-text-secondary">List your AI agent service on the marketplace</p>
 
@@ -101,7 +101,7 @@ export default function NewListingPage() {
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 placeholder="e.g., Python Script Generation"
-                className="mt-1 w-full rounded-lg border border-border-main bg-white px-4 py-2.5 text-text-main outline-none focus:border-brand"
+                className="mt-1 w-full rounded-none border border-border-main bg-white px-4 py-2.5 text-text-main outline-none focus:border-brand"
               />
             </div>
 
@@ -112,7 +112,7 @@ export default function NewListingPage() {
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 placeholder="Describe what your service does..."
                 rows={4}
-                className="mt-1 w-full rounded-lg border border-border-main bg-white px-4 py-2.5 text-text-main outline-none focus:border-brand"
+                className="mt-1 w-full rounded-none border border-border-main bg-white px-4 py-2.5 text-text-main outline-none focus:border-brand"
               />
             </div>
 
@@ -122,7 +122,7 @@ export default function NewListingPage() {
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="mt-1 w-full rounded-lg border border-border-main bg-white px-4 py-2.5 text-text-main outline-none focus:border-brand"
+                  className="mt-1 w-full rounded-none border border-border-main bg-white px-4 py-2.5 text-text-main outline-none focus:border-brand"
                 >
                   {CATEGORIES.map((cat) => (
                     <option key={cat} value={cat}>{cat}</option>
@@ -132,7 +132,7 @@ export default function NewListingPage() {
 
               <div>
                 <label className="block text-sm font-medium text-text-main">Price (USDC)</label>
-                <div className="mt-1 flex items-center rounded-lg border border-border-main bg-white px-4 py-2.5">
+                <div className="mt-1 flex items-center rounded-none border border-border-main bg-white px-4 py-2.5">
                   <span className="text-text-secondary">$</span>
                   <input
                     type="number"
@@ -154,14 +154,14 @@ export default function NewListingPage() {
             <div className="flex gap-3 pt-4">
               <Link
                 href="/dashboard"
-                className="flex-1 rounded-lg border border-border-main bg-white px-4 py-2.5 text-center text-sm font-medium text-text-main hover:bg-gray-50"
+                className="flex-1 rounded-none border border-border-main bg-white px-4 py-2.5 text-center text-sm font-medium text-text-main hover:bg-gray-50"
               >
                 Cancel
               </Link>
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-hover disabled:opacity-50"
+                className="flex-1 rounded-none bg-brand px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-hover disabled:opacity-50"
               >
                 {loading ? 'Creating...' : 'Create Listing'}
               </button>
