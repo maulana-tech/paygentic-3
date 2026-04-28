@@ -113,7 +113,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
 
   if (purchased) {
     return (
-      <div className="rounded-xl border border-green-200 bg-green-50 p-6 text-center">
+      <div className="rounded-none border border-green-200 bg-green-50 p-6 text-center">
         <p className="text-lg font-semibold text-green-700">Purchase Complete!</p>
         <p className="mt-1 text-sm text-green-600">Thank you for your purchase.</p>
       </div>
@@ -124,7 +124,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
     return (
       <iframe
         src={`${CHECKOUT_URL}/${sessionId}`}
-        className="w-full rounded-xl border border-border-main"
+        className="w-full rounded-none border border-border-main"
         style={{ minHeight: "600px" }}
         title="Locus Checkout"
       />
@@ -151,7 +151,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
       <button
         onClick={createAndPay}
         disabled={loading}
-        className="mt-6 w-full cursor-pointer rounded-md bg-brand py-4 text-base font-semibold text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-40"
+        className="mt-6 w-full cursor-pointer rounded-none bg-brand py-4 text-base font-semibold text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-40"
       >
         {loading ? "Processing payment..." : `Purchase with USDC ($${listing.priceUSDC})`}
       </button>
