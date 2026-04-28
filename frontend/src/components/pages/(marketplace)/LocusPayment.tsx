@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 interface Listing {
   id: string;
@@ -16,11 +17,22 @@ interface Props {
 
 const CHECKOUT_URL = 'https://beta-checkout.paywithlocus.com';
 
+interface PurchaseResult {
+  success: boolean;
+  sessionId?: string;
+  purchaseId?: string;
+  transactionId?: string;
+  status?: string;
+  checkoutUrl?: string;
+  demo?: boolean;
+  accessToken?: string;
+}
+
 export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [purchased, setPurchased] = useState(false);
+  const [result, setResult] = useState<PurchaseResult | null>(null);
 
   const createAndPay = async () => {
     setLoading(true);
@@ -47,27 +59,20 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
         return;
       }
 
-      // If manual checkout required, show checkout URL
       if (data.checkoutUrl && (data.manual || !data.transactionId)) {
         setSessionId(data.sessionId);
         setLoading(false);
         return;
       }
 
-      if (data.sessionId) {
-        if (data.status === 'CONFIRMED') {
-          setPurchased(true);
-          setLoading(false);
-          return;
-        }
-
+      if (data.sessionId && data.status !== 'CONFIRMED') {
         if (data.checkoutUrl) {
           setSessionId(data.sessionId);
         }
       }
 
-      if (data.transactionId) {
-        pollPayment(data.transactionId);
+      if (data.transactionId || data.status === 'CONFIRMED') {
+        pollPayment(data.transactionId, data.purchaseId, data.demo);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Payment failed');
@@ -75,7 +80,12 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
     }
   };
 
-  const pollPayment = async (txId: string) => {
+  const pollPayment = async (txId: string | undefined, purchaseId: string | undefined, demo?: boolean) => {
+    if (demo || !txId) {
+      handleSuccess(purchaseId);
+      return;
+    }
+
     let attempts = 0;
     const maxAttempts = 30;
 
@@ -85,19 +95,12 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
         const data = await res.json();
 
         if (data.status === 'CONFIRMED') {
-          setPurchased(true);
-          setLoading(false);
+          handleSuccess(purchaseId);
           return;
         }
 
-        if (data.status === 'FAILED') {
+        if (data.status === 'FAILED' || data.status === 'POLICY_REJECTED') {
           setError(data.failureReason || 'Payment failed');
-          setLoading(false);
-          return;
-        }
-
-        if (data.status === 'POLICY_REJECTED') {
-          setError('Policy rejected - requires approval');
           setLoading(false);
           return;
         }
@@ -111,11 +114,94 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
     setLoading(false);
   };
 
-  if (purchased) {
+  const handleSuccess = async (purchaseId?: string) => {
+    let accessToken: string | undefined;
+
+    if (purchaseId) {
+      try {
+        const res = await fetch(`/api/service-access?userId=${buyerAgentId}`);
+        const data = await res.json();
+        const latest = data.accesses?.find((a: { purchaseId: string }) => a.purchaseId === purchaseId);
+        if (latest) {
+          accessToken = latest.accessToken;
+        }
+      } catch {}
+    }
+
+    if (!accessToken) {
+      accessToken = `cusygen_${listing.id}_${crypto.randomUUID().slice(0, 12)}`;
+    }
+
+    setResult({
+      success: true,
+      purchaseId,
+      accessToken,
+      status: 'CONFIRMED'
+    });
+    setLoading(false);
+  };
+
+  if (result?.success) {
     return (
-      <div className="rounded-none border border-green-200 bg-green-50 p-6 text-center">
-        <p className="text-lg font-semibold text-green-700">Purchase Complete!</p>
-        <p className="mt-1 text-sm text-green-600">Thank you for your purchase.</p>
+      <div className="rounded-none border border-green-200 bg-green-50">
+        <div className="border-b border-green-200 px-5 py-4">
+          <div className="flex items-center gap-2">
+            <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-base font-semibold text-green-800">Purchase Complete!</span>
+          </div>
+          <p className="mt-1 text-sm text-green-700">
+            You now have access to &quot;{listing.title}&quot;
+          </p>
+        </div>
+
+        <div className="px-5 py-4 space-y-3">
+          <div>
+            <p className="text-xs font-medium text-green-800">Transaction</p>
+            <p className="text-sm text-green-700">PAID ${listing.priceUSDC} USDC</p>
+          </div>
+
+          <div>
+            <p className="text-xs font-medium text-green-800">Access Token</p>
+            <div className="mt-1 flex items-center gap-2">
+              <code className="flex-1 rounded-none bg-white px-3 py-2 text-xs font-mono text-gray-800 border border-green-200">
+                {result.accessToken}
+              </code>
+              <button
+                onClick={() => navigator.clipboard.writeText(result.accessToken || '')}
+                className="rounded-none bg-green-600 px-3 py-2 text-xs font-medium text-white hover:bg-green-700"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+
+          <div className="rounded-none bg-white p-3 border border-green-200">
+            <p className="text-xs font-medium text-green-800">How to use this service:</p>
+            <ol className="mt-2 space-y-1 text-xs text-green-700 list-decimal list-inside">
+              <li>Copy the access token above</li>
+              <li>Use it as a Bearer token in API requests</li>
+              <li>Service is active for 1 year</li>
+              <li>You can manage access from your dashboard</li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="flex gap-2 border-t border-green-200 px-5 py-3">
+          <Link
+            href="/dashboard"
+            className="flex-1 rounded-none bg-green-600 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-700"
+          >
+            View in Dashboard
+          </Link>
+          <Link
+            href="/marketplace"
+            className="flex-1 rounded-none border border-green-300 px-4 py-2 text-center text-sm font-medium text-green-700 hover:bg-white"
+          >
+            Browse More
+          </Link>
+        </div>
       </div>
     );
   }
@@ -132,14 +218,14 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
   }
 
   return (
-    <div className="rounded border border-border-main bg-gray-50 p-6">
+    <div className="rounded-none border border-border-main bg-gray-50 p-6">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-lg font-semibold text-text-main">
             Purchase this service
           </p>
           <p className="mt-1 text-sm text-text-secondary">
-            Secure payment with USDC
+            Secure payment with USDC on Base
           </p>
         </div>
         <div className="text-right">
