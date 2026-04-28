@@ -13,6 +13,9 @@ export interface Preferences {
   autoBuyEnabled: boolean;
   autoBuyThreshold: string;
   autoListEnabled: boolean;
+  autoListMinPrice: string;
+  maxConcurrentTasks: number;
+  responseTimePreference: 'fast' | 'balanced' | 'thorough';
 }
 
 export interface AgentStats {
@@ -75,6 +78,9 @@ export const defaultPreferences: Preferences = {
   autoBuyEnabled: false,
   autoBuyThreshold: '5',
   autoListEnabled: false,
+  autoListMinPrice: '1',
+  maxConcurrentTasks: 3,
+  responseTimePreference: 'balanced',
 };
 
 export const agents: Agent[] = [
@@ -197,6 +203,162 @@ export const listings: (Listing & { sellerName?: string })[] = [
     totalSales: 234,
     createdAt: '2024-01-20T10:00:00Z',
     sellerName: 'ImageGenius'
+  },
+  {
+    id: 'svc-007',
+    userId: 'agent-001',
+    agentId: 'agent-001',
+    title: 'API Design & Documentation',
+    description: 'REST/GraphQL API design with OpenAPI specs and Postman collections.',
+    category: 'code generation',
+    priceUSDC: '8.00',
+    active: true,
+    totalSales: 28,
+    createdAt: '2024-01-21T10:00:00Z',
+    sellerName: 'CodeGenius'
+  },
+  {
+    id: 'svc-008',
+    userId: 'agent-002',
+    agentId: 'agent-002',
+    title: 'SQL Query Optimization',
+    description: 'Analyze and optimize slow database queries for better performance.',
+    category: 'data analysis',
+    priceUSDC: '6.00',
+    active: true,
+    totalSales: 45,
+    createdAt: '2024-01-22T10:00:00Z',
+    sellerName: 'DataSage'
+  },
+  {
+    id: 'svc-009',
+    userId: 'agent-003',
+    agentId: 'agent-003',
+    title: 'Social Media Management',
+    description: 'Schedule, post, and analyze content across all social platforms.',
+    category: 'content creation',
+    priceUSDC: '15.00',
+    active: true,
+    totalSales: 67,
+    createdAt: '2024-01-23T10:00:00Z',
+    sellerName: 'ContentBot'
+  },
+  {
+    id: 'svc-010',
+    userId: 'agent-004',
+    agentId: 'agent-004',
+    title: 'Competitive Analysis',
+    description: 'Deep-dive analysis of competitors, market position, and opportunities.',
+    category: 'research',
+    priceUSDC: '12.00',
+    active: true,
+    totalSales: 93,
+    createdAt: '2024-01-24T10:00:00Z',
+    sellerName: 'ResearchProxy'
+  },
+  {
+    id: 'svc-011',
+    userId: 'agent-005',
+    agentId: 'agent-005',
+    title: 'Email Automation Sequences',
+    description: 'Automated email drip campaigns for onboarding, sales, and retention.',
+    category: 'automation',
+    priceUSDC: '7.50',
+    active: true,
+    totalSales: 112,
+    createdAt: '2024-01-25T10:00:00Z',
+    sellerName: 'AutoFlow'
+  },
+  {
+    id: 'svc-012',
+    userId: 'agent-006',
+    agentId: 'agent-006',
+    title: 'Video Script Writing',
+    description: 'Engaging video scripts for YouTube,TikTok, and promotional videos.',
+    category: 'content creation',
+    priceUSDC: '4.00',
+    active: true,
+    totalSales: 78,
+    createdAt: '2024-01-26T10:00:00Z',
+    sellerName: 'ImageGenius'
+  },
+  {
+    id: 'svc-013',
+    userId: 'agent-001',
+    agentId: 'agent-001',
+    title: 'Unit Test Generation',
+    description: 'Comprehensive unit tests for React, Node.js, and Python with 90%+ coverage.',
+    category: 'code generation',
+    priceUSDC: '3.50',
+    active: true,
+    totalSales: 56,
+    createdAt: '2024-01-27T10:00:00Z',
+    sellerName: 'CodeGenius'
+  },
+  {
+    id: 'svc-014',
+    userId: 'agent-002',
+    agentId: 'agent-002',
+    title: 'Business Intelligence Dashboards',
+    description: 'Real-time BI dashboards with Power BI, Tableau, or Looker.',
+    category: 'data analysis',
+    priceUSDC: '25.00',
+    active: true,
+    totalSales: 34,
+    createdAt: '2024-01-28T10:00:00Z',
+    sellerName: 'DataSage'
+  },
+  {
+    id: 'svc-015',
+    userId: 'agent-004',
+    agentId: 'agent-004',
+    title: 'Technical Documentation',
+    description: 'Confluence-style docs, README files, and API reference documentation.',
+    category: 'research',
+    priceUSDC: '5.00',
+    active: true,
+    totalSales: 89,
+    createdAt: '2024-01-29T10:00:00Z',
+    sellerName: 'ResearchProxy'
+  },
+  {
+    id: 'svc-016',
+    userId: 'agent-005',
+    agentId: 'agent-005',
+    title: 'CRM Integration Setup',
+    description: 'Connect and sync data between HubSpot, Salesforce, and other CRMs.',
+    category: 'automation',
+    priceUSDC: '18.00',
+    active: true,
+    totalSales: 41,
+    createdAt: '2024-01-30T10:00:00Z',
+    sellerName: 'AutoFlow'
+  },
+  {
+    id: 'svc-017',
+    userId: 'agent-003',
+    agentId: 'agent-003',
+    title: 'SEO Audit & Recommendations',
+    description: 'Complete SEO analysis with keyword research and action plan.',
+    category: 'content creation',
+    priceUSDC: '9.00',
+    active: true,
+    totalSales: 145,
+    createdAt: '2024-01-31T10:00:00Z',
+    sellerName: 'ContentBot'
+  },
+  {
+    id: 'svc-018',
+    userId: 'agent-001',
+    agentId: 'agent-001',
+    title: 'Database Schema Design',
+    description: 'Relational and NoSQL database schema design with migrations.',
+    category: 'code generation',
+    priceUSDC: '11.00',
+    active: true,
+    totalSales: 63,
+    createdAt: '2024-02-01T10:00:00Z',
+    sellerName: 'CodeGenius'
   }
 ];
 
@@ -284,5 +446,8 @@ export const CATEGORIES = [
   'research',
   'automation',
   'api services',
-  'custom'
+  'custom',
+  'video production',
+  'analytics',
+  'crm'
 ];
