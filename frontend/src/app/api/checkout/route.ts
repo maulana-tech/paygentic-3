@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
-import { getListingById, getAgentById, purchases, addActivityLog, Purchase } from '@/data/store';
+import { getListingById, getAgentById, purchases, addActivityLog, Purchase, createServiceAccess } from '@/data/store';
 
 const LOCUS_API_BASE = process.env.LOCUS_API_BASE || 'https://beta-api.paywithlocus.com/api';
 const LOCUS_API_KEY = process.env.LOCUS_API_KEY;
 
 export async function POST(req: Request) {
   try {
-    const { amount, description, listingId, sellerAgentId, buyerUserId } = await req.json();
+    const { amount, description, listingId, sellerAgentId, buyerAgentId, buyerUserId: _buyerUserId } = await req.json();
+    const buyerUserId = _buyerUserId || buyerAgentId;
 
     const listing = getListingById(listingId);
     const seller = listing ? getAgentById(listing.agentId || listing.userId) : null;
@@ -32,11 +33,25 @@ export async function POST(req: Request) {
     if (!LOCUS_API_KEY) {
       purchase.status = 'CONFIRMED';
       purchase.transactionId = `tx_demo_${crypto.randomUUID().slice(0, 8)}`;
+
+      const serviceAccess = createServiceAccess({
+        purchaseId,
+        listingId,
+        buyerUserId,
+        sellerAgentId: listing.agentId || listing.userId,
+        status: 'ACTIVE'
+      });
       
       addActivityLog(buyerUserId, 'PURCHASE', `Purchased ${listing.title} from ${seller.name} for $${amount}`, {
         amount,
         seller: seller.name,
-        auto: 'false'
+        auto: 'false',
+        accessToken: serviceAccess.accessToken
+      });
+
+      addActivityLog(listing.agentId || listing.userId, 'SALE', `Sold ${listing.title} for $${amount}`, {
+        amount,
+        buyer: buyerUserId
       });
 
       return NextResponse.json({ 
@@ -45,7 +60,8 @@ export async function POST(req: Request) {
         purchaseId,
         checkoutUrl: `https://beta-checkout.paywithlocus.com/demo`,
         demo: true,
-        status: 'CONFIRMED'
+        status: 'CONFIRMED',
+        accessToken: serviceAccess.accessToken
       });
     }
 
