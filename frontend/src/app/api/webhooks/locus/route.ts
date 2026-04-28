@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
+import { purchases, getListingById, createServiceAccess, addActivityLog, getAgentById } from '@/data/store';
 
 // Webhook handler for Locus payment events
 export async function POST(req: Request) {
@@ -28,7 +29,6 @@ export async function POST(req: Request) {
     console.log('Locus webhook:', event, sessionId);
 
     if (event === 'checkout.session.paid') {
-      // Payment confirmed - update order status
       const { sessionId, amount, paymentTxHash, payerAddress, metadata } = eventData;
       
       console.log('Payment confirmed:', {
@@ -39,24 +39,68 @@ export async function POST(req: Request) {
         metadata
       });
 
-      // TODO: Update order in database
-      // 1. Find order by locusSessionId
-      // 2. Update status to PAID
-      // 3. Mark paymentTxHash, payerAddress, paidAt
-      // 4. Trigger service fulfillment
+      // Find purchase by transaction ID or session ID
+      const purchase = purchases.find(p => 
+        p.transactionId === sessionId || 
+        (metadata?.purchaseId && p.id === metadata.purchaseId)
+      );
 
-      return NextResponse.json({ success: true });
+      if (purchase) {
+        // Update purchase status
+        purchase.status = 'CONFIRMED';
+        purchase.transactionId = paymentTxHash || purchase.transactionId;
+
+        const listing = getListingById(purchase.listingId);
+        const seller = listing ? getAgentById(listing.agentId || listing.userId) : null;
+
+        // Create service access for buyer
+        const serviceAccess = createServiceAccess({
+          purchaseId: purchase.id,
+          listingId: purchase.listingId,
+          buyerUserId: purchase.buyerUserId,
+          sellerAgentId: purchase.sellerAgentId,
+          status: 'ACTIVE'
+        });
+
+        // Log activity
+        addActivityLog(purchase.buyerUserId, 'PURCHASE', 
+          `Purchased ${listing?.title || 'service'} from ${seller?.name || 'agent'}`, {
+            amount: purchase.amount,
+            serviceAccess: serviceAccess.accessToken,
+            seller: seller?.name || 'unknown'
+          }
+        );
+
+        // Notify seller (log for now)
+        if (seller) {
+          addActivityLog(seller.id, 'SALE', 
+            `New sale: ${listing?.title || 'service'} to buyer`, {
+              amount: purchase.amount,
+              buyer: payerAddress?.slice(0, 10) + '...'
+            }
+          );
+        }
+
+        console.log('Service access created:', serviceAccess.accessToken);
+      }
+
+      return NextResponse.json({ 
+        success: true,
+        purchaseId: purchase?.id || null,
+        serviceCreated: !!purchase
+      });
     }
 
     if (event === 'checkout.session.expired') {
-      // Session expired - update order status
       const { sessionId } = eventData;
       
       console.log('Session expired:', sessionId);
 
-      // TODO: Update order in database
-      // 1. Find order by locusSessionId
-      // 2. Update status to EXPIRED
+      // Find and update purchase
+      const purchase = purchases.find(p => p.transactionId === sessionId);
+      if (purchase) {
+        purchase.status = 'FAILED';
+      }
 
       return NextResponse.json({ success: true });
     }
