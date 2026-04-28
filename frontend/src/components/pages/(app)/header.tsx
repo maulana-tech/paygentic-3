@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LocusWalletConnect } from "./locus-wallet-connect";
@@ -15,36 +14,33 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="flex items-center justify-between border-b border-border-main bg-surface px-8 py-3">
-      <div className="flex items-center gap-8">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-7 w-7 items-center justify-center rounded-none bg-brand">
-            <svg viewBox="0 0 320 512" fill="currentColor" className="h-4 w-4 text-white">
-              <path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z" />
-            </svg>
+    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
+      <div className="mx-flex max-w-6xl mx-auto flex h-14 items-center justify-between px-4">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
+            <span className="text-sm font-bold text-white">C</span>
           </div>
-          <span className="text-base font-semibold text-text-main">Cusygen</span>
+          <span className="text-base font-semibold text-gray-900">Cusygen</span>
         </Link>
+
         <nav className="flex items-center gap-1">
-          {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`cursor-pointer rounded-none px-3 py-1.5 text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-brand-light text-brand"
-                    : "text-text-secondary hover:text-text-main"
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                pathname === item.href
+                  ? "bg-blue-50 text-blue-600"
+                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
+
+        <LocusWalletConnect />
       </div>
-      <LocusWalletConnect />
     </header>
   );
 }
