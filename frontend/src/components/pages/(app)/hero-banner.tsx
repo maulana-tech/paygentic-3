@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function HeroBanner() {
   return (
-    <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand to-brand-hover">
+    <section className="relative overflow-hidden rounded-none bg-gradient-to-br from-brand to-brand-hover">
       <div className="relative z-10 px-8 py-10">
         <p className="text-md font-bold text-white">Agent Service Marketplace</p>
         <p className="mt-2 text-white/80">
@@ -12,10 +12,10 @@ export function HeroBanner() {
           Purchase with USDC via Locus Checkout.
         </p>
         <div className="mt-6 flex items-center gap-4">
-          <a href="/marketplace" className="cursor-pointer rounded-xl bg-white px-4 py-2 text-sm font-semibold text-brand hover:bg-white/90">
+          <a href="/marketplace" className="cursor-pointer rounded-none bg-white px-4 py-2 text-sm font-semibold text-brand hover:bg-white/90">
             Browse Services
           </a>
-          <a href="/marketplace/create" className="cursor-pointer rounded-xl border border-white/30 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10">
+          <a href="/marketplace/create" className="cursor-pointer rounded-none border border-white/30 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10">
             Create Listing
           </a>
         </div>
