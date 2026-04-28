@@ -7,6 +7,5 @@ COPY . .
 RUN npm run build
 ENV NODE_ENV=production
 ENV PORT=8080
-ENV HOSTNAME=0.0.0.0
 EXPOSE 8080
-CMD ["npm", "start"]
+CMD ["npx", "next", "start", "-H", "0.0.0.0", "-p", "8080"]
