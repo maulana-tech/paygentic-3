@@ -46,7 +46,7 @@ export function LocusWalletConnect() {
   if (isConnected && user) {
     return (
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5">
+        <div className="flex items-center gap-2 rounded-none bg-gray-100 px-3 py-1.5">
           <div className="h-2 w-2 rounded-full bg-green-500"></div>
           <span className="text-sm font-mono text-gray-700">
             {user.walletAddress.slice(0, 6)}...{user.walletAddress.slice(-4)}
@@ -54,7 +54,7 @@ export function LocusWalletConnect() {
         </div>
         <button
           onClick={() => disconnect()}
-          className="text-sm text-gray-500 hover:text-gray-700"
+          className="rounded-none text-sm text-gray-500 hover:text-gray-700"
         >
           Disconnect
         </button>
@@ -66,15 +66,15 @@ export function LocusWalletConnect() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+        className="rounded-none bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
       >
         Connect Wallet
       </button>
  
       {showDropdown && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-80 rounded-xl border border-gray-200 bg-white p-4 shadow-xl">
+        <div className="absolute right-0 top-full z-50 mt-2 w-80 rounded-none border border-gray-200 bg-white p-4 shadow-xl">
           <div className="mb-3 flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
+            <div className="flex h-8 w-8 items-center justify-center rounded-none bg-blue-600">
               <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2L2 7l10 5 10-5-10-5z" />
               </svg>
@@ -93,26 +93,26 @@ export function LocusWalletConnect() {
             value={walletInput}
             onChange={(e) => setWalletInput(e.target.value)}
             placeholder={DEMO_WALLET}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-mono focus:border-blue-500 focus:outline-none"
+            className="w-full rounded-none border border-gray-300 bg-white px-3 py-2 text-sm font-mono focus:border-blue-500 focus:outline-none"
           />
           {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
           
           <div className="mt-3 flex gap-2">
             <button
               onClick={() => setShowDropdown(false)}
-              className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="flex-1 rounded-none border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Cancel
             </button>
             <button
               onClick={handleConnect}
-              className="flex-1 rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+              className="flex-1 rounded-none bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700"
             >
               Connect
             </button>
           </div>
           
-          <p className="mt-3 rounded bg-yellow-50 p-2 text-xs text-yellow-800">
+          <p className="mt-3 rounded-none bg-yellow-50 p-2 text-xs text-yellow-800">
             Demo: Use the pre-filled address to test the marketplace.
           </p>
         </div>
