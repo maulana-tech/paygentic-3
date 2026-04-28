@@ -60,7 +60,7 @@ export interface Purchase {
 
 export type PurchaseStatus = Purchase['status'];
 
-export type LogType = 'PURCHASE' | 'SALE' | 'LISTING_CREATED' | 'LISTING_UPDATED' | 'ERROR' | 'INFO';
+export type LogType = 'PURCHASE' | 'SALE' | 'LISTING_CREATED' | 'LISTING_UPDATED' | 'ERROR' | 'INFO' | 'OFFER_MADE' | 'OFFER_ACCEPTED' | 'OFFER_DECLINED' | 'COUNTER_OFFER' | 'REVIEW_SUBMITTED' | 'SUBSCRIPTION_CREATED';
 
 export interface ActivityLog {
   id: string;
@@ -451,3 +451,138 @@ export const CATEGORIES = [
   'analytics',
   'crm'
 ];
+
+export interface Negotiation {
+  id: string;
+  listingId: string;
+  buyerUserId: string;
+  sellerAgentId: string;
+  originalPrice: string;
+  offeredPrice: string;
+  status: 'PENDING' | 'ACCEPTED' | 'COUNTERED' | 'DECLINED' | 'EXPIRED';
+  buyerMessage?: string;
+  sellerResponse?: string;
+  counterPrice?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Review {
+  id: string;
+  purchaseId: string;
+  listingId: string;
+  sellerAgentId: string;
+  buyerUserId: string;
+  rating: number;
+  qualityScore: number;
+  speedScore: number;
+  commScore: number;
+  comment?: string;
+  createdAt: string;
+}
+
+export interface Subscription {
+  id: string;
+  listingId: string;
+  buyerUserId: string;
+  sellerAgentId: string;
+  planType: 'monthly' | 'annual';
+  amount: string;
+  originalPrice: string;
+  nextBillingDate: string;
+  status: 'ACTIVE' | 'PAUSED' | 'CANCELLED';
+  transactionId?: string;
+  createdAt: string;
+}
+
+export const negotiations: Negotiation[] = [];
+export const reviews: Review[] = [];
+export const subscriptions: Subscription[] = [];
+
+export function createNegotiation(data: Omit<Negotiation, 'id' | 'createdAt' | 'updatedAt'>): Negotiation {
+  const negotiation: Negotiation = {
+    ...data,
+    id: `neg_${crypto.randomUUID().slice(0, 8)}`,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+  negotiations.push(negotiation);
+  return negotiation;
+}
+
+export function getNegotiationsByUser(userId: string): Negotiation[] {
+  return negotiations.filter(n => n.buyerUserId === userId);
+}
+
+export function getNegotiationsForListing(listingId: string): Negotiation[] {
+  return negotiations.filter(n => n.listingId === listingId && n.status === 'PENDING');
+}
+
+export function updateNegotiation(id: string, updates: Partial<Negotiation>): Negotiation | undefined {
+  const index = negotiations.findIndex(n => n.id === id);
+  if (index === -1) return undefined;
+  negotiations[index] = { ...negotiations[index], ...updates, updatedAt: new Date().toISOString() };
+  return negotiations[index];
+}
+
+export function getReviewsByAgent(agentId: string): Review[] {
+  return reviews.filter(r => r.sellerAgentId === agentId);
+}
+
+export function getAgentRating(agentId: string): { avgRating: number; qualityAvg: number; speedAvg: number; commAvg: number; count: number } {
+  const agentReviews = getReviewsByAgent(agentId);
+  if (agentReviews.length === 0) return { avgRating: 0, qualityAvg: 0, speedAvg: 0, commAvg: 0, count: 0 };
+  
+  const avgRating = agentReviews.reduce((sum, r) => sum + r.rating, 0) / agentReviews.length;
+  const qualityAvg = agentReviews.reduce((sum, r) => sum + r.qualityScore, 0) / agentReviews.length;
+  const speedAvg = agentReviews.reduce((sum, r) => sum + r.speedScore, 0) / agentReviews.length;
+  const commAvg = agentReviews.reduce((sum, r) => sum + r.commScore, 0) / agentReviews.length;
+  
+  return { 
+    avgRating: Math.round(avgRating * 10) / 10, 
+    qualityAvg: Math.round(qualityAvg * 10) / 10,
+    speedAvg: Math.round(speedAvg * 10) / 10,
+    commAvg: Math.round(commAvg * 10) / 10,
+    count: agentReviews.length 
+  };
+}
+
+export function createReview(data: Omit<Review, 'id' | 'createdAt'>): Review {
+  const review: Review = {
+    ...data,
+    id: `rev_${crypto.randomUUID().slice(0, 8)}`,
+    createdAt: new Date().toISOString()
+  };
+  reviews.push(review);
+  return review;
+}
+
+export function getSubscriptionsByUser(userId: string): Subscription[] {
+  return subscriptions.filter(s => s.buyerUserId === userId);
+}
+
+export function getActiveSubscriptionsByUser(userId: string): Subscription[] {
+  return subscriptions.filter(s => s.buyerUserId === userId && s.status === 'ACTIVE');
+}
+
+export function createSubscription(data: Omit<Subscription, 'id' | 'createdAt' | 'nextBillingDate'>): Subscription {
+  const now = new Date();
+  const nextMonth = new Date(now);
+  nextMonth.setMonth(nextMonth.getMonth() + 1);
+  
+  const subscription: Subscription = {
+    ...data,
+    id: `sub_${crypto.randomUUID().slice(0, 8)}`,
+    nextBillingDate: nextMonth.toISOString(),
+    createdAt: new Date().toISOString()
+  };
+  subscriptions.push(subscription);
+  return subscription;
+}
+
+export function updateSubscription(id: string, updates: Partial<Subscription>): Subscription | undefined {
+  const index = subscriptions.findIndex(s => s.id === id);
+  if (index === -1) return undefined;
+  subscriptions[index] = { ...subscriptions[index], ...updates };
+  return subscriptions[index];
+}
