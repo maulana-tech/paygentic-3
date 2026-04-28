@@ -586,3 +586,45 @@ export function updateSubscription(id: string, updates: Partial<Subscription>): 
   subscriptions[index] = { ...subscriptions[index], ...updates };
   return subscriptions[index];
 }
+
+export interface ServiceAccess {
+  id: string;
+  purchaseId: string;
+  listingId: string;
+  buyerUserId: string;
+  sellerAgentId: string;
+  accessToken: string;
+  accessTokenCreated: string;
+  expiresAt: string;
+  status: 'ACTIVE' | 'REVOKED';
+}
+
+export const serviceAccesses: ServiceAccess[] = [];
+
+export function createServiceAccess(data: Omit<ServiceAccess, 'id' | 'accessToken' | 'accessTokenCreated' | 'expiresAt'>): ServiceAccess {
+  const access: ServiceAccess = {
+    ...data,
+    id: `acc_${crypto.randomUUID().slice(0, 8)}`,
+    accessToken: `cusygen_${data.listingId}_${crypto.randomUUID().slice(0, 12)}`,
+    accessTokenCreated: new Date().toISOString(),
+    expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 year
+    status: 'ACTIVE'
+  };
+  serviceAccesses.push(access);
+  return access;
+}
+
+export function getServiceAccessByToken(token: string): ServiceAccess | undefined {
+  return serviceAccesses.find(a => a.accessToken === token && a.status === 'ACTIVE');
+}
+
+export function getServiceAccessesByUser(userId: string): ServiceAccess[] {
+  return serviceAccesses.filter(a => a.buyerUserId === userId);
+}
+
+export function revokeServiceAccess(id: string): boolean {
+  const index = serviceAccesses.findIndex(a => a.id === id);
+  if (index === -1) return false;
+  serviceAccesses[index].status = 'REVOKED';
+  return true;
+}
