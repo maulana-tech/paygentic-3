@@ -61,8 +61,8 @@ export function ActivityLogPanel({ maxItems = 50, showFilters = true }: Props) {
 
   if (!isConnected) {
     return (
-      <div className="rounded-lg border border-border-main bg-surface p-6 text-center">
-        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100">
+      <div className="rounded-none border border-border-main bg-surface p-6 text-center">
+        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-none bg-gray-100">
           <svg className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
@@ -74,18 +74,18 @@ export function ActivityLogPanel({ maxItems = 50, showFilters = true }: Props) {
 
   if (loading) {
     return (
-      <div className="rounded-lg border border-border-main bg-surface p-6">
+      <div className="rounded-none border border-border-main bg-surface p-6">
         <div className="flex items-center gap-2">
-          <div className="h-2 w-2 animate-pulse rounded-full bg-brand" />
-          <div className="h-2 w-2 animate-pulse rounded-full bg-brand [animation-delay:150ms]" />
-          <div className="h-2 w-2 animate-pulse rounded-full bg-brand [animation-delay:300ms]" />
+          <div className="h-2 w-2 animate-pulse rounded-none bg-brand" />
+          <div className="h-2 w-2 animate-pulse rounded-none bg-brand [animation-delay:150ms]" />
+          <div className="h-2 w-2 animate-pulse rounded-none bg-brand [animation-delay:300ms]" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="rounded-lg border border-border-main bg-surface">
+    <div className="rounded-none border border-border-main bg-surface">
       <div className="flex items-center justify-between border-b border-border-main px-4 py-3">
         <h3 className="font-semibold text-text-main">Activity Log</h3>
         <span className="text-xs text-text-secondary">{filteredLogs.length} entries</span>
