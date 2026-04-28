@@ -18,7 +18,7 @@ export function Header() {
     <header className="flex items-center justify-between border-b border-border-main bg-surface px-8 py-3">
       <div className="flex items-center gap-8">
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand">
+          <div className="flex h-7 w-7 items-center justify-center rounded-none bg-brand">
             <svg viewBox="0 0 320 512" fill="currentColor" className="h-4 w-4 text-white">
               <path d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z" />
             </svg>
@@ -32,7 +32,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`cursor-pointer rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                className={`cursor-pointer rounded-none px-3 py-1.5 text-sm font-medium transition-colors ${
                   isActive
                     ? "bg-brand-light text-brand"
                     : "text-text-secondary hover:text-text-main"
