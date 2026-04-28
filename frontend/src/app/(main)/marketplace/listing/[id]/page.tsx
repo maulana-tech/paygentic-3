@@ -5,7 +5,10 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/pages/(app)";
 import { LocusPayment } from "@/components/pages/(marketplace)/LocusPayment";
-import { useAgentStore } from "@/store/agent";
+import { NegotiationPanel } from "@/components/pages/(app)/negotiation-panel";
+import { SubscriptionPanel } from "@/components/pages/(app)/subscription-panel";
+import { ReviewPanel } from "@/components/pages/(app)/review-panel";
+import { useUserStore } from "@/store/user";
 
 interface Listing {
   id: string;
@@ -24,7 +27,10 @@ export default function ListingPage() {
   const router = useRouter();
   const [listing, setListing] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
-  const { currentAgent, isAuthenticated } = useAgentStore();
+  const [showNegotiation, setShowNegotiation] = useState(false);
+  const [showSubscription, setShowSubscription] = useState(false);
+  const [showReview, setShowReview] = useState(false);
+  const { user, isConnected } = useUserStore();
 
   useEffect(() => {
     fetch("/api/marketplace/listings")
@@ -89,29 +95,75 @@ export default function ListingPage() {
             </p>
           </div>
 
-          {!isAuthenticated || !currentAgent ? (
+          {/* Purchase Options */}
+          {!isConnected || !user ? (
             <div className="mt-8 border-t border-border-main pt-8">
               <div className="rounded-none bg-yellow-50 p-4 text-center">
                 <p className="text-sm text-yellow-700">
-                  Please connect your agent from the header to make a purchase
-                </p>
-              </div>
-            </div>
-          ) : currentAgent.id === listing.sellerAgentId ? (
-            <div className="mt-8 border-t border-border-main pt-8">
-              <div className="rounded-none bg-gray-50 p-4 text-center">
-                <p className="text-sm text-text-secondary">
-                  This is your listing
+                  Connect your wallet to make a purchase
                 </p>
               </div>
             </div>
           ) : (
-            <div className="mt-8 border-t border-border-main pt-8">
+            <div className="mt-8 border-t border-border-main pt-8 space-y-6">
+              {/* Direct Purchase */}
               <LocusPayment 
                 listing={listing} 
                 sellerAgentId={listing.sellerAgentId}
-                buyerAgentId={currentAgent.id}
+                buyerAgentId={user.id}
               />
+              
+              {/* Negotiation */}
+              <div>
+                <button
+                  onClick={() => { setShowNegotiation(!showNegotiation); setShowSubscription(false); setShowReview(false); }}
+                  className="w-full rounded-none border border-border-main bg-gray-50 px-4 py-3 text-left hover:bg-gray-100"
+                >
+                  <span className="font-medium text-text-main">Make an Offer</span>
+                  <span className="ml-2 text-sm text-text-secondary">- Negotiate a custom price</span>
+                </button>
+                {showNegotiation && (
+                  <div className="mt-4">
+                    <NegotiationPanel listing={listing} />
+                  </div>
+                )}
+              </div>
+              
+              {/* Subscription */}
+              <div>
+                <button
+                  onClick={() => { setShowSubscription(!showSubscription); setShowNegotiation(false); setShowReview(false); }}
+                  className="w-full rounded-none border border-border-main bg-gray-50 px-4 py-3 text-left hover:bg-gray-100"
+                >
+                  <span className="font-medium text-text-main">Subscribe & Save</span>
+                  <span className="ml-2 text-sm text-text-secondary">- Get ongoing access</span>
+                </button>
+                {showSubscription && (
+                  <div className="mt-4">
+                    <SubscriptionPanel listing={listing} />
+                  </div>
+                )}
+              </div>
+              
+              {/* Review */}
+              <div>
+                <button
+                  onClick={() => { setShowReview(!showReview); setShowNegotiation(false); setShowSubscription(false); }}
+                  className="w-full rounded-none border border-border-main bg-gray-50 px-4 py-3 text-left hover:bg-gray-100"
+                >
+                  <span className="font-medium text-text-main">Leave a Review</span>
+                  <span className="ml-2 text-sm text-text-secondary">- Rate your experience</span>
+                </button>
+                {showReview && (
+                  <div className="mt-4">
+                    <ReviewPanel 
+                      sellerAgentId={listing.sellerAgentId} 
+                      sellerName={listing.sellerName}
+                      listingId={listing.id}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
