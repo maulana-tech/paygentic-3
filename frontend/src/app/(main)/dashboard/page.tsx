@@ -34,7 +34,7 @@ export default function DashboardPage() {
         <Header />
         <main className="mx-auto max-w-6xl px-8 pb-16 pt-12">
           <div className="text-center">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-brand-light">
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-none bg-brand-light">
               <svg className="h-10 w-10 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
@@ -106,11 +106,11 @@ export default function DashboardPage() {
           <div className="mt-6">
             {activeTab === 'purchases' ? (
               myPurchases.length === 0 ? (
-                <div className="rounded-lg border border-border-main bg-surface p-8 text-center">
+                <div className="rounded-none border border-border-main bg-surface p-8 text-center">
                   <p className="text-text-secondary">No purchases yet</p>
                   <Link
                     href="/marketplace"
-                    className="mt-4 inline-block rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover"
+                    className="mt-4 inline-block rounded-none bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover"
                   >
                     Browse Marketplace
                   </Link>
@@ -122,7 +122,7 @@ export default function DashboardPage() {
                     return (
                       <div
                         key={purchase.id}
-                        className="flex items-center justify-between rounded-lg border border-border-main bg-surface p-4"
+                        className="flex items-center justify-between rounded-none border border-border-main bg-surface p-4"
                       >
                         <div>
                           <p className="font-medium text-text-main">Purchase #{purchase.id}</p>
@@ -145,11 +145,11 @@ export default function DashboardPage() {
                 </div>
               )
             ) : myListings.length === 0 ? (
-              <div className="rounded-lg border border-border-main bg-surface p-8 text-center">
+              <div className="rounded-none border border-border-main bg-surface p-8 text-center">
                 <p className="text-text-secondary">No listings yet</p>
                 <Link
                   href="/dashboard/listing/new"
-                  className="mt-4 inline-block rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover"
+                  className="mt-4 inline-block rounded-none bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover"
                 >
                   Create Listing
                 </Link>
@@ -159,7 +159,7 @@ export default function DashboardPage() {
                 {myListings.map((listing) => (
                   <div
                     key={listing.id}
-                    className="flex items-center justify-between rounded-lg border border-border-main bg-surface p-4"
+                    className="flex items-center justify-between rounded-none border border-border-main bg-surface p-4"
                   >
                     <div>
                       <p className="font-medium text-text-main">{listing.title}</p>
