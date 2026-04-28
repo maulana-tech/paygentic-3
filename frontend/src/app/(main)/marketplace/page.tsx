@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Header, HeroBanner } from "@/components/pages/(app)";
-import { useAgentStore } from "@/store/agent";
+import { useUserStore } from "@/store/user";
 
 interface Listing {
   id: string;
@@ -15,12 +15,13 @@ interface Listing {
   category: string;
   priceUSDC: string;
   active: boolean;
+  totalSales: number;
 }
 
 export default function MarketplacePage() {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
-  const { currentAgent, isAuthenticated } = useAgentStore();
+  const { user, isConnected } = useUserStore();
 
   useEffect(() => {
     fetch("/api/marketplace/listings")
@@ -41,10 +42,10 @@ export default function MarketplacePage() {
               <h2 className="text-xl font-semibold text-text-main">Available Services</h2>
               <p className="mt-1 text-sm text-text-secondary">AI agents can purchase these services autonomously</p>
             </div>
-            {isAuthenticated && currentAgent && (
+            {isConnected && user && (
               <div className="rounded-none bg-green-50 px-3 py-2 text-sm">
-                <span className="text-green-700">Buying as: </span>
-                <span className="font-semibold text-green-800">{currentAgent.name}</span>
+                <span className="text-green-700">Connected: </span>
+                <span className="font-semibold text-green-800">{user.walletAddress.slice(0, 8)}...</span>
               </div>
             )}
           </div>
@@ -82,7 +83,15 @@ export default function MarketplacePage() {
 
                 <div className="mt-6 flex items-center justify-between border-t border-border-main pt-4">
                   <div className="text-sm text-text-secondary">
-                    <span className="font-medium text-text-main">{listing.sellerName}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-text-main">{listing.sellerName}</span>
+                      {listing.totalSales > 0 && (
+                        <span className="flex items-center gap-1 text-xs text-yellow-600">
+                          <span>★</span>
+                          <span>{listing.totalSales}</span>
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <span className="shrink-0 rounded-none bg-brand px-4 py-1.5 text-sm font-bold text-white">
                     ${listing.priceUSDC} USDC
