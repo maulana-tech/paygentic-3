@@ -1,50 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useUserStore } from "@/store/user";
 import { User, addActivityLog } from "@/data/store";
 
-interface Props {
-  onConnect?: (user: User) => void;
-}
+const DEMO_WALLET = "0x742d35Cc6634C0532925aDbp3049gD5EWt250N2Oa";
 
-export function LocusWalletConnect({ onConnect }: Props) {
+export function LocusWalletConnect() {
   const { user, setUser, isConnected, disconnect } = useUserStore();
-  const [showInput, setShowInput] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [walletInput, setWalletInput] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const connectLocusWallet = async () => {
-    // Directly show demo input for now
-    // Real Locus Wallet SDK integration would go here
-    setShowInput(true);
-  };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  const handleDemoConnect = () => {
-    if (!walletInput.trim()) {
-      setError("Please enter a wallet address");
-      return;
-    }
-
-    // Locus wallets on Base start with 0x and are 42 chars
-    if (!/^0x[a-fA-F0-9]{40}$/.test(walletInput.trim())) {
-      setError("Invalid Locus wallet address (Base network)");
+  const handleConnect = () => {
+    const addr = walletInput.trim() || DEMO_WALLET;
+    if (!/^0x[a-fA-F0-9]{40}$/.test(addr)) {
+      setError("Invalid wallet address");
       return;
     }
 
     const newUser: User = {
       id: `user_${crypto.randomUUID().slice(0, 8)}`,
-      walletAddress: walletInput.trim().toLowerCase(),
+      walletAddress: addr.toLowerCase(),
       createdAt: new Date().toISOString()
     };
 
     setUser(newUser);
-    addActivityLog(newUser.id, 'INFO', 'Connected Locus Smart Wallet (Demo)', { 
-      address: newUser.walletAddress.slice(0, 10) + '...',
-      network: 'Base (Demo)'
-    });
-    onConnect?.(newUser);
-    setShowInput(false);
+    addActivityLog(newUser.id, 'INFO', 'Connected Locus Wallet');
+    setShowDropdown(false);
     setWalletInput("");
     setError(null);
   };
@@ -52,32 +46,15 @@ export function LocusWalletConnect({ onConnect }: Props) {
   if (isConnected && user) {
     return (
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-none bg-brand text-sm font-semibold text-white">
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" 
-                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <div className="hidden text-sm md:block">
-            <p className="font-medium text-text-main">Locus Wallet</p>
-            <p className="text-xs text-text-secondary font-mono">
-              {user.walletAddress.slice(0, 6)}...{user.walletAddress.slice(-4)}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-1 rounded-none bg-green-100 px-2 py-1">
-          <span className="h-2 w-2 rounded-none bg-green-500"></span>
-          <span className="text-xs font-medium text-green-700">Base</span>
+        <div className="flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5">
+          <div className="h-2 w-2 rounded-full bg-green-500"></div>
+          <span className="text-sm font-mono text-gray-700">
+            {user.walletAddress.slice(0, 6)}...{user.walletAddress.slice(-4)}
+          </span>
         </div>
         <button
-          onClick={() => {
-            if (user) {
-              addActivityLog(user.id, 'INFO', 'Disconnected Locus Wallet');
-            }
-            disconnect();
-          }}
-          className="rounded-none px-3 py-1.5 text-sm text-text-secondary hover:bg-gray-100"
+          onClick={() => disconnect()}
+          className="text-sm text-gray-500 hover:text-gray-700"
         >
           Disconnect
         </button>
@@ -86,68 +63,58 @@ export function LocusWalletConnect({ onConnect }: Props) {
   }
 
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
-        onClick={connectLocusWallet}
-        className="flex items-center gap-2 rounded-none border border-border-main bg-surface px-4 py-2 text-sm font-medium transition-colors hover:border-brand"
+        onClick={() => setShowDropdown(!showDropdown)}
+        className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
       >
-        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" 
-            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        <span>Connect Locus Wallet</span>
+        Connect Wallet
       </button>
-
-      {showInput && (
-        <div className="absolute right-0 z-50 mt-2 w-96 rounded-none border border-border-main bg-surface p-5 shadow-lg">
-          <div className="mb-4 flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-none bg-brand">
-              <svg className="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="2"/>
+ 
+      {showDropdown && (
+        <div className="absolute right-0 top-full z-50 mt-2 w-80 rounded-xl border border-gray-200 bg-white p-4 shadow-xl">
+          <div className="mb-3 flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
+              <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2L2 7l10 5 10-5-10-5z" />
               </svg>
             </div>
             <div>
-              <p className="text-sm font-medium text-text-main">Locus Smart Wallet</p>
-              <p className="text-xs text-text-secondary">Demo Mode - Base Network</p>
+              <p className="text-sm font-semibold text-gray-900">Locus Wallet</p>
+              <p className="text-xs text-gray-500">Connecting to Base</p>
             </div>
           </div>
           
-          <p className="mb-3 text-sm text-text-secondary">
-            Enter your Locus wallet address to continue in demo mode:
+          <p className="mb-2 text-xs text-gray-600">
+            Enter your wallet address or use demo:
           </p>
           <input
             type="text"
             value={walletInput}
             onChange={(e) => setWalletInput(e.target.value)}
-            placeholder="0x..."
-            className="w-full rounded-none border border-border-main bg-white px-3 py-2.5 text-sm font-mono"
+            placeholder={DEMO_WALLET}
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-mono focus:border-blue-500 focus:outline-none"
           />
-          {error && (
-            <p className="mt-2 text-xs text-red-500">{error}</p>
-          )}
-          <div className="mt-4 flex gap-2">
+          {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+          
+          <div className="mt-3 flex gap-2">
             <button
-              onClick={() => {
-                setShowInput(false);
-                setError(null);
-              }}
-              className="flex-1 rounded-none border border-border-main px-3 py-2 text-sm font-medium hover:bg-gray-50"
+              onClick={() => setShowDropdown(false)}
+              className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Cancel
             </button>
             <button
-              onClick={handleDemoConnect}
-              className="flex-1 rounded-none bg-brand px-3 py-2 text-sm font-semibold text-white hover:bg-brand-hover"
+              onClick={handleConnect}
+              className="flex-1 rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700"
             >
-              Connect Wallet
+              Connect
             </button>
           </div>
-          <div className="mt-4 rounded-none bg-yellow-50 p-3">
-            <p className="text-xs text-yellow-700">
-              <strong>Demo Mode:</strong> Enter any valid Base wallet address to test the marketplace. 
-              Locus Wallet SDK integration coming soon.
-            </p>
-          </div>
+          
+          <p className="mt-3 rounded bg-yellow-50 p-2 text-xs text-yellow-800">
+            Demo: Use the pre-filled address to test the marketplace.
+          </p>
         </div>
       )}
     </div>
