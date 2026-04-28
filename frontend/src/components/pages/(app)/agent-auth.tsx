@@ -30,7 +30,7 @@ export function AgentAuth({ onAgentSelect }: Props) {
   if (loading) {
     return (
       <div className="flex items-center gap-2">
-        <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
+        <div className="h-8 w-8 animate-pulse rounded-none bg-gray-200" />
       </div>
     );
   }
@@ -39,7 +39,7 @@ export function AgentAuth({ onAgentSelect }: Props) {
     return (
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">
+          <div className="flex h-8 w-8 items-center justify-center rounded-none bg-brand text-sm font-semibold text-white">
             {currentAgent.name.charAt(0)}
           </div>
           <div className="hidden text-sm md:block">
@@ -51,7 +51,7 @@ export function AgentAuth({ onAgentSelect }: Props) {
         </div>
         <button
           onClick={logout}
-          className="rounded-md px-3 py-1.5 text-sm text-text-secondary hover:bg-gray-100"
+          className="rounded-none px-3 py-1.5 text-sm text-text-secondary hover:bg-gray-100"
         >
           Switch
         </button>
@@ -63,7 +63,7 @@ export function AgentAuth({ onAgentSelect }: Props) {
     <div className="relative">
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="flex items-center gap-2 rounded-lg border border-border-main bg-surface px-4 py-2 text-sm font-medium transition-colors hover:border-brand"
+        className="flex items-center gap-2 rounded-none border border-border-main bg-surface px-4 py-2 text-sm font-medium transition-colors hover:border-brand"
       >
         <span>Connect Agent</span>
         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,16 +72,16 @@ export function AgentAuth({ onAgentSelect }: Props) {
       </button>
 
       {showDropdown && (
-        <div className="absolute right-0 z-50 mt-2 w-64 rounded-xl border border-border-main bg-surface shadow-lg">
+        <div className="absolute right-0 z-50 mt-2 w-64 rounded-none border border-border-main bg-surface shadow-lg">
           <div className="p-2">
             <p className="px-3 py-2 text-xs font-semibold text-text-secondary">Select Agent</p>
             {agents.map((agent) => (
               <button
                 key={agent.id}
                 onClick={() => handleSelect(agent)}
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left hover:bg-gray-50"
+                className="flex w-full items-center gap-3 rounded-none px-3 py-2 text-left hover:bg-gray-50"
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-light text-sm font-semibold text-brand">
+                <div className="flex h-8 w-8 items-center justify-center rounded-none bg-brand-light text-sm font-semibold text-brand">
                   {agent.name.charAt(0)}
                 </div>
                 <div className="flex-1">
