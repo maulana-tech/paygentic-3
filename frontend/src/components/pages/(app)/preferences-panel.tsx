@@ -2,44 +2,50 @@
 
 import { useState } from "react";
 import { useUserStore } from "@/store/user";
-import { CATEGORIES, addActivityLog } from "@/data/store";
+import { addActivityLog } from "@/data/store";
 
 const AVAILABLE_INTERESTS = [
-  'code generation',
-  'data analysis',
-  'content creation',
-  'research',
-  'automation',
-  'api services',
-  'custom',
-  'video production',
-  'analytics',
-  'crm'
+  "code generation",
+  "data analysis",
+  "content creation",
+  "research",
+  "automation",
+  "api services",
+  "custom",
+  "video production",
+  "analytics",
+  "crm",
 ];
 
 export function PreferencesPanel() {
   const { user, isConnected, preferences, updatePreferences } = useUserStore();
-  const [saving, setSaving] = useState(false);
   const [newInterest, setNewInterest] = useState("");
 
   if (!isConnected || !user) {
     return (
-      <div className="rounded-xl border border-border-main bg-surface p-6 text-center shadow-sm">
+      <div className="glass-panel rounded-[1.75rem] p-6 text-center">
         <p className="text-sm text-text-secondary">Connect wallet to manage preferences</p>
       </div>
     );
   }
 
-  const handleToggle = (key: 'autoBuyEnabled' | 'autoListEnabled') => {
+  const handleToggle = (key: "autoBuyEnabled" | "autoListEnabled") => {
     const newValue = !preferences[key];
     updatePreferences({ [key]: newValue });
-    
-    addActivityLog(user.id, 'INFO', 
-      newValue ? `Enabled ${key === 'autoBuyEnabled' ? 'auto-buy' : 'auto-list'}` : `Disabled ${key === 'autoBuyEnabled' ? 'auto-buy' : 'auto-list'}`
+
+    addActivityLog(
+      user.id,
+      "INFO",
+      newValue
+        ? `Enabled ${key === "autoBuyEnabled" ? "auto-buy" : "auto-list"}`
+        : `Disabled ${key === "autoBuyEnabled" ? "auto-buy" : "auto-list"}`
     );
   };
 
-  const handleBudgetChange = (key: 'maxPurchaseBudget' | 'monthlyBudget' | 'autoBuyThreshold' | 'autoListMinPrice', value: string) => {
+  const handleBudgetChange = (
+    key: "maxPurchaseBudget" | "monthlyBudget" | "autoBuyThreshold" | "autoListMinPrice",
+    value: string
+  ) => {
     const numValue = parseFloat(value);
     if (isNaN(numValue) || numValue < 0) return;
     updatePreferences({ [key]: value });
@@ -49,70 +55,87 @@ export function PreferencesPanel() {
     if (!newInterest.trim() || preferences.interests.includes(newInterest.trim().toLowerCase())) {
       return;
     }
+
     const updated = [...preferences.interests, newInterest.trim().toLowerCase()];
     updatePreferences({ interests: updated });
-    addActivityLog(user.id, 'INFO', `Added interest: ${newInterest.trim()}`);
+    addActivityLog(user.id, "INFO", `Added interest: ${newInterest.trim()}`);
     setNewInterest("");
   };
 
   const handleRemoveInterest = (interest: string) => {
-    const updated = preferences.interests.filter(i => i !== interest);
+    const updated = preferences.interests.filter((item) => item !== interest);
     updatePreferences({ interests: updated });
-    addActivityLog(user.id, 'INFO', `Removed interest: ${interest}`);
+    addActivityLog(user.id, "INFO", `Removed interest: ${interest}`);
   };
 
+  const panelInputClass =
+    "focus-ring mt-2 w-full rounded-2xl border border-border-main bg-white/80 px-3 py-2.5 text-sm text-text-main";
+  const segmentClass = "glass-inset rounded-[1.25rem] p-4";
+  const switchBaseClass = "focus-ring relative h-7 w-12 rounded-full border transition-colors";
+
   return (
-    <div className="rounded-none border border-border-main bg-surface">
-      <div className="border-b border-border-main px-4 py-3">
-        <h3 className="font-semibold text-text-main">Agent Preferences</h3>
-        <p className="text-xs text-text-secondary">Control your agent's behavior</p>
+    <section className="glass-panel rounded-[1.75rem] p-4 sm:p-5">
+      <div className="border-b border-slate-200/80 px-2 pb-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">Controls</p>
+        <h3 className="mt-2 text-lg font-semibold text-text-main">Agent preferences</h3>
+        <p className="mt-1 text-sm text-text-secondary">
+          Tune automation, budget, and workload without losing control.
+        </p>
       </div>
 
-      <div className="divide-y divide-border-main">
-        {/* Auto-Buy Toggle */}
-        <div className="p-4">
-          <div className="flex items-center justify-between">
+      <div className="space-y-4 px-2 pt-4">
+        <div className={segmentClass}>
+          <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="font-medium text-text-main">Auto-Buy Services</p>
-              <p className="text-xs text-text-secondary">Automatically purchase matching services</p>
+              <p className="font-medium text-text-main">Auto-buy services</p>
+              <p className="mt-1 text-sm leading-5 text-text-secondary">
+                Automatically purchase listings that match your interests and budget rules.
+              </p>
             </div>
             <button
-              onClick={() => handleToggle('autoBuyEnabled')}
-              className={`relative h-6 w-11 rounded-none transition-colors ${
-                preferences.autoBuyEnabled ? "bg-brand" : "bg-gray-300"
+              onClick={() => handleToggle("autoBuyEnabled")}
+              type="button"
+              aria-pressed={preferences.autoBuyEnabled}
+              aria-label={`Auto-buy services ${preferences.autoBuyEnabled ? "enabled" : "disabled"}`}
+              className={`${switchBaseClass} ${
+                preferences.autoBuyEnabled ? "border-brand bg-brand" : "border-slate-300 bg-slate-200"
               }`}
             >
               <span
-                className={`absolute top-1 h-4 w-4 rounded-none bg-white shadow transition-transform ${
+                className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow-sm transition-transform ${
                   preferences.autoBuyEnabled ? "left-6" : "left-1"
                 }`}
               />
             </button>
           </div>
-          
+
           {preferences.autoBuyEnabled && (
-            <div className="mt-3 grid grid-cols-2 gap-3">
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
-                <label className="text-xs text-text-secondary">Max per transaction</label>
-                <div className="mt-1 flex items-center rounded-none border border-border-main bg-white px-2">
+                <label className="text-xs font-medium uppercase tracking-[0.18em] text-text-secondary">
+                  Max per transaction
+                </label>
+                <div className="glass-inset mt-2 flex items-center rounded-2xl px-3">
                   <span className="text-sm text-text-secondary">$</span>
                   <input
                     type="number"
                     value={preferences.maxPurchaseBudget}
-                    onChange={(e) => handleBudgetChange('maxPurchaseBudget', e.target.value)}
-                    className="w-full px-2 py-1.5 text-sm outline-none"
+                    onChange={(e) => handleBudgetChange("maxPurchaseBudget", e.target.value)}
+                    className="focus-ring w-full border-0 bg-transparent px-2 py-2.5 text-sm text-text-main"
                   />
                 </div>
               </div>
               <div>
-                <label className="text-xs text-text-secondary">Auto-approve under</label>
-                <div className="mt-1 flex items-center rounded-none border border-border-main bg-white px-2">
+                <label className="text-xs font-medium uppercase tracking-[0.18em] text-text-secondary">
+                  Auto-approve under
+                </label>
+                <div className="glass-inset mt-2 flex items-center rounded-2xl px-3">
                   <span className="text-sm text-text-secondary">$</span>
                   <input
                     type="number"
                     value={preferences.autoBuyThreshold}
-                    onChange={(e) => handleBudgetChange('autoBuyThreshold', e.target.value)}
-                    className="w-full px-2 py-1.5 text-sm outline-none"
+                    onChange={(e) => handleBudgetChange("autoBuyThreshold", e.target.value)}
+                    className="focus-ring w-full border-0 bg-transparent px-2 py-2.5 text-sm text-text-main"
                   />
                 </div>
               </div>
@@ -120,76 +143,84 @@ export function PreferencesPanel() {
           )}
         </div>
 
-        {/* Auto-List Toggle */}
-        <div className="p-4">
-          <div className="flex items-center justify-between">
+        <div className={segmentClass}>
+          <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="font-medium text-text-main">Auto-List Services</p>
-              <p className="text-xs text-text-secondary">Allow creating listings automatically</p>
+              <p className="font-medium text-text-main">Auto-list services</p>
+              <p className="mt-1 text-sm leading-5 text-text-secondary">
+                Allow the agent to create sellable service listings using your floor price.
+              </p>
             </div>
             <button
-              onClick={() => handleToggle('autoListEnabled')}
-              className={`relative h-6 w-11 rounded-none transition-colors ${
-                preferences.autoListEnabled ? "bg-brand" : "bg-gray-300"
+              onClick={() => handleToggle("autoListEnabled")}
+              type="button"
+              aria-pressed={preferences.autoListEnabled}
+              aria-label={`Auto-list services ${preferences.autoListEnabled ? "enabled" : "disabled"}`}
+              className={`${switchBaseClass} ${
+                preferences.autoListEnabled ? "border-brand bg-brand" : "border-slate-300 bg-slate-200"
               }`}
             >
               <span
-                className={`absolute top-1 h-4 w-4 rounded-none bg-white shadow transition-transform ${
+                className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow-sm transition-transform ${
                   preferences.autoListEnabled ? "left-6" : "left-1"
                 }`}
               />
             </button>
           </div>
-          
+
           {preferences.autoListEnabled && (
             <div className="mt-3">
-              <label className="text-xs text-text-secondary">Minimum price to auto-list</label>
-              <div className="mt-1 flex items-center rounded-none border border-border-main bg-white px-2">
+              <label className="text-xs font-medium uppercase tracking-[0.18em] text-text-secondary">
+                Minimum price
+              </label>
+              <div className="glass-inset mt-2 flex items-center rounded-2xl px-3">
                 <span className="text-sm text-text-secondary">$</span>
                 <input
                   type="number"
-                  value={preferences.autoListMinPrice || '1'}
-                  onChange={(e) => handleBudgetChange('autoListMinPrice', e.target.value)}
-                  className="w-full px-2 py-1.5 text-sm outline-none"
+                  value={preferences.autoListMinPrice || "1"}
+                  onChange={(e) => handleBudgetChange("autoListMinPrice", e.target.value)}
+                  className="focus-ring w-full border-0 bg-transparent px-2 py-2.5 text-sm text-text-main"
                 />
               </div>
             </div>
           )}
         </div>
 
-        {/* Monthly Budget */}
-        <div className="p-4">
-          <div>
-            <p className="font-medium text-text-main">Monthly Budget</p>
-            <p className="text-xs text-text-secondary">Maximum spending per month</p>
-            <div className="mt-2 flex items-center rounded-none border border-border-main bg-white px-2">
-              <span className="text-sm text-text-secondary">$</span>
-              <input
-                type="number"
-                value={preferences.monthlyBudget}
-                onChange={(e) => handleBudgetChange('monthlyBudget', e.target.value)}
-                className="w-full px-2 py-1.5 text-sm outline-none"
-              />
-              <span className="text-sm text-text-secondary">USDC</span>
-            </div>
+        <div className={segmentClass}>
+          <p className="font-medium text-text-main">Monthly budget</p>
+          <p className="mt-1 text-sm leading-5 text-text-secondary">
+            Set a hard ceiling for total monthly spend across all purchases.
+          </p>
+          <div className="glass-inset mt-3 flex items-center rounded-2xl px-3">
+            <span className="text-sm text-text-secondary">$</span>
+            <input
+              type="number"
+              value={preferences.monthlyBudget}
+              onChange={(e) => handleBudgetChange("monthlyBudget", e.target.value)}
+              className="focus-ring w-full border-0 bg-transparent px-2 py-2.5 text-sm text-text-main"
+            />
+            <span className="text-sm text-text-secondary">USDC</span>
           </div>
         </div>
 
-        {/* Interests */}
-        <div className="p-4">
+        <div className={segmentClass}>
           <p className="font-medium text-text-main">Interests</p>
-          <p className="text-xs text-text-secondary">Services your agent should look for</p>
-          
+          <p className="mt-1 text-sm leading-5 text-text-secondary">
+            Guide marketplace discovery with a focused set of service categories.
+          </p>
+
           <div className="mt-3 flex flex-wrap gap-2">
             {preferences.interests.map((interest) => (
               <span
                 key={interest}
-                className="flex items-center gap-1 rounded-none bg-brand-light px-3 py-1 text-xs font-medium text-brand"
+                className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50/90 px-3 py-1.5 text-xs font-medium text-brand-strong"
               >
                 {interest}
                 <button
                   onClick={() => handleRemoveInterest(interest)}
-                  className="ml-1 hover:text-brand-hover"
+                  type="button"
+                  aria-label={`Remove interest ${interest}`}
+                  className="focus-ring rounded-full p-0.5 text-brand-strong hover:bg-white/80 hover:text-brand-hover"
                 >
                   ×
                 </button>
@@ -198,35 +229,35 @@ export function PreferencesPanel() {
           </div>
 
           <div className="mt-3 flex gap-2">
-            <select
-              value={newInterest}
-              onChange={(e) => setNewInterest(e.target.value)}
-              className="flex-1 rounded-none border border-border-main bg-white px-3 py-2 text-sm"
-            >
+            <select value={newInterest} onChange={(e) => setNewInterest(e.target.value)} className={panelInputClass}>
               <option value="">Add interest...</option>
-              {AVAILABLE_INTERESTS.filter(i => !preferences.interests.includes(i)).map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
+              {AVAILABLE_INTERESTS.filter((interest) => !preferences.interests.includes(interest)).map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
               ))}
             </select>
             <button
               onClick={handleAddInterest}
               disabled={!newInterest}
-              className="rounded-none bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover disabled:opacity-50"
+              type="button"
+              className="focus-ring rounded-2xl border border-brand bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-300"
             >
               Add
             </button>
           </div>
         </div>
 
-        {/* Max Concurrent Tasks */}
-        <div className="p-4">
-          <p className="font-medium text-text-main">Max Concurrent Tasks</p>
-          <p className="text-xs text-text-secondary">How many tasks agent can run in parallel</p>
+        <div className={segmentClass}>
+          <p className="font-medium text-text-main">Max concurrent tasks</p>
+          <p className="mt-1 text-sm leading-5 text-text-secondary">
+            Limit how many tasks the agent can run at once to balance throughput and reliability.
+          </p>
           <div className="mt-2">
             <select
               value={preferences.maxConcurrentTasks || 3}
               onChange={(e) => updatePreferences({ maxConcurrentTasks: parseInt(e.target.value) })}
-              className="w-full rounded-none border border-border-main bg-white px-3 py-2 text-sm"
+              className={panelInputClass}
             >
               <option value={1}>1 task</option>
               <option value={2}>2 tasks</option>
@@ -237,31 +268,36 @@ export function PreferencesPanel() {
           </div>
         </div>
 
-        {/* Response Time Preference */}
-        <div className="p-4">
-          <p className="font-medium text-text-main">Response Time</p>
-          <p className="text-xs text-text-secondary">Speed vs quality tradeoff</p>
+        <div className={segmentClass}>
+          <p className="font-medium text-text-main">Response time</p>
+          <p className="mt-1 text-sm leading-5 text-text-secondary">
+            Choose the tradeoff between responsiveness and output depth.
+          </p>
           <div className="mt-2 space-y-2">
             {[
-              { value: 'fast', label: 'Fast - Quick responses, simpler outputs' },
-              { value: 'balanced', label: 'Balanced - Good speed and quality' },
-              { value: 'thorough', label: 'Thorough - Best quality, slower' }
-            ].map((opt) => (
-              <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
+              { value: "fast", label: "Fast - Quick responses, simpler outputs" },
+              { value: "balanced", label: "Balanced - Good speed and quality" },
+              { value: "thorough", label: "Thorough - Best quality, slower" },
+            ].map((option) => (
+              <label key={option.value} className="glass-inset flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-3">
                 <input
                   type="radio"
                   name="responseTimePreference"
-                  value={opt.value}
-                  checked={(preferences.responseTimePreference || 'balanced') === opt.value}
-                  onChange={(e) => updatePreferences({ responseTimePreference: e.target.value as 'fast' | 'balanced' | 'thorough' })}
+                  value={option.value}
+                  checked={(preferences.responseTimePreference || "balanced") === option.value}
+                  onChange={(e) =>
+                    updatePreferences({
+                      responseTimePreference: e.target.value as "fast" | "balanced" | "thorough",
+                    })
+                  }
                   className="accent-brand"
                 />
-                <span className="text-sm text-text-main">{opt.label}</span>
+                <span className="text-sm text-text-main">{option.label}</span>
               </label>
             ))}
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
