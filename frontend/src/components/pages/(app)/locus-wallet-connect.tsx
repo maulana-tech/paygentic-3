@@ -100,21 +100,22 @@ export function LocusWalletConnect() {
 
   if (isConnected && user) {
     return (
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 rounded-none bg-gray-100 px-3 py-1.5">
-          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-          <span className="text-sm font-mono text-gray-700">
+      <div className="flex items-center gap-2 sm:gap-3">
+        <div className="top-nav-shell flex items-center gap-2 rounded-full px-3 py-2">
+          <div className="h-2 w-2 rounded-full bg-emerald-500"></div>
+          <span className="text-sm font-mono text-text-main">
             {user.walletAddress.slice(0, 6)}...{user.walletAddress.slice(-4)}
           </span>
           {balance !== null && (
-            <span className="text-xs font-semibold text-green-700">
+            <span className="rounded-full bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
               {balance} USDC
             </span>
           )}
         </div>
         <button
+          type="button"
           onClick={() => { disconnect(); setBalance(null); }}
-          className="cursor-pointer rounded-none text-sm text-gray-500 hover:text-gray-700"
+          className="focus-ring top-nav-shell rounded-full px-3 py-2 text-sm text-text-secondary hover:text-text-main"
         >
           Disconnect
         </button>
@@ -125,30 +126,32 @@ export function LocusWalletConnect() {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
+        type="button"
         onClick={() => setShowDropdown(!showDropdown)}
-        className="cursor-pointer rounded-none bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+        className="focus-ring rounded-full border border-brand bg-brand px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-hover"
       >
         Connect Wallet
       </button>
 
       {showDropdown && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-80 rounded-none border border-gray-200 bg-white p-4 shadow-xl">
+        <div className="glass-panel-strong absolute right-0 top-full z-50 mt-3 w-80 rounded-[1.5rem] p-4">
           <div className="mb-4 flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-none bg-blue-600">
+            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-brand">
               <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2L2 7l10 5 10-5-10-5z" />
               </svg>
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-900">Locus Wallet</p>
-              <p className="text-xs text-gray-500">Powered by Locus on Base</p>
+              <p className="text-sm font-semibold text-text-main">Locus Wallet</p>
+              <p className="text-xs text-text-secondary">Powered by Locus on Base</p>
             </div>
           </div>
 
           <button
+            type="button"
             onClick={handleLocusConnect}
             disabled={loading}
-            className="mb-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-none bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+            className="focus-ring mb-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-brand bg-brand px-4 py-3 text-sm font-semibold text-white hover:bg-brand-hover disabled:opacity-50"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -157,31 +160,33 @@ export function LocusWalletConnect() {
           </button>
 
           <div className="mb-3 flex items-center gap-2">
-            <div className="h-px flex-1 bg-gray-200"></div>
-            <span className="text-xs text-gray-400">or</span>
-            <div className="h-px flex-1 bg-gray-200"></div>
+            <div className="h-px flex-1 bg-border-main"></div>
+            <span className="text-xs text-text-secondary">or</span>
+            <div className="h-px flex-1 bg-border-main"></div>
           </div>
 
-          <p className="mb-2 text-xs text-gray-500">Enter wallet address:</p>
+          <p className="mb-2 text-xs text-text-secondary">Enter wallet address:</p>
           <input
             type="text"
             value={walletInput}
             onChange={(e) => setWalletInput(e.target.value)}
             placeholder="0x..."
-            className="w-full rounded-none border border-gray-300 bg-white px-3 py-2 text-sm font-mono focus:border-blue-500 focus:outline-none"
+            className="focus-ring w-full rounded-2xl border border-border-main bg-white/80 px-3 py-2.5 text-sm font-mono text-text-main"
           />
           {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
 
           <div className="mt-3 flex gap-2">
             <button
+              type="button"
               onClick={handleDemoConnect}
-              className="flex-1 cursor-pointer rounded-none border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="focus-ring flex-1 rounded-2xl border border-border-main bg-white/70 px-3 py-2.5 text-sm font-medium text-text-main hover:bg-white"
             >
               Demo
             </button>
             <button
+              type="button"
               onClick={handleManualConnect}
-              className="flex-1 cursor-pointer rounded-none bg-gray-800 px-3 py-2 text-sm font-semibold text-white hover:bg-gray-900"
+              className="focus-ring flex-1 rounded-2xl border border-brand bg-brand px-3 py-2.5 text-sm font-semibold text-white hover:bg-brand-hover"
             >
               Connect
             </button>
