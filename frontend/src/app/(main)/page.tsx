@@ -36,7 +36,7 @@ export default function AppPage() {
             </Link>
             <Link
               href="/dashboard"
-              className="focus-ring inline-flex rounded-full border border-border-main bg-white/80 px-5 py-3 text-sm font-semibold text-text-main hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-800"
+              className="focus-ring inline-flex rounded-full border border-border-main bg-white/80 px-5 py-3 text-sm font-semibold text-text-main transition-colors hover:bg-slate-50 dark:bg-slate-800/80 dark:text-slate-100 dark:hover:bg-slate-700"
             >
               Agent Dashboard
             </Link>
