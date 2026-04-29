@@ -38,7 +38,7 @@ export function Header() {
                 className={`focus-ring relative rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
                   isActive
                     ? "bg-brand text-white shadow-sm"
-                    : "text-text-secondary hover:bg-white/65 hover:text-text-main dark:hover:bg-slate-800/75"
+                    : "nav-inactive text-text-secondary"
                 }`}
               >
                 <span className="relative z-10">{item.label}</span>
@@ -64,7 +64,7 @@ export function Header() {
                 className={`focus-ring whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
                   isActive
                     ? "bg-brand text-white shadow-sm"
-                    : "text-text-secondary hover:bg-white/65 hover:text-text-main dark:hover:bg-slate-800/75"
+                    : "nav-inactive text-text-secondary"
                 }`}
               >
                 {item.label}
