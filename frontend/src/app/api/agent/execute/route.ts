@@ -1,9 +1,8 @@
 import { NextRequest } from 'next/server';
-import { getServiceAccessByToken, getAgentSystemPrompt, addMessageToTask, getAgentTaskById, getAgentTasksByUser, createAgentTask, getListingById } from '@/data/store';
+import { getServiceAccessByToken, getAgentSystemPrompt, addMessageToTask, getAgentTaskById, getAgentTasksByUser, createAgentTask, getListingById, getAgentModel } from '@/data/store';
 
 const NVIDIA_API_BASE = 'https://integrate.api.nvidia.com/v1';
 const NVIDIA_API_KEY = process.env.NVIDIA_API_KEY;
-const NVIDIA_MODEL = process.env.NVIDIA_MODEL || 'meta/llama-3.1-405b-instruct';
 
 export async function POST(req: NextRequest) {
   try {
@@ -19,7 +18,9 @@ export async function POST(req: NextRequest) {
     }
 
     const listing = getListingById(access.listingId);
-    const systemPrompt = getAgentSystemPrompt(listing?.category || '');
+    const category = listing?.category || '';
+    const systemPrompt = getAgentSystemPrompt(category);
+    const model = getAgentModel(category);
 
     let task = taskId ? getAgentTaskById(taskId) : undefined;
 
@@ -52,7 +53,7 @@ export async function POST(req: NextRequest) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: NVIDIA_MODEL,
+        model,
         messages,
         max_tokens: 2048,
         temperature: 0.7,

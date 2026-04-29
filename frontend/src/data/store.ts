@@ -730,6 +730,41 @@ Provide professional, empathetic support content. Include different response tem
 
 export const DEFAULT_SYSTEM_PROMPT = `You are a helpful AI agent. Assist the user with their tasks professionally and thoroughly.`;
 
+export const CATEGORY_MODELS: Record<string, string> = {
+  'code generation': 'deepseek-ai/deepseek-v3_2',
+  'data analysis': 'deepseek-ai/deepseek-r1',
+  'content creation': 'meta/llama-4-maverick-17b-128e-instruct',
+  'content writing': 'meta/llama-4-maverick-17b-128e-instruct',
+  'research': 'nvidia/llama-3.3-nemotron-super-49b-v1',
+  'automation': 'qwen/qwen3-coder-30b',
+  'translation': 'moonshotai/kimi-k2-instruct',
+  'security': 'deepseek-ai/deepseek-v3_2',
+  'devops': 'openai/gpt-oss-20b',
+  'design': 'google/gemma-3-27b-it',
+  'customer support': 'nvidia/llama-3.1-nemotron-ultra-253b-v1',
+  'api services': 'meta/llama-4-maverick-17b-128e-instruct',
+};
+
+export const CATEGORY_MODEL_LABELS: Record<string, string> = {
+  'deepseek-ai/deepseek-v3_2': 'DeepSeek V3.2',
+  'deepseek-ai/deepseek-r1': 'DeepSeek R1',
+  'meta/llama-4-maverick-17b-128e-instruct': 'Llama 4 Maverick',
+  'nvidia/llama-3.3-nemotron-super-49b-v1': 'Nemotron Super 49B',
+  'qwen/qwen3-coder-30b': 'Qwen3 Coder 30B',
+  'moonshotai/kimi-k2-instruct': 'Kimi K2.5',
+  'openai/gpt-oss-20b': 'GPT-OSS 20B',
+  'google/gemma-3-27b-it': 'Gemma 3 27B',
+  'nvidia/llama-3.1-nemotron-ultra-253b-v1': 'Nemotron Ultra 253B',
+};
+
+export function getAgentModel(category: string): string {
+  return CATEGORY_MODELS[category] || 'meta/llama-4-maverick-17b-128e-instruct';
+}
+
+export function getAgentModelLabel(model: string): string {
+  return CATEGORY_MODEL_LABELS[model] || model;
+}
+
 export function getAgentSystemPrompt(category: string): string {
   return AGENT_SYSTEM_PROMPTS[category] || DEFAULT_SYSTEM_PROMPT;
 }

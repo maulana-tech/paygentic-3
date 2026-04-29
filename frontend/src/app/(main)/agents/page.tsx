@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Header } from "@/components/pages/(app)";
 import { useUserStore } from "@/store/user";
-import { getServiceAccessesByUser, getListingById, getAgentById, getAgentType, getAgentTypeColor, AgentMessage } from "@/data/store";
+import { getServiceAccessesByUser, getListingById, getAgentById, getAgentType, getAgentTypeColor, getAgentModel, getAgentModelLabel, AgentMessage } from "@/data/store";
 
 interface AgentCard {
   accessId: string;
@@ -14,6 +14,8 @@ interface AgentCard {
   category: string;
   agentType: string;
   agentTypeColor: string;
+  modelId: string;
+  modelLabel: string;
   expiresAt: string;
   createdAt: string;
 }
@@ -38,6 +40,7 @@ export default function AgentsPage() {
         const listing = getListingById(a.listingId);
         const seller = listing ? getAgentById(listing.agentId || listing.userId) : null;
         const category = listing?.category || '';
+        const modelId = getAgentModel(category);
         return {
           accessId: a.id,
           accessToken: a.accessToken,
@@ -47,6 +50,8 @@ export default function AgentsPage() {
           category,
           agentType: getAgentType(category),
           agentTypeColor: getAgentTypeColor(getAgentType(category)),
+          modelId,
+          modelLabel: getAgentModelLabel(modelId),
           expiresAt: a.expiresAt,
           createdAt: a.accessTokenCreated
         };
@@ -241,6 +246,7 @@ export default function AgentsPage() {
 
                 <div className="mt-3 flex items-center gap-3 text-xs text-text-secondary">
                   <span className="rounded-none bg-gray-100 px-2 py-1">{agent.category}</span>
+                  <span className="rounded-none bg-blue-50 px-2 py-1 text-blue-700">{agent.modelLabel}</span>
                   <span>Expires {new Date(agent.expiresAt).toLocaleDateString()}</span>
                 </div>
 
@@ -265,6 +271,9 @@ export default function AgentsPage() {
                 <p className="text-xs text-text-secondary">
                   <span className={`mr-2 rounded-none border px-1.5 py-0.5 text-xs ${activeAgent.agentTypeColor}`}>
                     {activeAgent.agentType}
+                  </span>
+                  <span className="mr-2 rounded-none bg-blue-50 px-1.5 py-0.5 text-xs text-blue-700">
+                    {activeAgent.modelLabel}
                   </span>
                   by {activeAgent.sellerName}
                 </p>
