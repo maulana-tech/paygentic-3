@@ -25,7 +25,9 @@ export function PreferencesPanel() {
   if (!isConnected || !user) {
     return (
       <div className="glass-panel rounded-[1.75rem] p-6 text-center">
-        <p className="text-sm text-text-secondary">Connect wallet to manage preferences</p>
+        <p className="text-sm text-text-secondary">
+          Connect wallet to manage preferences
+        </p>
       </div>
     );
   }
@@ -39,13 +41,17 @@ export function PreferencesPanel() {
       "INFO",
       newValue
         ? `Enabled ${key === "autoBuyEnabled" ? "auto-buy" : "auto-list"}`
-        : `Disabled ${key === "autoBuyEnabled" ? "auto-buy" : "auto-list"}`
+        : `Disabled ${key === "autoBuyEnabled" ? "auto-buy" : "auto-list"}`,
     );
   };
 
   const handleBudgetChange = (
-    key: "maxPurchaseBudget" | "monthlyBudget" | "autoBuyThreshold" | "autoListMinPrice",
-    value: string
+    key:
+      | "maxPurchaseBudget"
+      | "monthlyBudget"
+      | "autoBuyThreshold"
+      | "autoListMinPrice",
+    value: string,
   ) => {
     if (value === "") {
       updatePreferences({ [key]: "" });
@@ -57,11 +63,17 @@ export function PreferencesPanel() {
   };
 
   const handleAddInterest = () => {
-    if (!newInterest.trim() || preferences.interests.includes(newInterest.trim().toLowerCase())) {
+    if (
+      !newInterest.trim() ||
+      preferences.interests.includes(newInterest.trim().toLowerCase())
+    ) {
       return;
     }
 
-    const updated = [...preferences.interests, newInterest.trim().toLowerCase()];
+    const updated = [
+      ...preferences.interests,
+      newInterest.trim().toLowerCase(),
+    ];
     updatePreferences({ interests: updated });
     addActivityLog(user.id, "INFO", `Added interest: ${newInterest.trim()}`);
     setNewInterest("");
@@ -76,13 +88,18 @@ export function PreferencesPanel() {
   const panelInputClass =
     "focus-ring field-shell mt-2 w-full rounded-2xl px-3 py-2.5 text-sm text-text-main";
   const segmentClass = "glass-inset rounded-[1.25rem] p-4";
-  const switchBaseClass = "focus-ring relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out";
+  const switchBaseClass =
+    "focus-ring relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out";
 
   return (
     <section className="glass-panel rounded-[1.75rem] p-4 sm:p-5">
       <div className="border-b border-slate-200/80 px-2 pb-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">Controls</p>
-        <h3 className="mt-2 text-lg font-semibold text-text-main">Agent preferences</h3>
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">
+          Controls
+        </p>
+        <h3 className="mt-2 text-lg font-semibold text-text-main">
+          Agent preferences
+        </h3>
         <p className="mt-1 text-sm text-text-secondary">
           Tune automation, budget, and workload without losing control.
         </p>
@@ -94,26 +111,29 @@ export function PreferencesPanel() {
             <div>
               <p className="font-medium text-text-main">Auto-buy services</p>
               <p className="mt-1 text-sm leading-5 text-text-secondary">
-                Automatically purchase listings that match your interests and budget rules.
+                Automatically purchase listings that match your interests and
+                budget rules.
               </p>
             </div>
-              <button
-                onClick={() => handleToggle("autoBuyEnabled")}
-                type="button"
-                role="switch"
-                aria-checked={preferences.autoBuyEnabled}
-                aria-pressed={preferences.autoBuyEnabled}
-                aria-label={`Auto-buy services ${preferences.autoBuyEnabled ? "enabled" : "disabled"}`}
-                className={`${switchBaseClass} ${
-                  preferences.autoBuyEnabled ? "bg-brand" : "bg-slate-300 dark:bg-slate-600"
+            <button
+              onClick={() => handleToggle("autoBuyEnabled")}
+              type="button"
+              role="switch"
+              aria-checked={preferences.autoBuyEnabled}
+              aria-pressed={preferences.autoBuyEnabled}
+              aria-label={`Auto-buy services ${preferences.autoBuyEnabled ? "enabled" : "disabled"}`}
+              className={`${switchBaseClass} ${
+                preferences.autoBuyEnabled
+                  ? "bg-brand"
+                  : "bg-slate-300 dark:bg-slate-600"
+              }`}
+            >
+              <span
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                  preferences.autoBuyEnabled ? "translate-x-5" : "translate-x-0"
                 }`}
-              >
-                <span
-                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                    preferences.autoBuyEnabled ? "translate-x-5" : "translate-x-0"
-                  }`}
-                />
-              </button>
+              />
+            </button>
           </div>
 
           {preferences.autoBuyEnabled && (
@@ -127,7 +147,9 @@ export function PreferencesPanel() {
                   <input
                     type="number"
                     value={preferences.maxPurchaseBudget}
-                    onChange={(e) => handleBudgetChange("maxPurchaseBudget", e.target.value)}
+                    onChange={(e) =>
+                      handleBudgetChange("maxPurchaseBudget", e.target.value)
+                    }
                     className="focus-ring w-full border-0 bg-transparent px-2 py-2.5 text-sm text-text-main"
                   />
                 </div>
@@ -141,7 +163,9 @@ export function PreferencesPanel() {
                   <input
                     type="number"
                     value={preferences.autoBuyThreshold}
-                    onChange={(e) => handleBudgetChange("autoBuyThreshold", e.target.value)}
+                    onChange={(e) =>
+                      handleBudgetChange("autoBuyThreshold", e.target.value)
+                    }
                     className="focus-ring w-full border-0 bg-transparent px-2 py-2.5 text-sm text-text-main"
                   />
                 </div>
@@ -155,26 +179,31 @@ export function PreferencesPanel() {
             <div>
               <p className="font-medium text-text-main">Auto-list services</p>
               <p className="mt-1 text-sm leading-5 text-text-secondary">
-                Allow the agent to create sellable service listings using your floor price.
+                Allow the agent to create sellable service listings using your
+                floor price.
               </p>
             </div>
-              <button
-                onClick={() => handleToggle("autoListEnabled")}
-                type="button"
-                role="switch"
-                aria-checked={preferences.autoListEnabled}
-                aria-pressed={preferences.autoListEnabled}
-                aria-label={`Auto-list services ${preferences.autoListEnabled ? "enabled" : "disabled"}`}
-                className={`${switchBaseClass} ${
-                  preferences.autoListEnabled ? "bg-brand" : "bg-slate-300 dark:bg-slate-600"
+            <button
+              onClick={() => handleToggle("autoListEnabled")}
+              type="button"
+              role="switch"
+              aria-checked={preferences.autoListEnabled}
+              aria-pressed={preferences.autoListEnabled}
+              aria-label={`Auto-list services ${preferences.autoListEnabled ? "enabled" : "disabled"}`}
+              className={`${switchBaseClass} ${
+                preferences.autoListEnabled
+                  ? "bg-brand"
+                  : "bg-slate-300 dark:bg-slate-600"
+              }`}
+            >
+              <span
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                  preferences.autoListEnabled
+                    ? "translate-x-5"
+                    : "translate-x-0"
                 }`}
-              >
-                <span
-                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                    preferences.autoListEnabled ? "translate-x-5" : "translate-x-0"
-                  }`}
-                />
-              </button>
+              />
+            </button>
           </div>
 
           {preferences.autoListEnabled && (
@@ -187,7 +216,9 @@ export function PreferencesPanel() {
                 <input
                   type="number"
                   value={preferences.autoListMinPrice || "1"}
-                  onChange={(e) => handleBudgetChange("autoListMinPrice", e.target.value)}
+                  onChange={(e) =>
+                    handleBudgetChange("autoListMinPrice", e.target.value)
+                  }
                   className="focus-ring w-full border-0 bg-transparent px-2 py-2.5 text-sm text-text-main"
                 />
               </div>
@@ -205,7 +236,9 @@ export function PreferencesPanel() {
             <input
               type="number"
               value={preferences.monthlyBudget}
-              onChange={(e) => handleBudgetChange("monthlyBudget", e.target.value)}
+              onChange={(e) =>
+                handleBudgetChange("monthlyBudget", e.target.value)
+              }
               className="focus-ring w-full border-0 bg-transparent px-2 py-2.5 text-sm text-text-main"
             />
             <span className="text-sm text-text-secondary">USDC</span>
@@ -215,7 +248,8 @@ export function PreferencesPanel() {
         <div className={segmentClass}>
           <p className="font-medium text-text-main">Interests</p>
           <p className="mt-1 text-sm leading-5 text-text-secondary">
-            Guide marketplace discovery with a focused set of service categories.
+            Guide marketplace discovery with a focused set of service
+            categories.
           </p>
 
           <div className="mt-3 flex flex-wrap gap-2">
@@ -245,7 +279,9 @@ export function PreferencesPanel() {
               placeholder="Add interest..."
               options={[
                 { value: "", label: "Add interest..." },
-                ...AVAILABLE_INTERESTS.filter((interest) => !preferences.interests.includes(interest)).map((category) => ({
+                ...AVAILABLE_INTERESTS.filter(
+                  (interest) => !preferences.interests.includes(interest),
+                ).map((category) => ({
                   value: category,
                   label: category,
                 })),
@@ -265,12 +301,15 @@ export function PreferencesPanel() {
         <div className={segmentClass}>
           <p className="font-medium text-text-main">Max concurrent tasks</p>
           <p className="mt-1 text-sm leading-5 text-text-secondary">
-            Limit how many tasks the agent can run at once to balance throughput and reliability.
+            Limit how many tasks the agent can run at once to balance throughput
+            and reliability.
           </p>
           <div className="mt-2">
             <GlassSelect
               value={String(preferences.maxConcurrentTasks || 3)}
-              onChange={(val) => updatePreferences({ maxConcurrentTasks: parseInt(val) })}
+              onChange={(val) =>
+                updatePreferences({ maxConcurrentTasks: parseInt(val) })
+              }
               options={[
                 { value: "1", label: "1 task" },
                 { value: "2", label: "2 tasks" },
@@ -289,19 +328,31 @@ export function PreferencesPanel() {
           </p>
           <div className="mt-2 space-y-2">
             {[
-              { value: "fast", label: "Fast - Quick responses, simpler outputs" },
+              {
+                value: "fast",
+                label: "Fast - Quick responses, simpler outputs",
+              },
               { value: "balanced", label: "Balanced - Good speed and quality" },
               { value: "thorough", label: "Thorough - Best quality, slower" },
             ].map((option) => (
-              <label key={option.value} className="glass-inset flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-3">
+              <label
+                key={option.value}
+                className="glass-inset flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-3"
+              >
                 <input
                   type="radio"
                   name="responseTimePreference"
                   value={option.value}
-                  checked={(preferences.responseTimePreference || "balanced") === option.value}
+                  checked={
+                    (preferences.responseTimePreference || "balanced") ===
+                    option.value
+                  }
                   onChange={(e) =>
                     updatePreferences({
-                      responseTimePreference: e.target.value as "fast" | "balanced" | "thorough",
+                      responseTimePreference: e.target.value as
+                        | "fast"
+                        | "balanced"
+                        | "thorough",
                     })
                   }
                   className="accent-brand"
