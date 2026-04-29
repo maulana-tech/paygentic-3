@@ -15,13 +15,22 @@ interface GlassSelectProps {
   className?: string;
 }
 
-export function GlassSelect({ value, onChange, options, placeholder = "Select...", className = "" }: GlassSelectProps) {
+export function GlassSelect({
+  value,
+  onChange,
+  options,
+  placeholder = "Select...",
+  className = "",
+}: GlassSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -29,7 +38,7 @@ export function GlassSelect({ value, onChange, options, placeholder = "Select...
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const selectedOption = options.find(opt => opt.value === value);
+  const selectedOption = options.find((opt) => opt.value === value);
 
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
@@ -38,7 +47,9 @@ export function GlassSelect({ value, onChange, options, placeholder = "Select...
         onClick={() => setIsOpen(!isOpen)}
         className="focus-ring field-shell flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm text-text-main hover:bg-white/40 dark:hover:bg-slate-800/40"
       >
-        <span className={selectedOption ? "text-text-main" : "text-text-secondary"}>
+        <span
+          className={selectedOption ? "text-text-main" : "text-text-secondary"}
+        >
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <svg
@@ -47,14 +58,21 @@ export function GlassSelect({ value, onChange, options, placeholder = "Select...
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
 
       {isOpen && (
         <div className="glass-panel-strong absolute z-50 mt-2 max-h-60 w-full overflow-y-auto rounded-[1.25rem] py-2 shadow-xl outline-none">
           {options.length === 0 ? (
-            <div className="px-4 py-2 text-sm text-text-secondary">No options available</div>
+            <div className="px-4 py-2 text-sm text-text-secondary">
+              No options available
+            </div>
           ) : (
             options.map((option) => (
               <button
