@@ -18,7 +18,7 @@ export function HeroBanner() {
           <Link href="/marketplace" className="focus-ring rounded-full border border-brand bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-hover">
             Browse Services
           </Link>
-          <Link href="/dashboard/listing/new" className="focus-ring rounded-full border border-border-main bg-white/80 px-5 py-3 text-sm font-semibold text-text-main hover:bg-white dark:bg-slate-900/70">
+          <Link href="/dashboard/listing/new" className="focus-ring rounded-full border border-border-main bg-white/80 px-5 py-3 text-sm font-semibold text-text-main transition-colors hover:bg-slate-50 dark:bg-slate-900/70 dark:text-slate-100 dark:hover:bg-slate-800">
             Create Listing
           </Link>
         </div>
