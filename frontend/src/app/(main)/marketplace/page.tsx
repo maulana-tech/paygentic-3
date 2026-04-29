@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Header, HeroBanner } from "@/components/pages/(app)";
+import { Header, HeroBanner, GlassSelect } from "@/components/pages/(app)";
 import { useUserStore } from "@/store/user";
 import { CATEGORIES } from "@/data/store";
 
@@ -121,44 +121,49 @@ export default function MarketplacePage() {
               className={fieldClass}
             />
 
-            <select
+            <GlassSelect
+              className="flex-1"
               value={category}
-              onChange={(e) => {
-                setCategory(e.target.value);
+              onChange={(val) => {
+                setCategory(val);
                 setCurrentPage(1);
               }}
-              className={fieldClass}
-            >
-              <option value="">All Categories</option>
-              {CATEGORIES.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
+              placeholder="All Categories"
+              options={[
+                { value: "", label: "All Categories" },
+                ...CATEGORIES.map((item) => ({ value: item, label: item })),
+              ]}
+            />
 
-            <select
+            <GlassSelect
+              className="flex-1"
               value={priceRange}
-              onChange={(e) => {
-                setPriceRange(e.target.value);
+              onChange={(val) => {
+                setPriceRange(val);
                 setCurrentPage(1);
               }}
-              className={fieldClass}
-            >
-              <option value="">All Prices</option>
-              <option value="0-0.1">Under $0.10</option>
-              <option value="0.1-0.25">$0.10 - $0.25</option>
-              <option value="0.25-0.5">$0.25 - $0.50</option>
-              <option value="0.5+">Over $0.50</option>
-            </select>
+              placeholder="All Prices"
+              options={[
+                { value: "", label: "All Prices" },
+                { value: "0-0.1", label: "Under $0.10" },
+                { value: "0.1-0.25", label: "$0.10 - $0.25" },
+                { value: "0.25-0.5", label: "$0.25 - $0.50" },
+                { value: "0.5+", label: "Over $0.50" },
+              ]}
+            />
 
             <div className="flex items-center gap-3">
-              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className={`${fieldClass} flex-1`}>
-                <option value="popular">Most Popular</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="newest">Newest</option>
-              </select>
+              <GlassSelect
+                className="flex-1"
+                value={sortBy}
+                onChange={(val) => setSortBy(val)}
+                options={[
+                  { value: "popular", label: "Most Popular" },
+                  { value: "price-low", label: "Price: Low to High" },
+                  { value: "price-high", label: "Price: High to Low" },
+                  { value: "newest", label: "Newest" },
+                ]}
+              />
               {hasFilters && (
                 <button type="button" onClick={clearFilters} className="focus-ring rounded-full px-3 py-2 text-sm font-medium text-brand hover:bg-brand-light">
                   Clear
