@@ -22,7 +22,7 @@ export function ReviewPanel({ sellerAgentId, sellerName, listingId, onReviewSubm
   const handleSubmit = async () => {
     setSubmitting(true);
     setError("");
-    
+
     try {
       const res = await fetch("/api/reviews", {
         method: "POST",
@@ -36,20 +36,20 @@ export function ReviewPanel({ sellerAgentId, sellerName, listingId, onReviewSubm
           qualityScore,
           speedScore,
           commScore,
-          comment
-        })
+          comment,
+        }),
       });
-      
+
       const data = await res.json();
-      
+
       if (!res.ok) {
         setError(data.error || "Failed to submit review");
         return;
       }
-      
+
       setSubmitted(true);
       onReviewSubmitted?.();
-    } catch (err) {
+    } catch {
       setError("Failed to submit review");
     } finally {
       setSubmitting(false);
@@ -58,81 +58,68 @@ export function ReviewPanel({ sellerAgentId, sellerName, listingId, onReviewSubm
 
   if (submitted) {
     return (
-      <div className="mt-4 rounded-none border border-green-300 bg-green-50 p-4">
-        <div className="flex items-center gap-2 text-green-700">
+      <div className="glass-panel rounded-[1.5rem] border border-emerald-200/70 p-4 dark:border-emerald-900/70">
+        <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
           <span>✓</span>
-          <span className="font-semibold">Review submitted!</span>
+          <span className="font-semibold">Review submitted</span>
         </div>
-        <p className="mt-1 text-sm text-green-600">
-          Thank you for rating {sellerName}.
-        </p>
+        <p className="mt-1 text-sm text-emerald-700 dark:text-emerald-400">Thank you for rating {sellerName}.</p>
       </div>
     );
   }
 
-  const renderStars = (score: number, setScore: (v: number) => void) => (
-    <div className="flex gap-1">
+  const renderStars = (score: number, setScore: (value: number) => void) => (
+    <div className="flex gap-1.5">
       {[1, 2, 3, 4, 5].map((star) => (
         <button
           key={star}
           type="button"
           onClick={() => setScore(star)}
-          className={`text-xl ${star <= score ? "text-yellow-400" : "text-gray-300"}`}
+          className={`cursor-pointer rounded-full p-1 transition-transform hover:scale-110 ${star <= score ? "text-amber-500" : "text-slate-300 dark:text-slate-600"}`}
         >
-          ★
+          <span className="text-2xl leading-none">★</span>
         </button>
       ))}
     </div>
   );
 
   return (
-    <div className="mt-4 rounded-none border border-border-main bg-gray-50 p-4">
-      <h3 className="font-semibold text-text-main">Rate Your Experience</h3>
-      <p className="mt-1 text-xs text-text-secondary">
-        How was your experience with {sellerName}?
-      </p>
-      
+    <div className="glass-inset rounded-[1.5rem] p-5">
+      <h3 className="font-semibold text-text-main">Rate your experience</h3>
+      <p className="mt-1 text-sm text-text-secondary">How was your experience with {sellerName}?</p>
+
       <div className="mt-4 space-y-4">
+        {[
+          { label: "Overall Rating", value: rating, setValue: setRating },
+          { label: "Quality of Work", value: qualityScore, setValue: setQualityScore },
+          { label: "Speed of Delivery", value: speedScore, setValue: setSpeedScore },
+          { label: "Communication", value: commScore, setValue: setCommScore },
+        ].map((item) => (
+          <div key={item.label}>
+            <label className="text-sm font-medium text-text-main">{item.label}</label>
+            <div className="mt-2">{renderStars(item.value, item.setValue)}</div>
+          </div>
+        ))}
+
         <div>
-          <label className="text-sm text-text-secondary">Overall Rating</label>
-          <div className="mt-1">{renderStars(rating, setRating)}</div>
-        </div>
-        
-        <div>
-          <label className="text-sm text-text-secondary">Quality of Work</label>
-          <div className="mt-1">{renderStars(qualityScore, setQualityScore)}</div>
-        </div>
-        
-        <div>
-          <label className="text-sm text-text-secondary">Speed of Delivery</label>
-          <div className="mt-1">{renderStars(speedScore, setSpeedScore)}</div>
-        </div>
-        
-        <div>
-          <label className="text-sm text-text-secondary">Communication</label>
-          <div className="mt-1">{renderStars(commScore, setCommScore)}</div>
-        </div>
-        
-        <div>
-          <label className="text-sm text-text-secondary">Comment (optional)</label>
+          <label className="text-sm font-medium text-text-main">Comment (optional)</label>
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Share your experience..."
-            className="mt-1 w-full rounded-none border border-border-main bg-white px-3 py-2 text-sm outline-none"
+            className="focus-ring field-shell mt-2 w-full rounded-2xl px-3 py-3 text-sm text-text-main"
             rows={3}
           />
         </div>
       </div>
-      
-      {error && (
-        <p className="mt-2 text-sm text-red-600">{error}</p>
-      )}
-      
+
+      {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+
       <button
+        type="button"
         onClick={handleSubmit}
         disabled={submitting}
-        className="mt-4 w-full rounded-none bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover disabled:opacity-50"
+        className="focus-ring mt-5 w-full rounded-full border border-brand bg-brand px-4 py-3 text-sm font-semibold text-white hover:bg-brand-hover disabled:opacity-50"
       >
         {submitting ? "Submitting..." : "Submit Review"}
       </button>
