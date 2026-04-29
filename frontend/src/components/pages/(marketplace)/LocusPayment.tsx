@@ -178,22 +178,22 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
           </div>
 
           <div className="rounded-none bg-white p-3 border border-green-200">
-            <p className="text-xs font-medium text-green-800">How to use this service:</p>
+            <p className="text-xs font-medium text-green-800">Your agent is ready to use:</p>
             <ol className="mt-2 space-y-1 text-xs text-green-700 list-decimal list-inside">
-              <li>Copy the access token above</li>
-              <li>Use it as a Bearer token in API requests</li>
+              <li>Go to My Agents to start chatting</li>
+              <li>Give your agent tasks to execute</li>
+              <li>Get AI-powered results in real-time</li>
               <li>Service is active for 1 year</li>
-              <li>You can manage access from your dashboard</li>
             </ol>
           </div>
         </div>
 
         <div className="flex gap-2 border-t border-green-200 px-5 py-3">
           <Link
-            href="/dashboard"
+            href="/agents"
             className="flex-1 rounded-none bg-green-600 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-700"
           >
-            View in Dashboard
+            Start Using Agent
           </Link>
           <Link
             href="/marketplace"

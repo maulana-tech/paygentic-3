@@ -7,6 +7,7 @@ import { LocusWalletConnect } from "./locus-wallet-connect";
 const NAV_ITEMS = [
   { href: "/", label: "Home" },
   { href: "/marketplace", label: "Marketplace" },
+  { href: "/agents", label: "My Agents" },
   { href: "/dashboard", label: "Dashboard" },
 ];
 
