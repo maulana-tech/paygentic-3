@@ -30,14 +30,29 @@ export default function NewListingPage() {
         <main className="relative mx-auto max-w-4xl px-6 pb-16 pt-12 sm:px-8">
           <div className="glass-panel-strong rounded-[2rem] p-8 text-center sm:p-12">
             <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[1.75rem] bg-brand-light ring-1 ring-blue-100">
-              <svg className="h-10 w-10 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+              <svg
+                className="h-10 w-10 text-brand"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                />
               </svg>
             </div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">Listing access</p>
-            <h1 className="mt-3 text-3xl font-semibold tracking-tight text-text-main">Connect wallet first</h1>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">
+              Listing access
+            </p>
+            <h1 className="mt-3 text-3xl font-semibold tracking-tight text-text-main">
+              Connect wallet first
+            </h1>
             <p className="mx-auto mt-3 max-w-xl text-base leading-7 text-text-secondary">
-              You need to connect your Locus Wallet before publishing a new service listing.
+              You need to connect your Locus Wallet before publishing a new
+              service listing.
             </p>
             <Link
               href="/"
@@ -56,7 +71,11 @@ export default function NewListingPage() {
     setError(null);
     setLoading(true);
 
-    if (!formData.title.trim() || !formData.description.trim() || !formData.priceUSDC) {
+    if (
+      !formData.title.trim() ||
+      !formData.description.trim() ||
+      !formData.priceUSDC
+    ) {
       setError("Please fill in all fields");
       setLoading(false);
       return;
@@ -83,10 +102,15 @@ export default function NewListingPage() {
 
     listings.push(newListing as never);
 
-    addActivityLog(user.id, "LISTING_CREATED", `Created listing: ${newListing.title}`, {
-      price: `$${newListing.priceUSDC}`,
-      category: newListing.category,
-    });
+    addActivityLog(
+      user.id,
+      "LISTING_CREATED",
+      `Created listing: ${newListing.title}`,
+      {
+        price: `$${newListing.priceUSDC}`,
+        category: newListing.category,
+      },
+    );
 
     router.push("/dashboard");
   };
@@ -106,38 +130,57 @@ export default function NewListingPage() {
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
           <section className="glass-panel-strong rounded-[2rem] p-6 sm:p-8">
             <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">Seller workflow</p>
-              <h1 className="mt-3 text-3xl font-semibold tracking-tight text-text-main">Create a listing that reads clearly and sells confidently.</h1>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">
+                Seller workflow
+              </p>
+              <h1 className="mt-3 text-3xl font-semibold tracking-tight text-text-main">
+                Create a listing that reads clearly and sells confidently.
+              </h1>
               <p className="mt-4 text-base leading-7 text-text-secondary">
-                Publish a focused service offer with a clear title, scoped description, and a price that clients can evaluate quickly.
+                Publish a focused service offer with a clear title, scoped
+                description, and a price that clients can evaluate quickly.
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div className="glass-inset rounded-[1.5rem] p-5">
-                <label htmlFor="listing-title" className="block text-sm font-medium text-text-main">
+                <label
+                  htmlFor="listing-title"
+                  className="block text-sm font-medium text-text-main"
+                >
                   Title
                 </label>
-                <p className="mt-1 text-sm text-text-secondary">Keep it specific and outcome-focused.</p>
+                <p className="mt-1 text-sm text-text-secondary">
+                  Keep it specific and outcome-focused.
+                </p>
                 <input
                   id="listing-title"
                   type="text"
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
                   placeholder="e.g., Python script generation for internal tools"
                   className={inputClass}
                 />
               </div>
 
               <div className="glass-inset rounded-[1.5rem] p-5">
-                <label htmlFor="listing-description" className="block text-sm font-medium text-text-main">
+                <label
+                  htmlFor="listing-description"
+                  className="block text-sm font-medium text-text-main"
+                >
                   Description
                 </label>
-                <p className="mt-1 text-sm text-text-secondary">Describe the scope, deliverable, and expected result.</p>
+                <p className="mt-1 text-sm text-text-secondary">
+                  Describe the scope, deliverable, and expected result.
+                </p>
                 <textarea
                   id="listing-description"
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                   placeholder="Describe what your service does, what the buyer gets, and where it performs best."
                   rows={5}
                   className={`${inputClass} resize-y`}
@@ -146,24 +189,39 @@ export default function NewListingPage() {
 
               <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div className="glass-inset rounded-[1.5rem] p-5">
-                  <label htmlFor="listing-category" className="block text-sm font-medium text-text-main">
+                  <label
+                    htmlFor="listing-category"
+                    className="block text-sm font-medium text-text-main"
+                  >
                     Category
                   </label>
-                  <p className="mt-1 text-sm text-text-secondary">Choose the closest fit for discovery and filtering.</p>
+                  <p className="mt-1 text-sm text-text-secondary">
+                    Choose the closest fit for discovery and filtering.
+                  </p>
                   <div className="mt-2">
                     <GlassSelect
                       value={formData.category}
-                      onChange={(val) => setFormData({ ...formData, category: val })}
-                      options={CATEGORIES.map((category) => ({ value: category, label: category }))}
+                      onChange={(val) =>
+                        setFormData({ ...formData, category: val })
+                      }
+                      options={CATEGORIES.map((category) => ({
+                        value: category,
+                        label: category,
+                      }))}
                     />
                   </div>
                 </div>
 
                 <div className="glass-inset rounded-[1.5rem] p-5">
-                  <label htmlFor="listing-price" className="block text-sm font-medium text-text-main">
+                  <label
+                    htmlFor="listing-price"
+                    className="block text-sm font-medium text-text-main"
+                  >
                     Price
                   </label>
-                  <p className="mt-1 text-sm text-text-secondary">Set a single upfront amount in Locus Credits.</p>
+                  <p className="mt-1 text-sm text-text-secondary">
+                    Set a single upfront amount in Locus Credits.
+                  </p>
                   <div className="focus-ring mt-2 flex items-center rounded-2xl border border-border-main bg-white/80 px-4 py-3">
                     <span className="text-text-secondary">$</span>
                     <input
@@ -172,7 +230,9 @@ export default function NewListingPage() {
                       step="0.01"
                       min="0"
                       value={formData.priceUSDC}
-                      onChange={(e) => setFormData({ ...formData, priceUSDC: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, priceUSDC: e.target.value })
+                      }
                       placeholder="0.00"
                       className="ml-2 w-full border-0 bg-transparent text-sm text-text-main outline-none"
                     />
@@ -181,7 +241,10 @@ export default function NewListingPage() {
               </div>
 
               {error && (
-                <div className="rounded-2xl border border-red-200 bg-red-50/90 px-4 py-3 text-sm text-red-700" role="alert">
+                <div
+                  className="rounded-2xl border border-red-200 bg-red-50/90 px-4 py-3 text-sm text-red-700"
+                  role="alert"
+                >
                   {error}
                 </div>
               )}
@@ -205,8 +268,12 @@ export default function NewListingPage() {
           </section>
 
           <aside className="glass-panel rounded-[2rem] p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">Checklist</p>
-            <h2 className="mt-2 text-lg font-semibold text-text-main">Before you publish</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">
+              Checklist
+            </p>
+            <h2 className="mt-2 text-lg font-semibold text-text-main">
+              Before you publish
+            </h2>
             <div className="mt-5 space-y-3">
               {[
                 "Use a title that names the exact service.",
@@ -214,7 +281,10 @@ export default function NewListingPage() {
                 "Choose the category buyers will actually browse.",
                 "Set a price that matches the scope and effort.",
               ].map((item) => (
-                <div key={item} className="glass-inset flex items-start gap-3 rounded-[1.25rem] p-4">
+                <div
+                  key={item}
+                  className="glass-inset flex items-start gap-3 rounded-[1.25rem] p-4"
+                >
                   <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-light text-xs font-semibold text-brand">
                     ✓
                   </div>
