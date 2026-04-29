@@ -46,6 +46,10 @@ export function PreferencesPanel() {
     key: "maxPurchaseBudget" | "monthlyBudget" | "autoBuyThreshold" | "autoListMinPrice",
     value: string
   ) => {
+    if (value === "") {
+      updatePreferences({ [key]: "" });
+      return;
+    }
     const numValue = parseFloat(value);
     if (isNaN(numValue) || numValue < 0) return;
     updatePreferences({ [key]: value });
@@ -69,9 +73,9 @@ export function PreferencesPanel() {
   };
 
   const panelInputClass =
-    "focus-ring mt-2 w-full rounded-2xl border border-border-main bg-white/80 px-3 py-2.5 text-sm text-text-main";
+    "focus-ring field-shell mt-2 w-full rounded-2xl px-3 py-2.5 text-sm text-text-main";
   const segmentClass = "glass-inset rounded-[1.25rem] p-4";
-  const switchBaseClass = "focus-ring relative h-7 w-12 rounded-full border transition-colors";
+  const switchBaseClass = "focus-ring relative h-8 w-14 rounded-full border transition-all duration-200";
 
   return (
     <section className="glass-panel rounded-[1.75rem] p-4 sm:p-5">
@@ -92,20 +96,34 @@ export function PreferencesPanel() {
                 Automatically purchase listings that match your interests and budget rules.
               </p>
             </div>
-            <button
-              onClick={() => handleToggle("autoBuyEnabled")}
-              type="button"
+              <button
+                onClick={() => handleToggle("autoBuyEnabled")}
+                type="button"
+                role="switch"
+              aria-checked={preferences.autoBuyEnabled}
               aria-pressed={preferences.autoBuyEnabled}
               aria-label={`Auto-buy services ${preferences.autoBuyEnabled ? "enabled" : "disabled"}`}
               className={`${switchBaseClass} ${
-                preferences.autoBuyEnabled ? "border-brand bg-brand" : "border-slate-300 bg-slate-200"
+                preferences.autoBuyEnabled
+                  ? "border-brand bg-brand shadow-[0_0_0_4px_rgba(37,99,235,0.12)]"
+                  : "border-slate-300 bg-slate-200 dark:border-slate-600 dark:bg-slate-700"
               }`}
             >
+              <span className="pointer-events-none absolute inset-y-0 left-2 flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80">
+                On
+              </span>
+              <span className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-300">
+                Off
+              </span>
               <span
-                className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow-sm transition-transform ${
-                  preferences.autoBuyEnabled ? "left-6" : "left-1"
+                className={`absolute top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-sm transition-all duration-200 ${
+                  preferences.autoBuyEnabled ? "left-7 text-brand" : "left-1 text-slate-400"
                 }`}
-              />
+              >
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d={preferences.autoBuyEnabled ? "M5 13l4 4L19 7" : "M6 18L18 6M6 6l12 12"} />
+                </svg>
+              </span>
             </button>
           </div>
 
@@ -151,20 +169,34 @@ export function PreferencesPanel() {
                 Allow the agent to create sellable service listings using your floor price.
               </p>
             </div>
-            <button
-              onClick={() => handleToggle("autoListEnabled")}
-              type="button"
+              <button
+                onClick={() => handleToggle("autoListEnabled")}
+                type="button"
+                role="switch"
+              aria-checked={preferences.autoListEnabled}
               aria-pressed={preferences.autoListEnabled}
               aria-label={`Auto-list services ${preferences.autoListEnabled ? "enabled" : "disabled"}`}
               className={`${switchBaseClass} ${
-                preferences.autoListEnabled ? "border-brand bg-brand" : "border-slate-300 bg-slate-200"
+                preferences.autoListEnabled
+                  ? "border-brand bg-brand shadow-[0_0_0_4px_rgba(37,99,235,0.12)]"
+                  : "border-slate-300 bg-slate-200 dark:border-slate-600 dark:bg-slate-700"
               }`}
             >
+              <span className="pointer-events-none absolute inset-y-0 left-2 flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80">
+                On
+              </span>
+              <span className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-300">
+                Off
+              </span>
               <span
-                className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow-sm transition-transform ${
-                  preferences.autoListEnabled ? "left-6" : "left-1"
+                className={`absolute top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-sm transition-all duration-200 ${
+                  preferences.autoListEnabled ? "left-7 text-brand" : "left-1 text-slate-400"
                 }`}
-              />
+              >
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d={preferences.autoListEnabled ? "M5 13l4 4L19 7" : "M6 18L18 6M6 6l12 12"} />
+                </svg>
+              </span>
             </button>
           </div>
 
