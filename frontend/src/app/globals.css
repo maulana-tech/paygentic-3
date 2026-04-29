@@ -1,51 +1,71 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme inline {
-  --color-background: #ffffff;
-  --color-foreground: #171717;
-  --color-brand: #2563eb;
-  --color-brand-hover: #1d4ed8;
-  --color-brand-light: rgba(219, 234, 254, 0.86);
-  --color-brand-strong: #1e40af;
-  --color-surface: #fcfdff;
-  --color-main-bg: #eef4f9;
-  --color-border-main: rgba(148, 163, 184, 0.24);
-  --color-text-main: #122033;
-  --color-text-secondary: #607089;
-  --color-text-muted: #415067;
-  --color-glass-surface: rgba(255, 255, 255, 0.64);
-  --color-glass-surface-strong: rgba(255, 255, 255, 0.8);
-  --color-glass-border: rgba(173, 188, 209, 0.32);
-  --color-glass-border-strong: rgba(160, 177, 200, 0.44);
-  --color-glass-shadow: 0 24px 56px rgba(35, 61, 96, 0.1);
-  --color-glass-shadow-soft: 0 14px 34px rgba(35, 61, 96, 0.08);
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-light: var(--brand-light);
+  --color-brand-strong: var(--brand-strong);
+  --color-surface: var(--surface);
+  --color-main-bg: var(--main-bg);
+  --color-border-main: var(--border-main);
+  --color-text-main: var(--text-main);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-glass-surface: var(--glass-surface);
+  --color-glass-surface-strong: var(--glass-surface-strong);
+  --color-glass-border: var(--glass-border);
+  --color-glass-border-strong: var(--glass-border-strong);
+  --color-glass-shadow: var(--glass-shadow);
+  --color-glass-shadow-soft: var(--glass-shadow-soft);
   --font-sans: var(--font-inter);
 }
 
 :root {
   color-scheme: light;
+  --bg: #ffffff;
+  --fg: #171717;
+  --brand: #2563eb;
+  --brand-hover: #1d4ed8;
+  --brand-light: rgba(219, 234, 254, 0.86);
+  --brand-strong: #1e40af;
+  --surface: #fcfdff;
+  --main-bg: #eef4f9;
+  --border-main: rgba(148, 163, 184, 0.24);
+  --text-main: #122033;
+  --text-secondary: #607089;
+  --text-muted: #415067;
+  --glass-surface: rgba(255, 255, 255, 0.64);
+  --glass-surface-strong: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(173, 188, 209, 0.32);
+  --glass-border-strong: rgba(160, 177, 200, 0.44);
+  --glass-shadow: 0 24px 56px rgba(35, 61, 96, 0.1);
+  --glass-shadow-soft: 0 14px 34px rgba(35, 61, 96, 0.08);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --color-background: #07111f;
-  --color-foreground: #e6eef8;
-  --color-brand: #6fb2ff;
-  --color-brand-hover: #9bc9ff;
-  --color-brand-light: rgba(111, 178, 255, 0.16);
-  --color-brand-strong: #d8e8ff;
-  --color-surface: #0c1829;
-  --color-main-bg: #07111f;
-  --color-border-main: rgba(123, 150, 184, 0.22);
-  --color-text-main: #edf4ff;
-  --color-text-secondary: #9bb0c9;
-  --color-text-muted: #d4dfef;
-  --color-glass-surface: rgba(12, 24, 41, 0.66);
-  --color-glass-surface-strong: rgba(12, 24, 41, 0.82);
-  --color-glass-border: rgba(120, 147, 182, 0.22);
-  --color-glass-border-strong: rgba(135, 165, 203, 0.28);
-  --color-glass-shadow: 0 26px 56px rgba(2, 8, 18, 0.52);
-  --color-glass-shadow-soft: 0 16px 38px rgba(2, 8, 18, 0.36);
+  --bg: #0d1625;
+  --fg: #d8e4f2;
+  --brand: #5ba3f5;
+  --brand-hover: #7ab8ff;
+  --brand-light: rgba(91, 163, 245, 0.14);
+  --brand-strong: #c4d9f5;
+  --surface: #111e2f;
+  --main-bg: #0d1625;
+  --border-main: rgba(100, 130, 168, 0.22);
+  --text-main: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --glass-surface: rgba(14, 24, 42, 0.72);
+  --glass-surface-strong: rgba(14, 24, 42, 0.86);
+  --glass-border: rgba(100, 130, 168, 0.2);
+  --glass-border-strong: rgba(115, 148, 188, 0.28);
+  --glass-shadow: 0 24px 50px rgba(4, 10, 24, 0.52);
+  --glass-shadow-soft: 0 16px 36px rgba(4, 10, 24, 0.36);
 }
 
 body {
@@ -98,9 +118,9 @@ textarea::placeholder {
 
 [data-theme="dark"] .dashboard-shell::before {
   background:
-    radial-gradient(circle at top left, rgba(111, 178, 255, 0.18), transparent 32%),
-    radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 36%),
-    linear-gradient(180deg, rgba(12, 24, 41, 0.42) 0%, rgba(7, 17, 31, 0) 34%);
+    radial-gradient(circle at top left, rgba(91, 163, 245, 0.1), transparent 32%),
+    radial-gradient(circle at top right, rgba(56, 140, 220, 0.07), transparent 36%),
+    linear-gradient(180deg, rgba(14, 24, 42, 0.38) 0%, rgba(13, 22, 37, 0) 34%);
 }
 
 .glass-panel {
@@ -171,6 +191,25 @@ textarea::placeholder {
   position: relative;
 }
 
+.nav-inactive:hover {
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--color-text-main);
+}
+
+[data-theme="dark"] .nav-inactive:hover {
+  background: rgba(17, 30, 47, 0.8);
+}
+
+.wallet-balance-badge {
+  background: rgba(209, 250, 229, 0.85);
+  color: #065f46;
+}
+
+[data-theme="dark"] .wallet-balance-badge {
+  background: rgba(6, 78, 59, 0.45);
+  color: #6ee7b7;
+}
+
 .theme-icon-enter {
   animation: theme-pop 220ms ease;
 }
@@ -178,11 +217,11 @@ textarea::placeholder {
 @keyframes theme-pop {
   from {
     opacity: 0;
-    transform: scale(0.82) rotate(-28deg);
+    transform: rotate(-90deg);
   }
   to {
     opacity: 1;
-    transform: scale(1) rotate(0deg);
+    transform: rotate(0deg);
   }
 }
 
