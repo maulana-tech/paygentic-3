@@ -11,8 +11,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
       </svg>
     ),
-    bg: "bg-green-100",
-    text: "text-green-700",
+    bg: "bg-green-100 dark:bg-green-900/30",
+    text: "text-green-700 dark:text-green-400",
   },
   SALE: {
     icon: (
@@ -20,8 +20,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.337 2.88.9M12 20c-1.657 0-3-.895-3-2s1.343-2 3-2 3 .895 3 2-1.343 2-3 2m-2-4h.01M6 16H4v2h2v-2z" />
       </svg>
     ),
-    bg: "bg-blue-100",
-    text: "text-blue-700",
+    bg: "bg-blue-100 dark:bg-blue-900/30",
+    text: "text-blue-700 dark:text-blue-400",
   },
   LISTING_CREATED: {
     icon: (
@@ -29,8 +29,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
       </svg>
     ),
-    bg: "bg-slate-100",
-    text: "text-slate-700",
+    bg: "bg-slate-200 dark:bg-slate-800",
+    text: "text-slate-700 dark:text-slate-300",
   },
   LISTING_UPDATED: {
     icon: (
@@ -38,8 +38,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
       </svg>
     ),
-    bg: "bg-slate-100",
-    text: "text-slate-700",
+    bg: "bg-slate-200 dark:bg-slate-800",
+    text: "text-slate-700 dark:text-slate-300",
   },
   ERROR: {
     icon: (
@@ -47,8 +47,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
       </svg>
     ),
-    bg: "bg-red-100",
-    text: "text-red-700",
+    bg: "bg-red-100 dark:bg-red-900/30",
+    text: "text-red-700 dark:text-red-400",
   },
   INFO: {
     icon: (
@@ -56,8 +56,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    bg: "bg-brand-light",
-    text: "text-brand",
+    bg: "bg-brand-light dark:bg-brand-strong/30",
+    text: "text-brand-strong dark:text-brand-light",
   },
   OFFER_MADE: {
     icon: (
@@ -65,8 +65,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
       </svg>
     ),
-    bg: "bg-purple-100",
-    text: "text-purple-700",
+    bg: "bg-purple-100 dark:bg-purple-900/30",
+    text: "text-purple-700 dark:text-purple-400",
   },
   OFFER_ACCEPTED: {
     icon: (
@@ -74,8 +74,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
       </svg>
     ),
-    bg: "bg-green-100",
-    text: "text-green-700",
+    bg: "bg-green-100 dark:bg-green-900/30",
+    text: "text-green-700 dark:text-green-400",
   },
   OFFER_DECLINED: {
     icon: (
@@ -83,8 +83,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
       </svg>
     ),
-    bg: "bg-red-100",
-    text: "text-red-700",
+    bg: "bg-red-100 dark:bg-red-900/30",
+    text: "text-red-700 dark:text-red-400",
   },
   COUNTER_OFFER: {
     icon: (
@@ -92,8 +92,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
       </svg>
     ),
-    bg: "bg-orange-100",
-    text: "text-orange-700",
+    bg: "bg-orange-100 dark:bg-orange-900/30",
+    text: "text-orange-700 dark:text-orange-400",
   },
   REVIEW_SUBMITTED: {
     icon: (
@@ -101,8 +101,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
       </svg>
     ),
-    bg: "bg-yellow-100",
-    text: "text-yellow-700",
+    bg: "bg-yellow-100 dark:bg-yellow-900/30",
+    text: "text-yellow-700 dark:text-yellow-400",
   },
   SUBSCRIPTION_CREATED: {
     icon: (
@@ -110,8 +110,8 @@ const LOG_ICONS: Record<LogType, { icon: React.ReactNode; bg: string; text: stri
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
       </svg>
     ),
-    bg: "bg-blue-100",
-    text: "text-blue-700",
+    bg: "bg-blue-100 dark:bg-blue-900/30",
+    text: "text-blue-700 dark:text-blue-400",
   },
 };
 
@@ -215,7 +215,7 @@ export function ActivityLogPanel({ maxItems = 50, showFilters = true }: Props) {
       </div>
 
       {showFilters && (
-        <div className="flex gap-2 overflow-x-auto border-b border-slate-200/80 bg-white/35 px-4 py-3">
+        <div className="flex gap-2 overflow-x-auto border-b border-slate-200/80  px-4 py-3">
           {FILTER_OPTIONS.map((option) => {
             const count = option.value === "ALL" ? logs.length : logs.filter((log) => log.type === option.value).length;
 
@@ -227,7 +227,7 @@ export function ActivityLogPanel({ maxItems = 50, showFilters = true }: Props) {
                 className={`focus-ring flex items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-2 text-xs font-medium transition-all ${
                   filter === option.value
                     ? "border-brand bg-brand text-white shadow-sm"
-                    : "border-slate-200 bg-white/70 text-text-muted hover:border-slate-300 hover:bg-white"
+                    : "border-slate-200 bg-white/30 text-text-muted hover:border-slate-300 hover:bg-white"
                 }`}
               >
                 <span>{option.label}</span>
