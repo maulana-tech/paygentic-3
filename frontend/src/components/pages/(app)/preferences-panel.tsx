@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useUserStore } from "@/store/user";
 import { addActivityLog } from "@/data/store";
+import { GlassSelect } from "./glass-select";
 
 const AVAILABLE_INTERESTS = [
   "code generation",
@@ -75,7 +76,7 @@ export function PreferencesPanel() {
   const panelInputClass =
     "focus-ring field-shell mt-2 w-full rounded-2xl px-3 py-2.5 text-sm text-text-main";
   const segmentClass = "glass-inset rounded-[1.25rem] p-4";
-  const switchBaseClass = "focus-ring relative h-8 w-14 rounded-full border transition-all duration-200";
+  const switchBaseClass = "focus-ring relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out";
 
   return (
     <section className="glass-panel rounded-[1.75rem] p-4 sm:p-5">
@@ -100,31 +101,19 @@ export function PreferencesPanel() {
                 onClick={() => handleToggle("autoBuyEnabled")}
                 type="button"
                 role="switch"
-              aria-checked={preferences.autoBuyEnabled}
-              aria-pressed={preferences.autoBuyEnabled}
-              aria-label={`Auto-buy services ${preferences.autoBuyEnabled ? "enabled" : "disabled"}`}
-              className={`${switchBaseClass} ${
-                preferences.autoBuyEnabled
-                  ? "border-brand bg-brand shadow-[0_0_0_4px_rgba(37,99,235,0.12)]"
-                  : "border-slate-300 bg-slate-200 dark:border-slate-600 dark:bg-slate-700"
-              }`}
-            >
-              <span className="pointer-events-none absolute inset-y-0 left-2 flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80">
-                On
-              </span>
-              <span className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-300">
-                Off
-              </span>
-              <span
-                className={`absolute top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-sm transition-all duration-200 ${
-                  preferences.autoBuyEnabled ? "left-7 text-brand" : "left-1 text-slate-400"
+                aria-checked={preferences.autoBuyEnabled}
+                aria-pressed={preferences.autoBuyEnabled}
+                aria-label={`Auto-buy services ${preferences.autoBuyEnabled ? "enabled" : "disabled"}`}
+                className={`${switchBaseClass} ${
+                  preferences.autoBuyEnabled ? "bg-brand" : "bg-slate-300 dark:bg-slate-600"
                 }`}
               >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d={preferences.autoBuyEnabled ? "M5 13l4 4L19 7" : "M6 18L18 6M6 6l12 12"} />
-                </svg>
-              </span>
-            </button>
+                <span
+                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                    preferences.autoBuyEnabled ? "translate-x-5" : "translate-x-0"
+                  }`}
+                />
+              </button>
           </div>
 
           {preferences.autoBuyEnabled && (
@@ -173,31 +162,19 @@ export function PreferencesPanel() {
                 onClick={() => handleToggle("autoListEnabled")}
                 type="button"
                 role="switch"
-              aria-checked={preferences.autoListEnabled}
-              aria-pressed={preferences.autoListEnabled}
-              aria-label={`Auto-list services ${preferences.autoListEnabled ? "enabled" : "disabled"}`}
-              className={`${switchBaseClass} ${
-                preferences.autoListEnabled
-                  ? "border-brand bg-brand shadow-[0_0_0_4px_rgba(37,99,235,0.12)]"
-                  : "border-slate-300 bg-slate-200 dark:border-slate-600 dark:bg-slate-700"
-              }`}
-            >
-              <span className="pointer-events-none absolute inset-y-0 left-2 flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80">
-                On
-              </span>
-              <span className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-300">
-                Off
-              </span>
-              <span
-                className={`absolute top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-sm transition-all duration-200 ${
-                  preferences.autoListEnabled ? "left-7 text-brand" : "left-1 text-slate-400"
+                aria-checked={preferences.autoListEnabled}
+                aria-pressed={preferences.autoListEnabled}
+                aria-label={`Auto-list services ${preferences.autoListEnabled ? "enabled" : "disabled"}`}
+                className={`${switchBaseClass} ${
+                  preferences.autoListEnabled ? "bg-brand" : "bg-slate-300 dark:bg-slate-600"
                 }`}
               >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d={preferences.autoListEnabled ? "M5 13l4 4L19 7" : "M6 18L18 6M6 6l12 12"} />
-                </svg>
-              </span>
-            </button>
+                <span
+                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                    preferences.autoListEnabled ? "translate-x-5" : "translate-x-0"
+                  }`}
+                />
+              </button>
           </div>
 
           {preferences.autoListEnabled && (
@@ -245,14 +222,14 @@ export function PreferencesPanel() {
             {preferences.interests.map((interest) => (
               <span
                 key={interest}
-                className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50/90 px-3 py-1.5 text-xs font-medium text-brand-strong"
+                className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50/90 px-3 py-1.5 text-xs font-medium text-brand-strong dark:border-blue-900/30 dark:bg-blue-900/50 dark:text-blue-100"
               >
                 {interest}
                 <button
                   onClick={() => handleRemoveInterest(interest)}
                   type="button"
                   aria-label={`Remove interest ${interest}`}
-                  className="focus-ring rounded-full p-0.5 text-brand-strong hover:bg-white/80 hover:text-brand-hover"
+                  className="focus-ring rounded-full p-0.5 text-brand-strong hover:bg-white/80 hover:text-brand-hover dark:text-blue-200 dark:hover:bg-blue-800/60 dark:hover:text-blue-100"
                 >
                   ×
                 </button>
@@ -261,14 +238,19 @@ export function PreferencesPanel() {
           </div>
 
           <div className="mt-3 flex gap-2">
-            <select value={newInterest} onChange={(e) => setNewInterest(e.target.value)} className={panelInputClass}>
-              <option value="">Add interest...</option>
-              {AVAILABLE_INTERESTS.filter((interest) => !preferences.interests.includes(interest)).map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
+            <GlassSelect
+              className="flex-1"
+              value={newInterest}
+              onChange={(val) => setNewInterest(val)}
+              placeholder="Add interest..."
+              options={[
+                { value: "", label: "Add interest..." },
+                ...AVAILABLE_INTERESTS.filter((interest) => !preferences.interests.includes(interest)).map((category) => ({
+                  value: category,
+                  label: category,
+                })),
+              ]}
+            />
             <button
               onClick={handleAddInterest}
               disabled={!newInterest}
@@ -286,17 +268,17 @@ export function PreferencesPanel() {
             Limit how many tasks the agent can run at once to balance throughput and reliability.
           </p>
           <div className="mt-2">
-            <select
-              value={preferences.maxConcurrentTasks || 3}
-              onChange={(e) => updatePreferences({ maxConcurrentTasks: parseInt(e.target.value) })}
-              className={panelInputClass}
-            >
-              <option value={1}>1 task</option>
-              <option value={2}>2 tasks</option>
-              <option value={3}>3 tasks</option>
-              <option value={5}>5 tasks</option>
-              <option value={10}>10 tasks</option>
-            </select>
+            <GlassSelect
+              value={String(preferences.maxConcurrentTasks || 3)}
+              onChange={(val) => updatePreferences({ maxConcurrentTasks: parseInt(val) })}
+              options={[
+                { value: "1", label: "1 task" },
+                { value: "2", label: "2 tasks" },
+                { value: "3", label: "3 tasks" },
+                { value: "5", label: "5 tasks" },
+                { value: "10", label: "10 tasks" },
+              ]}
+            />
           </div>
         </div>
 
