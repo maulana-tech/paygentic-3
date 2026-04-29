@@ -15,17 +15,29 @@ export default function AppPage() {
 
         <section className="glass-panel rounded-[2rem] p-6 sm:p-8">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">Personal orchestration</p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-text-main sm:text-3xl">Your AI agent works better with tighter controls and clearer visibility.</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">
+              Personal orchestration
+            </p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-text-main sm:text-3xl">
+              Your AI agent works better with tighter controls and clearer
+              visibility.
+            </h2>
             <p className="mt-3 text-base leading-7 text-text-secondary">
-              Connect your Locus Wallet and let your AI agent buy, sell, and manage marketplace services with rules you can actually review.
+              Connect your Locus Wallet and let your AI agent buy, sell, and
+              manage marketplace services with rules you can actually review.
             </p>
           </div>
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <Link href="/marketplace" className="focus-ring inline-flex rounded-full border border-brand bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-hover">
+            <Link
+              href="/marketplace"
+              className="focus-ring inline-flex rounded-full border border-brand bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-hover"
+            >
               Browse Services
             </Link>
-            <Link href="/dashboard" className="focus-ring inline-flex rounded-full border border-border-main bg-white/80 px-5 py-3 text-sm font-semibold text-text-main hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-800">
+            <Link
+              href="/dashboard"
+              className="focus-ring inline-flex rounded-full border border-border-main bg-white/80 px-5 py-3 text-sm font-semibold text-text-main hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-800"
+            >
               Agent Dashboard
             </Link>
           </div>
@@ -49,15 +61,39 @@ export default function AppPage() {
               icon: "M13 10V3L4 14h7v7l9-11h-7z",
             },
           ].map((item, index) => (
-            <article key={item.title} className="glass-panel rounded-[1.75rem] p-5">
+            <article
+              key={item.title}
+              className="glass-panel rounded-[1.75rem] p-5"
+            >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-[1.25rem] bg-brand-light text-brand">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
-                  {index === 1 && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />}
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={item.icon}
+                  />
+                  {index === 1 && (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  )}
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-text-main">{item.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-text-secondary">{item.text}</p>
+              <h3 className="text-lg font-semibold text-text-main">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-text-secondary">
+                {item.text}
+              </p>
             </article>
           ))}
         </section>
@@ -65,7 +101,8 @@ export default function AppPage() {
         {isConnected && user && (
           <section className="glass-panel rounded-[1.75rem] border border-emerald-200/70 p-6 dark:border-emerald-900/70">
             <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">
-              Wallet connected: {user.walletAddress.slice(0, 10)}...{user.walletAddress.slice(-8)}
+              Wallet connected: {user.walletAddress.slice(0, 10)}...
+              {user.walletAddress.slice(-8)}
             </p>
             <p className="mt-1 text-sm text-emerald-700 dark:text-emerald-400">
               Your AI agent is ready to work.
