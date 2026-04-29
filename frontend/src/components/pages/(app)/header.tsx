@@ -23,7 +23,7 @@ export function Header() {
             C
           </div>
           <div>
-            <span className="block text-sm font-semibold tracking-[0.18em] text-text-secondary">CUSYGEN</span>
+            <span className="block text-sm font-semibold tracking-[0.18em] text-text-muted">CUSYGEN</span>
             <span className="block text-sm text-text-main">AI service workspace</span>
           </div>
         </Link>
@@ -38,7 +38,7 @@ export function Header() {
                 className={`focus-ring relative rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
                   isActive
                     ? "bg-brand text-white shadow-sm"
-                    : "text-text-secondary hover:-translate-y-0.5 hover:bg-white/70 hover:text-text-main dark:hover:bg-slate-800/80"
+                    : "text-text-secondary hover:bg-white/65 hover:text-text-main dark:hover:bg-slate-800/75"
                 }`}
               >
                 <span className="relative z-10">{item.label}</span>
@@ -64,7 +64,7 @@ export function Header() {
                 className={`focus-ring whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
                   isActive
                     ? "bg-brand text-white shadow-sm"
-                    : "text-text-secondary hover:bg-white/70 hover:text-text-main dark:hover:bg-slate-800/80"
+                    : "text-text-secondary hover:bg-white/65 hover:text-text-main dark:hover:bg-slate-800/75"
                 }`}
               >
                 {item.label}
