@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Header } from "@/components/pages/(app)";
+import { Header, GlassSelect } from "@/components/pages/(app)";
 import { useUserStore } from "@/store/user";
 import { CATEGORIES, addActivityLog, listings } from "@/data/store";
 
@@ -150,18 +150,13 @@ export default function NewListingPage() {
                     Category
                   </label>
                   <p className="mt-1 text-sm text-text-secondary">Choose the closest fit for discovery and filtering.</p>
-                  <select
-                    id="listing-category"
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className={inputClass}
-                  >
-                    {CATEGORIES.map((category) => (
-                      <option key={category} value={category}>
-                        {category}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="mt-2">
+                    <GlassSelect
+                      value={formData.category}
+                      onChange={(val) => setFormData({ ...formData, category: val })}
+                      options={CATEGORIES.map((category) => ({ value: category, label: category }))}
+                    />
+                  </div>
                 </div>
 
                 <div className="glass-inset rounded-[1.5rem] p-5">
