@@ -731,29 +731,30 @@ Provide professional, empathetic support content. Include different response tem
 export const DEFAULT_SYSTEM_PROMPT = `You are a helpful AI agent. Assist the user with their tasks professionally and thoroughly.`;
 
 export const CATEGORY_MODELS: Record<string, string> = {
-  'code generation': 'deepseek-ai/deepseek-v3_2',
-  'data analysis': 'deepseek-ai/deepseek-r1',
+  'code generation': 'qwen/qwen3-coder-480b-a35b-instruct',
+  'data analysis': 'nvidia/llama-3.3-nemotron-super-49b-v1',
   'content creation': 'meta/llama-4-maverick-17b-128e-instruct',
   'content writing': 'meta/llama-4-maverick-17b-128e-instruct',
   'research': 'nvidia/llama-3.3-nemotron-super-49b-v1',
-  'automation': 'qwen/qwen3-coder-30b',
+  'automation': 'openai/gpt-oss-20b',
   'translation': 'moonshotai/kimi-k2-instruct',
-  'security': 'deepseek-ai/deepseek-v3_2',
+  'security': 'qwen/qwen3-coder-480b-a35b-instruct',
   'devops': 'openai/gpt-oss-20b',
-  'design': 'google/gemma-3-27b-it',
-  'customer support': 'nvidia/llama-3.1-nemotron-ultra-253b-v1',
+  'design': 'meta/llama-4-maverick-17b-128e-instruct',
+  'customer support': 'meta/llama-4-maverick-17b-128e-instruct',
   'api services': 'meta/llama-4-maverick-17b-128e-instruct',
 };
 
 export const CATEGORY_MODEL_LABELS: Record<string, string> = {
-  'deepseek-ai/deepseek-v3_2': 'DeepSeek V3.2',
-  'deepseek-ai/deepseek-r1': 'DeepSeek R1',
-  'meta/llama-4-maverick-17b-128e-instruct': 'Llama 4 Maverick',
+  'qwen/qwen3-coder-480b-a35b-instruct': 'Qwen3 Coder 480B',
   'nvidia/llama-3.3-nemotron-super-49b-v1': 'Nemotron Super 49B',
-  'qwen/qwen3-coder-30b': 'Qwen3 Coder 30B',
-  'moonshotai/kimi-k2-instruct': 'Kimi K2.5',
+  'meta/llama-4-maverick-17b-128e-instruct': 'Llama 4 Maverick',
   'openai/gpt-oss-20b': 'GPT-OSS 20B',
+  'moonshotai/kimi-k2-instruct': 'Kimi K2',
+  'deepseek-ai/deepseek-v3.2': 'DeepSeek V3.2',
+  'deepseek-ai/deepseek-r1': 'DeepSeek R1',
   'google/gemma-3-27b-it': 'Gemma 3 27B',
+  'microsoft/phi-4-mini-instruct': 'Phi-4 Mini',
   'nvidia/llama-3.1-nemotron-ultra-253b-v1': 'Nemotron Ultra 253B',
 };
 

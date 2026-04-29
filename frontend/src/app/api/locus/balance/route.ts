@@ -7,8 +7,8 @@ export async function GET() {
   if (!LOCUS_API_KEY) {
     return NextResponse.json({ 
       balance: '0.00', 
-      token: 'USDC',
       walletAddress: null,
+      chain: 'base',
       demo: true 
     });
   }
@@ -23,12 +23,14 @@ export async function GET() {
     }
 
     const data = await res.json();
-    const balanceData = data.data || data;
+    const bd = data.data || data;
 
     return NextResponse.json({
-      balance: balanceData.balance || balanceData.amount || '0.00',
-      token: balanceData.token || 'USDC',
-      walletAddress: balanceData.walletAddress || balanceData.address || null,
+      balance: bd.usdc_balance || bd.balance || '0.00',
+      promoCredits: bd.promo_credit_balance || '0',
+      walletAddress: bd.wallet_address || null,
+      chain: bd.chain || 'base',
+      workspaceId: bd.workspace_id || null,
       demo: false
     });
   } catch {
