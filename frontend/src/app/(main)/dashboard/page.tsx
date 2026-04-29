@@ -55,7 +55,7 @@ export default function DashboardPage() {
             <p className="mx-auto mt-3 max-w-xl text-base leading-7 text-text-secondary">
               Connect your Locus Wallet to open the control center for purchases, listings, subscriptions, and agent settings.
             </p>
-            <div className="mt-8 inline-flex rounded-full border border-slate-200 bg-white/75 px-4 py-2 text-sm text-text-muted">
+            <div className="mt-8 inline-flex rounded-full border border-slate-200 bg-white/75 px-4 py-2 text-sm text-text-muted dark:border-slate-700/50 dark:bg-slate-800/70 dark:text-slate-200">
               Use the “Connect Locus Wallet” button in the header.
             </div>
           </div>
@@ -82,7 +82,7 @@ export default function DashboardPage() {
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/marketplace"
-                className="focus-ring rounded-full border border-slate-200 bg-white/80 px-5 py-3 text-sm font-medium text-text-main hover:bg-white"
+                className="focus-ring rounded-full border border-slate-200 bg-white/80 px-5 py-3 text-sm font-medium text-text-main hover:bg-white dark:border-slate-700/50 dark:bg-slate-800/70 dark:hover:bg-slate-800"
               >
                 Browse Services
               </Link>
@@ -151,13 +151,13 @@ export default function DashboardPage() {
                     className={`focus-ring inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium ${
                       activeTab === tab.key
                         ? "border-brand bg-brand text-white"
-                        : "border-slate-200 bg-white/70 text-text-muted hover:bg-white"
+                        : "border-slate-200 bg-white/70 text-text-muted hover:bg-white dark:border-slate-700/50 dark:bg-slate-800/70 dark:text-slate-300 dark:hover:bg-slate-800"
                     }`}
                   >
                     <span>{tab.label}</span>
                     <span
                       className={`rounded-full px-2 py-0.5 text-xs ${
-                        activeTab === tab.key ? "bg-white/20 text-white" : "bg-slate-100 text-text-muted"
+                        activeTab === tab.key ? "bg-white/20 text-white" : "bg-slate-100 text-text-muted dark:bg-slate-700/50 dark:text-slate-300"
                       }`}
                     >
                       {tab.count}
@@ -276,7 +276,7 @@ export default function DashboardPage() {
                 <p className="mb-5 text-text-secondary">Recurring services will appear here once you subscribe to one.</p>
                 <Link
                   href="/marketplace"
-                  className="focus-ring inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2.5 text-sm font-semibold text-text-main hover:bg-white"
+                  className="focus-ring inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2.5 text-sm font-semibold text-text-main hover:bg-white dark:border-slate-700/50 dark:bg-slate-800/80 dark:hover:bg-slate-800"
                 >
                   Explore Services
                 </Link>
