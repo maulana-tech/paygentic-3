@@ -11,7 +11,7 @@ interface SubscriptionPanelProps {
 }
 
 export function SubscriptionPanel({ listing }: SubscriptionPanelProps) {
-  const [planType, setPlanType] = useState<'monthly' | 'annual'>('monthly');
+  const [planType, setPlanType] = useState<"monthly" | "annual">("monthly");
   const [submitting, setSubmitting] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const [error, setError] = useState("");
@@ -25,7 +25,7 @@ export function SubscriptionPanel({ listing }: SubscriptionPanelProps) {
   const handleSubscribe = async () => {
     setSubmitting(true);
     setError("");
-    
+
     try {
       const res = await fetch("/api/subscriptions", {
         method: "POST",
@@ -33,19 +33,19 @@ export function SubscriptionPanel({ listing }: SubscriptionPanelProps) {
         body: JSON.stringify({
           listingId: listing.id,
           buyerUserId: "demo-user",
-          planType
-        })
+          planType,
+        }),
       });
-      
+
       const data = await res.json();
-      
+
       if (!res.ok) {
         setError(data.error || "Failed to subscribe");
         return;
       }
-      
+
       setSubscribed(true);
-    } catch (err) {
+    } catch {
       setError("Failed to subscribe");
     } finally {
       setSubmitting(false);
@@ -54,75 +54,60 @@ export function SubscriptionPanel({ listing }: SubscriptionPanelProps) {
 
   if (subscribed) {
     return (
-      <div className="mt-6 rounded-none border border-green-300 bg-green-50 p-4">
-        <div className="flex items-center gap-2 text-green-700">
+      <div className="glass-panel rounded-[1.5rem] border border-emerald-200/70 p-4 dark:border-emerald-900/70">
+        <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
           <span>✓</span>
-          <span className="font-semibold">Subscribed!</span>
+          <span className="font-semibold">Subscribed</span>
         </div>
-        <p className="mt-1 text-sm text-green-600">
-          You now have a {planType} subscription to this service.
-        </p>
+        <p className="mt-1 text-sm text-emerald-700 dark:text-emerald-400">You now have a {planType} subscription to this service.</p>
       </div>
     );
   }
 
   return (
-    <div className="mt-6 rounded-none border border-border-main bg-gray-50 p-4">
+    <div className="glass-inset rounded-[1.5rem] p-5">
       <h3 className="font-semibold text-text-main">Subscribe & Save</h3>
-      <p className="mt-1 text-xs text-text-secondary">
-        Get ongoing access with discounted rates
-      </p>
-      
+      <p className="mt-1 text-sm text-text-secondary">Get ongoing access with discounted rates.</p>
+
       <div className="mt-4 space-y-3">
-        <label className="flex cursor-pointer items-center justify-between rounded-none border border-border-main bg-white p-3">
-          <div className="flex items-center gap-3">
-            <input
-              type="radio"
-              name="plan"
-              checked={planType === 'monthly'}
-              onChange={() => setPlanType('monthly')}
-              className="accent-brand"
-            />
-            <div>
-              <p className="font-medium text-text-main">Monthly</p>
-              <p className="text-xs text-text-secondary">${monthlyPrice}/month</p>
+        {[
+          {
+            key: "monthly" as const,
+            title: "Monthly",
+            subtitle: `${monthlyPrice}/month`,
+            saving: `Save $${monthlySavings}/mo`,
+          },
+          {
+            key: "annual" as const,
+            title: "Annual",
+            subtitle: `${annualPrice}/year`,
+            saving: `Save $${annualSavings}/yr`,
+          },
+        ].map((plan) => (
+          <label key={plan.key} className="field-shell flex cursor-pointer items-center justify-between rounded-[1.25rem] p-4">
+            <div className="flex items-center gap-3">
+              <input type="radio" name="plan" checked={planType === plan.key} onChange={() => setPlanType(plan.key)} className="accent-brand" />
+              <div>
+                <p className="font-medium text-text-main">{plan.title}</p>
+                <p className="text-sm text-text-secondary">${plan.subtitle}</p>
+              </div>
             </div>
-          </div>
-          <span className="rounded-none bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
-            Save ${monthlySavings}/mo
-          </span>
-        </label>
-        
-        <label className="flex cursor-pointer items-center justify-between rounded-none border border-border-main bg-white p-3">
-          <div className="flex items-center gap-3">
-            <input
-              type="radio"
-              name="plan"
-              checked={planType === 'annual'}
-              onChange={() => setPlanType('annual')}
-              className="accent-brand"
-            />
-            <div>
-              <p className="font-medium text-text-main">Annual</p>
-              <p className="text-xs text-text-secondary">${annualPrice}/year</p>
-            </div>
-          </div>
-          <span className="rounded-none bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
-            Save ${annualSavings}/yr
-          </span>
-        </label>
+            <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300">
+              {plan.saving}
+            </span>
+          </label>
+        ))}
       </div>
-      
-      {error && (
-        <p className="mt-2 text-sm text-red-600">{error}</p>
-      )}
-      
+
+      {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+
       <button
+        type="button"
         onClick={handleSubscribe}
         disabled={submitting}
-        className="mt-4 w-full rounded-none bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover disabled:opacity-50"
+        className="focus-ring mt-5 w-full rounded-full border border-brand bg-brand px-4 py-3 text-sm font-semibold text-white hover:bg-brand-hover disabled:opacity-50"
       >
-        {submitting ? "Processing..." : `Subscribe (${planType === 'monthly' ? `$${monthlyPrice}/mo` : `$${annualPrice}/yr`})`}
+        {submitting ? "Processing..." : `Subscribe (${planType === "monthly" ? `$${monthlyPrice}/mo` : `$${annualPrice}/yr`})`}
       </button>
     </div>
   );
