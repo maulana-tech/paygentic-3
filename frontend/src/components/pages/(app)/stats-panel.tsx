@@ -44,7 +44,7 @@ export function StatsPanel() {
         <p className="mt-3 text-2xl font-bold text-red-600">
           ${stats?.totalSpent || '0.00'}
         </p>
-        <p className="mt-1 text-xs text-text-secondary">USDC</p>
+        <p className="mt-1 text-xs text-text-secondary">Locus Credits</p>
       </div>
       <div className="rounded-xl border border-border-main bg-surface p-5 shadow-sm">
         <div className="flex items-center gap-2">
@@ -58,7 +58,7 @@ export function StatsPanel() {
         <p className="mt-3 text-2xl font-bold text-green-600">
           ${stats?.totalEarned || '0.00'}
         </p>
-        <p className="mt-1 text-xs text-text-secondary">USDC</p>
+        <p className="mt-1 text-xs text-text-secondary">Locus Credits</p>
       </div>
       <div className="rounded-xl border border-border-main bg-surface p-5 shadow-sm">
         <div className="flex items-center gap-2">

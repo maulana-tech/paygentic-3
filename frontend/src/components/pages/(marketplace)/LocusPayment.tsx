@@ -225,12 +225,12 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
             Purchase this service
           </p>
           <p className="mt-1 text-sm text-text-secondary">
-            Secure payment with USDC on Base
+            Pay securely via Locus
           </p>
         </div>
         <div className="text-right">
           <p className="text-2xl font-bold text-brand">${listing.priceUSDC}</p>
-          <p className="text-xs text-text-secondary">USDC</p>
+          <p className="text-xs text-text-secondary">Locus Credits</p>
         </div>
       </div>
 
@@ -239,7 +239,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
         disabled={loading}
         className="mt-6 w-full cursor-pointer rounded-none bg-brand py-4 text-base font-semibold text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-40"
       >
-        {loading ? "Processing payment..." : `Purchase with USDC ($${listing.priceUSDC})`}
+        {loading ? "Processing payment..." : `Purchase via Locus ($${listing.priceUSDC})`}
       </button>
       
       {error && (
@@ -247,7 +247,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
       )}
       
       <p className="mt-3 text-center text-xs text-text-secondary">
-        Secure payment powered by Locus Checkout
+        Secure payment powered by <span className="font-medium">Locus</span>
       </p>
     </div>
   );

@@ -131,7 +131,7 @@ export default function NewListingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-main">Price (USDC)</label>
+                <label className="block text-sm font-medium text-text-main">Price (Locus Credits)</label>
                 <div className="mt-1 flex items-center rounded-none border border-border-main bg-white px-4 py-2.5">
                   <span className="text-text-secondary">$</span>
                   <input

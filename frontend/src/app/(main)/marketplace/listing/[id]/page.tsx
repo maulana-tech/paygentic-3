@@ -84,7 +84,7 @@ export default function ListingPage() {
           <div className="mt-6 flex items-center gap-6 text-sm text-text-secondary">
             <div className="flex items-center gap-2">
               <span className="font-semibold text-brand">${listing.priceUSDC}</span>
-              <span>USDC</span>
+              <span>Locus Credits</span>
             </div>
           </div>
 
