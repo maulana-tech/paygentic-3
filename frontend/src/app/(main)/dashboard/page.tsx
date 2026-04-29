@@ -110,7 +110,7 @@ export default function DashboardPage() {
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/marketplace"
-                className="focus-ring rounded-full border border-slate-200 bg-white/80 px-5 py-3 text-sm font-medium text-text-main hover:bg-white dark:border-slate-700/50 dark:bg-slate-800/70 dark:hover:bg-slate-800"
+                className="focus-ring rounded-full border border-slate-200 bg-white/80 px-5 py-3 text-sm font-medium text-text-main transition-colors hover:bg-slate-50 dark:border-slate-700/50 dark:bg-slate-800/70 dark:text-slate-100 dark:hover:bg-slate-700"
               >
                 Browse Services
               </Link>
