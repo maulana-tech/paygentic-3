@@ -50,7 +50,7 @@ export default function MarketplacePage() {
         (listing) =>
           listing.title.toLowerCase().includes(searchLower) ||
           listing.description.toLowerCase().includes(searchLower) ||
-          listing.category.toLowerCase().includes(searchLower)
+          listing.category.toLowerCase().includes(searchLower),
       );
     }
 
@@ -69,16 +69,25 @@ export default function MarketplacePage() {
       });
     }
 
-    if (sortBy === "price-low") result.sort((a, b) => parseFloat(a.priceUSDC) - parseFloat(b.priceUSDC));
-    else if (sortBy === "price-high") result.sort((a, b) => parseFloat(b.priceUSDC) - parseFloat(a.priceUSDC));
-    else if (sortBy === "popular") result.sort((a, b) => b.totalSales - a.totalSales);
-    else if (sortBy === "newest") result.sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
+    if (sortBy === "price-low")
+      result.sort((a, b) => parseFloat(a.priceUSDC) - parseFloat(b.priceUSDC));
+    else if (sortBy === "price-high")
+      result.sort((a, b) => parseFloat(b.priceUSDC) - parseFloat(a.priceUSDC));
+    else if (sortBy === "popular")
+      result.sort((a, b) => b.totalSales - a.totalSales);
+    else if (sortBy === "newest")
+      result.sort((a, b) =>
+        (b.createdAt || "").localeCompare(a.createdAt || ""),
+      );
 
     return result;
   }, [listings, search, category, priceRange, sortBy]);
 
   const totalPages = Math.ceil(filteredListings.length / ITEMS_PER_PAGE);
-  const paginatedListings = filteredListings.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  const paginatedListings = filteredListings.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
   const hasFilters = Boolean(search || category || priceRange);
 
   const clearFilters = () => {
@@ -98,13 +107,21 @@ export default function MarketplacePage() {
         <section className="mt-8 glass-panel rounded-[2rem] p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-text-main">Available services</h2>
-              <p className="mt-2 text-sm text-text-secondary">{filteredListings.length} services found</p>
+              <h2 className="text-2xl font-semibold tracking-tight text-text-main">
+                Available services
+              </h2>
+              <p className="mt-2 text-sm text-text-secondary">
+                {filteredListings.length} services found
+              </p>
             </div>
             {isConnected && user && (
               <div className="glass-inset rounded-full px-4 py-2 text-sm">
-                <span className="text-emerald-700 dark:text-emerald-300">Connected: </span>
-                <span className="font-semibold text-text-main">{user.walletAddress.slice(0, 8)}...</span>
+                <span className="text-emerald-700 dark:text-emerald-300">
+                  Connected:{" "}
+                </span>
+                <span className="font-semibold text-text-main">
+                  {user.walletAddress.slice(0, 8)}...
+                </span>
               </div>
             )}
           </div>
@@ -165,7 +182,11 @@ export default function MarketplacePage() {
                 ]}
               />
               {hasFilters && (
-                <button type="button" onClick={clearFilters} className="focus-ring rounded-full px-3 py-2 text-sm font-medium text-brand hover:bg-brand-light">
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                  className="focus-ring rounded-full px-3 py-2 text-sm font-medium text-brand hover:bg-brand-light"
+                >
                   Clear
                 </button>
               )}
@@ -183,10 +204,18 @@ export default function MarketplacePage() {
           </div>
         ) : paginatedListings.length === 0 ? (
           <div className="mt-10 glass-panel rounded-[1.75rem] p-10 text-center">
-            <p className="text-lg font-medium text-text-main">No services found</p>
-            <p className="mt-2 text-sm text-text-secondary">Adjust the filters or search term and try again.</p>
+            <p className="text-lg font-medium text-text-main">
+              No services found
+            </p>
+            <p className="mt-2 text-sm text-text-secondary">
+              Adjust the filters or search term and try again.
+            </p>
             {hasFilters && (
-              <button type="button" onClick={clearFilters} className="focus-ring mt-4 rounded-full bg-brand-light px-4 py-2 text-sm font-medium text-brand">
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="focus-ring mt-4 rounded-full bg-brand-light px-4 py-2 text-sm font-medium text-brand"
+              >
                 Clear filters
               </button>
             )}
@@ -208,14 +237,18 @@ export default function MarketplacePage() {
                       <h3 className="mt-3 text-lg font-semibold text-text-main transition-colors group-hover:text-brand">
                         {listing.title}
                       </h3>
-                      <p className="mt-2 line-clamp-3 text-sm leading-6 text-text-secondary">{listing.description}</p>
+                      <p className="mt-2 line-clamp-3 text-sm leading-6 text-text-secondary">
+                        {listing.description}
+                      </p>
                     </div>
                   </div>
 
                   <div className="mt-6 flex items-center justify-between border-t border-border-main pt-4">
                     <div className="text-sm text-text-secondary">
                       <div className="flex items-center gap-2">
-                        <span className="font-medium text-text-main">{listing.sellerName}</span>
+                        <span className="font-medium text-text-main">
+                          {listing.sellerName}
+                        </span>
                         {listing.totalSales > 0 && (
                           <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-1 text-xs font-medium text-amber-800 dark:bg-amber-950/50 dark:text-amber-300">
                             <span>★</span>
@@ -243,11 +276,17 @@ export default function MarketplacePage() {
                   Previous
                 </button>
                 <span className="text-sm text-text-secondary">
-                  Page <span className="font-semibold text-text-main">{currentPage}</span> of {totalPages}
+                  Page{" "}
+                  <span className="font-semibold text-text-main">
+                    {currentPage}
+                  </span>{" "}
+                  of {totalPages}
                 </span>
                 <button
                   type="button"
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  onClick={() =>
+                    setCurrentPage(Math.min(totalPages, currentPage + 1))
+                  }
                   disabled={currentPage === totalPages}
                   className="focus-ring field-shell rounded-full px-4 py-2 text-sm disabled:opacity-50"
                 >
