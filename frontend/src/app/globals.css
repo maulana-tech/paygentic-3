@@ -6,11 +6,19 @@
   --color-brand: #2563eb;
   --color-brand-hover: #1d4ed8;
   --color-brand-light: #eff6ff;
+  --color-brand-strong: #1e40af;
   --color-surface: #ffffff;
   --color-main-bg: #f8fafc;
   --color-border-main: #e2e8f0;
   --color-text-main: #0f172a;
   --color-text-secondary: #64748b;
+  --color-text-muted: #475569;
+  --color-glass-surface: rgba(255, 255, 255, 0.72);
+  --color-glass-surface-strong: rgba(255, 255, 255, 0.88);
+  --color-glass-border: rgba(148, 163, 184, 0.28);
+  --color-glass-border-strong: rgba(148, 163, 184, 0.44);
+  --color-glass-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  --color-glass-shadow-soft: 0 12px 28px rgba(15, 23, 42, 0.06);
   --font-sans: var(--font-inter);
 }
 
@@ -28,4 +36,65 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.dashboard-shell {
+  position: relative;
+}
+
+.dashboard-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 30%),
+    radial-gradient(circle at top right, rgba(191, 219, 254, 0.9), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(248, 250, 252, 0) 28%);
+}
+
+.glass-panel {
+  background: var(--color-glass-surface);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: var(--color-glass-shadow-soft);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glass-panel-strong {
+  background: var(--color-glass-surface-strong);
+  border: 1px solid var(--color-glass-border-strong);
+  box-shadow: var(--color-glass-shadow);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.glass-inset {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(226, 232, 240, 0.92);
+}
+
+.focus-ring {
+  outline: none;
+  transition:
+    box-shadow 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.focus-ring:focus-visible {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  border-color: var(--color-brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
