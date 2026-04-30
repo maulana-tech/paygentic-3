@@ -215,8 +215,8 @@ export default function AgentsPage() {
       <div className="page-shell min-h-screen">
         <Header />
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
-          <h1 className="text-3xl font-semibold tracking-tight text-text-main">My Agents</h1>
-          <p className="mt-4 text-text-secondary">Connect your wallet to view your purchased agents.</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-white">My Agents</h1>
+          <p className="mt-4 text-white/80">Connect your wallet to view your purchased agents.</p>
         </div>
       </div>
     );
@@ -228,14 +228,14 @@ export default function AgentsPage() {
 
       <div className="mx-auto max-w-6xl px-6 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold tracking-tight text-text-main">My Agents</h1>
-          <p className="mt-2 text-sm text-text-secondary">Your purchased AI agents ready to execute tasks.</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-white">My Agents</h1>
+          <p className="mt-2 text-sm text-white/80">Your purchased AI agents ready to execute tasks.</p>
         </div>
 
         {agents.length === 0 ? (
-          <div className="glass-panel rounded-[1.25rem] p-12 text-center">
-            <p className="text-lg font-medium text-text-main">No agents yet</p>
-            <p className="mt-2 text-sm text-text-secondary">Purchase an agent from the marketplace to get started.</p>
+          <div className="glass-panel p-12 text-center">
+            <p className="text-lg font-medium text-white">No agents yet</p>
+            <p className="mt-2 text-sm text-white/80">Purchase an agent from the marketplace to get started.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -250,14 +250,14 @@ export default function AgentsPage() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1">
-                    <h3 className="text-base font-semibold text-text-main">{agent.title}</h3>
-                    <p className="mt-1 text-xs text-text-secondary">by {agent.sellerName}</p>
+                    <h3 className="text-base font-semibold text-white">{agent.title}</h3>
+                    <p className="mt-1 text-xs text-white/80">by {agent.sellerName}</p>
                   </div>
                   <span className={`rounded-full border px-2.5 py-1 text-xs font-medium ${agent.agentTypeColor}`}>{agent.agentType}</span>
                 </div>
 
-                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-text-secondary">
-                  <span className="rounded-full bg-slate-100 px-2.5 py-1 dark:bg-slate-800">{agent.category}</span>
+                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-white/80">
+                  <span className="rounded-full bg-white/10 px-2.5 py-1">{agent.category}</span>
                   <span className="rounded-full bg-brand-light px-2.5 py-1 text-brand-strong">{agent.modelLabel}</span>
                   <span>Expires {new Date(agent.expiresAt).toLocaleDateString()}</span>
                 </div>
