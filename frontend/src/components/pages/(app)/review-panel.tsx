@@ -58,7 +58,7 @@ export function ReviewPanel({ sellerAgentId, sellerName, listingId, onReviewSubm
 
   if (submitted) {
     return (
-      <div className="glass-panel rounded-[1.5rem] border border-emerald-200/70 p-4 dark:border-emerald-900/70">
+      <div className="glass-panel rounded-[1rem] border border-emerald-200/70 p-4 dark:border-emerald-900/70">
         <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
           <span>✓</span>
           <span className="font-semibold">Review submitted</span>
@@ -84,7 +84,7 @@ export function ReviewPanel({ sellerAgentId, sellerName, listingId, onReviewSubm
   );
 
   return (
-    <div className="glass-inset rounded-[1.5rem] p-5">
+    <div className="glass-inset rounded-[1rem] p-5">
       <h3 className="font-semibold text-text-main">Rate your experience</h3>
       <p className="mt-1 text-sm text-text-secondary">How was your experience with {sellerName}?</p>
 
@@ -107,7 +107,7 @@ export function ReviewPanel({ sellerAgentId, sellerName, listingId, onReviewSubm
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Share your experience..."
-            className="focus-ring field-shell mt-2 w-full rounded-2xl px-3 py-3 text-sm text-text-main"
+            className="focus-ring field-shell mt-2 w-full rounded-xl px-3 py-3 text-sm text-text-main"
             rows={3}
           />
         </div>
