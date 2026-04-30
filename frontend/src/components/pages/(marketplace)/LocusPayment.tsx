@@ -15,7 +15,7 @@ interface Props {
   buyerAgentId: string;
 }
 
-const CHECKOUT_URL = 'https://beta-checkout.paywithlocus.com';
+const CHECKOUT_URL = "https://beta-checkout.paywithlocus.com";
 
 interface PurchaseResult {
   success: boolean;
@@ -65,17 +65,15 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
         return;
       }
 
-      if (data.sessionId && data.status !== 'CONFIRMED') {
-        if (data.checkoutUrl) {
-          setSessionId(data.sessionId);
-        }
+      if (data.sessionId && data.status !== "CONFIRMED" && data.checkoutUrl) {
+        setSessionId(data.sessionId);
       }
 
-      if (data.transactionId || data.status === 'CONFIRMED') {
+      if (data.transactionId || data.status === "CONFIRMED") {
         pollPayment(data.transactionId, data.purchaseId, data.demo);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Payment failed');
+      setError(err instanceof Error ? err.message : "Payment failed");
       setLoading(false);
     }
   };
@@ -94,23 +92,23 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
         const res = await fetch(`/api/checkout?transactionId=${txId}`);
         const data = await res.json();
 
-        if (data.status === 'CONFIRMED') {
+        if (data.status === "CONFIRMED") {
           handleSuccess(purchaseId);
           return;
         }
 
-        if (data.status === 'FAILED' || data.status === 'POLICY_REJECTED') {
-          setError(data.failureReason || 'Payment failed');
+        if (data.status === "FAILED" || data.status === "POLICY_REJECTED") {
+          setError(data.failureReason || "Payment failed");
           setLoading(false);
           return;
         }
       } catch {}
 
-      await new Promise(r => setTimeout(r, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       attempts++;
     }
 
-    setError('Payment timeout');
+    setError("Payment timeout");
     setLoading(false);
   };
 
@@ -121,7 +119,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
       try {
         const res = await fetch(`/api/service-access?userId=${buyerAgentId}`);
         const data = await res.json();
-        const latest = data.accesses?.find((a: { purchaseId: string }) => a.purchaseId === purchaseId);
+        const latest = data.accesses?.find((item: { purchaseId: string }) => item.purchaseId === purchaseId);
         if (latest) {
           accessToken = latest.accessToken;
         }
@@ -136,69 +134,64 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
       success: true,
       purchaseId,
       accessToken,
-      status: 'CONFIRMED'
+      status: "CONFIRMED",
     });
     setLoading(false);
   };
 
   if (result?.success) {
     return (
-      <div className="rounded-none border border-green-200 bg-green-50">
-        <div className="border-b border-green-200 px-5 py-4">
+      <div className="glass-panel rounded-[1.75rem] border border-emerald-200/70">
+        <div className="border-b border-emerald-200/70 px-5 py-4 dark:border-emerald-900/70">
           <div className="flex items-center gap-2">
-            <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-5 w-5 text-emerald-700 dark:text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-            <span className="text-base font-semibold text-green-800">Purchase Complete!</span>
+            <span className="text-base font-semibold text-emerald-800 dark:text-emerald-300">Purchase complete</span>
           </div>
-          <p className="mt-1 text-sm text-green-700">
+          <p className="mt-1 text-sm text-emerald-700 dark:text-emerald-400">
             You now have access to &quot;{listing.title}&quot;
           </p>
         </div>
 
-        <div className="px-5 py-4 space-y-3">
+        <div className="space-y-4 px-5 py-4">
           <div>
-            <p className="text-xs font-medium text-green-800">Transaction</p>
-            <p className="text-sm text-green-700">PAID ${listing.priceUSDC} USDC</p>
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-emerald-800 dark:text-emerald-300">Transaction</p>
+            <p className="mt-1 text-sm text-emerald-700 dark:text-emerald-400">Paid ${listing.priceUSDC} USDC</p>
           </div>
 
           <div>
-            <p className="text-xs font-medium text-green-800">Access Token</p>
-            <div className="mt-1 flex items-center gap-2">
-              <code className="flex-1 rounded-none bg-white px-3 py-2 text-xs font-mono text-gray-800 border border-green-200">
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-emerald-800 dark:text-emerald-300">Access token</p>
+            <div className="mt-2 flex items-center gap-2">
+              <code className="field-shell flex-1 rounded-2xl px-3 py-3 text-xs font-mono text-text-main">
                 {result.accessToken}
               </code>
               <button
-                onClick={() => navigator.clipboard.writeText(result.accessToken || '')}
-                className="rounded-none bg-green-600 px-3 py-2 text-xs font-medium text-white hover:bg-green-700"
+                type="button"
+                onClick={() => navigator.clipboard.writeText(result.accessToken || "")}
+                className="focus-ring rounded-2xl border border-emerald-600 bg-emerald-600 px-3 py-3 text-xs font-medium text-white hover:bg-emerald-700"
               >
                 Copy
               </button>
             </div>
           </div>
 
-          <div className="rounded-none bg-white p-3 border border-green-200">
-            <p className="text-xs font-medium text-green-800">Your agent is ready to use:</p>
-            <ol className="mt-2 space-y-1 text-xs text-green-700 list-decimal list-inside">
-              <li>Go to My Agents to start chatting</li>
-              <li>Give your agent tasks to execute</li>
-              <li>Get AI-powered results in real-time</li>
-              <li>Service is active for 1 year</li>
+          <div className="glass-inset rounded-[1.25rem] p-4">
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-text-secondary">Next steps</p>
+            <ol className="mt-3 list-inside list-decimal space-y-1 text-sm text-text-secondary">
+              <li>Go to My Agents to start chatting.</li>
+              <li>Give your agent a concrete task.</li>
+              <li>Review results and continue the workflow.</li>
+              <li>Service remains active for 1 year.</li>
             </ol>
           </div>
         </div>
 
-        <div className="flex gap-2 border-t border-green-200 px-5 py-3">
-          <Link
-            href="/agents"
-            className="flex-1 rounded-none bg-green-600 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-700"
-          >
+        <div className="flex gap-2 border-t border-emerald-200/70 px-5 py-3 dark:border-emerald-900/70">
+          <Link href="/agents" className="focus-ring flex-1 rounded-full border border-emerald-600 bg-emerald-600 px-4 py-2.5 text-center text-sm font-medium text-white hover:bg-emerald-700">
             Start Using Agent
           </Link>
-          <Link
-            href="/marketplace"
-            className="flex-1 rounded-none border border-green-300 px-4 py-2 text-center text-sm font-medium text-green-700 hover:bg-white"
-          >
+          <Link href="/marketplace" className="focus-ring flex-1 rounded-full border border-border-main bg-white/80 px-4 py-2.5 text-center text-sm font-medium text-text-main hover:bg-white dark:bg-slate-900/70">
             Browse More
           </Link>
         </div>
@@ -207,48 +200,33 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
   }
 
   if (sessionId) {
-    return (
-      <iframe
-        src={`${CHECKOUT_URL}/${sessionId}`}
-        className="w-full rounded-none border border-border-main"
-        style={{ minHeight: "600px" }}
-        title="Locus Checkout"
-      />
-    );
+    return <iframe src={`${CHECKOUT_URL}/${sessionId}`} className="w-full rounded-[1.5rem] border border-border-main" style={{ minHeight: "600px" }} title="Locus Checkout" />;
   }
 
   return (
-    <div className="rounded-none border border-border-main bg-gray-50 p-6">
-      <div className="flex items-center justify-between">
+    <div className="glass-inset rounded-[1.75rem] p-6">
+      <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="text-lg font-semibold text-text-main">
-            Purchase this service
-          </p>
-          <p className="mt-1 text-sm text-text-secondary">
-            Pay securely via Locus
-          </p>
+          <p className="text-lg font-semibold text-text-main">Purchase this service</p>
+          <p className="mt-1 text-sm text-text-secondary">Pay securely via Locus.</p>
         </div>
         <div className="text-right">
-          <p className="text-2xl font-bold text-brand">${listing.priceUSDC}</p>
+          <p className="text-3xl font-semibold text-brand">${listing.priceUSDC}</p>
           <p className="text-xs text-text-secondary">Locus Credits</p>
         </div>
       </div>
 
       <button
+        type="button"
         onClick={createAndPay}
         disabled={loading}
-        className="mt-6 w-full cursor-pointer rounded-none bg-brand py-4 text-base font-semibold text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-40"
+        className="focus-ring mt-6 w-full rounded-full border border-brand bg-brand py-4 text-base font-semibold text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-40"
       >
         {loading ? "Processing payment..." : `Purchase via Locus ($${listing.priceUSDC})`}
       </button>
-      
-      {error && (
-        <p className="mt-3 text-center text-sm text-red-500">{error}</p>
-      )}
-      
-      <p className="mt-3 text-center text-xs text-text-secondary">
-        Secure payment powered by <span className="font-medium">Locus</span>
-      </p>
+
+      {error && <p className="mt-3 text-center text-sm text-red-600">{error}</p>}
+      <p className="mt-3 text-center text-xs text-text-secondary">Secure payment powered by <span className="font-medium text-text-main">Locus</span></p>
     </div>
   );
 }

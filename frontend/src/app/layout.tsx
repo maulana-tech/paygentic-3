@@ -19,7 +19,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var theme = localStorage.getItem("theme-storage");
+                  var parsed = theme ? JSON.parse(theme) : null;
+                  var mode = parsed && parsed.state && parsed.state.theme ? parsed.state.theme : "light";
+                  document.documentElement.setAttribute("data-theme", mode);
+                } catch (e) {
+                  document.documentElement.setAttribute("data-theme", "light");
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} antialiased`}>
         {children}
         <Toaster position="bottom-right" />
