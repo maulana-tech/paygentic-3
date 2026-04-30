@@ -21,9 +21,9 @@ export function StatsPanel() {
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="glass-panel rounded-[1.5rem] p-5">
+          <div key={i} className="glass-panel rounded-[1rem] p-5">
             <div className="h-4 w-24 animate-pulse rounded-full bg-slate-200" />
-            <div className="mt-4 h-10 w-20 animate-pulse rounded-2xl bg-slate-200" />
+            <div className="mt-4 h-10 w-20 animate-pulse rounded-xl bg-slate-200" />
           </div>
         ))}
       </div>
@@ -84,13 +84,13 @@ export function StatsPanel() {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {cards.map((card) => (
-        <section key={card.label} className="glass-panel rounded-[1.5rem] p-5">
+        <section key={card.label} className="glass-panel rounded-[1rem] p-5">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-sm font-medium text-text-muted">{card.label}</p>
               <p className={`mt-4 text-3xl font-semibold tracking-tight ${card.valueClass}`}>{card.value}</p>
             </div>
-            <div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${card.accent}`}>{card.icon}</div>
+            <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${card.accent}`}>{card.icon}</div>
           </div>
           <p className="mt-4 text-xs leading-5 text-text-secondary">{card.meta}</p>
         </section>
