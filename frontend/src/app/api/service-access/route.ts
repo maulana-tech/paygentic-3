@@ -56,7 +56,7 @@ export async function POST(req: Request) {
         sellerAgentId: listing.agentId || listing.userId,
         status: 'ACTIVE'
       });
-      if (access) granted.push(access);
+      granted.push(access);
     }
 
     return NextResponse.json({ granted: granted.length, total: FREE_LISTING_IDS.length });

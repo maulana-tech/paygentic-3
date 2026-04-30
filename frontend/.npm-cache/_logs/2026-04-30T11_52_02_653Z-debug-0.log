@@ -1,0 +1,612 @@
+0 verbose cli C:\nvm4w\nodejs\node.exe C:\nvm4w\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@10.9.3
+2 info using node@v22.20.0
+3 silly config load:file:C:\Users\USER\AppData\Local\nvm\v22.20.0\node_modules\npm\npmrc
+4 silly config load:file:E:\smweb\paygentic-3\frontend\.npmrc
+5 silly config load:file:C:\Users\USER\.npmrc
+6 silly config load:file:C:\nvm4w\nodejs\etc\npmrc
+7 verbose title npm install clsx tailwind-merge
+8 verbose argv "install" "clsx" "tailwind-merge" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:E:\smweb\paygentic-3\frontend\.npm-cache\_logs\2026-04-30T11_52_02_653Z-
+10 verbose logfile E:\smweb\paygentic-3\frontend\.npm-cache\_logs\2026-04-30T11_52_02_653Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+13 silly idealTree buildDeps
+14 silly fetch manifest clsx@^2.1.1
+15 silly packumentCache full:https://registry.npmjs.org/clsx cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/clsx 638ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/clsx set size:undefined disposed:false
+18 silly fetch manifest tailwind-merge@^3.5.0
+19 silly packumentCache full:https://registry.npmjs.org/tailwind-merge cache-miss
+20 http fetch GET 200 https://registry.npmjs.org/npm 1391ms
+21 http fetch GET 200 https://registry.npmjs.org/tailwind-merge 408ms (cache miss)
+22 silly packumentCache full:https://registry.npmjs.org/tailwind-merge set size:undefined disposed:false
+23 silly placeDep ROOT clsx@2.1.1 REPLACE for: Cusygen@0.1.0 want: ^2.1.1
+24 silly placeDep ROOT tailwind-merge@3.5.0 REPLACE for: Cusygen@0.1.0 want: ^3.5.0
+25 silly reify mark retired [ 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\framer-motion' ]
+26 silly reify mark retired [ 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\motion-dom' ]
+27 silly reify mark retired [
+27 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\baseline-browser-mapping',
+27 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\baseline-browser-mapping',
+27 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\baseline-browser-mapping.cmd',
+27 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\baseline-browser-mapping.ps1'
+27 silly reify ]
+28 silly reify mark retired [
+28 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\jiti',
+28 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\jiti',
+28 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\jiti.cmd',
+28 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\jiti.ps1'
+28 silly reify ]
+29 silly reify mark retired [
+29 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\nanoid',
+29 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\nanoid',
+29 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\nanoid.cmd',
+29 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\nanoid.ps1'
+29 silly reify ]
+30 silly reify mark retired [
+30 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\next',
+30 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\next',
+30 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\next.cmd',
+30 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\next.ps1'
+30 silly reify ]
+31 silly reify mark retired [
+31 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\semver',
+31 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\semver',
+31 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\semver.cmd',
+31 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\semver.ps1'
+31 silly reify ]
+32 silly reify mark retired [
+32 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\typescript',
+32 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsc',
+32 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsc.cmd',
+32 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsc.ps1',
+32 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsserver',
+32 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsserver.cmd',
+32 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsserver.ps1'
+32 silly reify ]
+33 silly reify mark retired [
+33 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@biomejs\\biome',
+33 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\biome',
+33 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\biome.cmd',
+33 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\biome.ps1'
+33 silly reify ]
+34 silly reify moves {
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\framer-motion': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.framer-motion-Cbkr6fpi',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\motion-dom': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.motion-dom-ul8rUmaD',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\baseline-browser-mapping': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.baseline-browser-mapping-yAkPInPZ',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\baseline-browser-mapping': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.baseline-browser-mapping-rXrGzCgJ',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\baseline-browser-mapping.cmd': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.baseline-browser-mapping.cmd-iyNselIe',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\baseline-browser-mapping.ps1': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.baseline-browser-mapping.ps1-7mji6bQX',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\jiti': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.jiti-SNwoJVa2',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\jiti': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.jiti-SS16LBLJ',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\jiti.cmd': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.jiti.cmd-yY0CBFyJ',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\jiti.ps1': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.jiti.ps1-cfNgCf9R',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\nanoid': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.nanoid-loibqM1O',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\nanoid': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.nanoid-abqooJa5',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\nanoid.cmd': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.nanoid.cmd-KMEEy7QG',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\nanoid.ps1': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.nanoid.ps1-OmIe1qdh',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\next': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.next-CfUgQeQe',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\next': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.next-Arsq5ddL',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\next.cmd': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.next.cmd-syBA9h0i',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\next.ps1': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.next.ps1-y7Qb1Bgf',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\semver': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.semver-98CYB8Md',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\semver': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.semver-igtikifm',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\semver.cmd': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.semver.cmd-3eQ3wEU5',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\semver.ps1': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.semver.ps1-MRtd5YBf',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\typescript': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.typescript-j7hNrxO0',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsc': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.tsc-ZHZgjqbV',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsc.cmd': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.tsc.cmd-ULesQUrn',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsc.ps1': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.tsc.ps1-oFkzoMXL',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsserver': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.tsserver-SSWXg4vL',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsserver.cmd': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.tsserver.cmd-X2JrehMT',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\tsserver.ps1': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.tsserver.ps1-TOV717bs',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@biomejs\\biome': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@biomejs\\.biome-eHYV0qWc',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\biome': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.biome-IYwTiMKN',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\biome.cmd': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.biome.cmd-d9S5nRlW',
+34 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\biome.ps1': 'E:\\smweb\\paygentic-3\\frontend\\node_modules\\.bin\\.biome.ps1-s7dkOj84'
+34 silly reify }
+35 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-wasm32-wasi
+36 silly reify mark deleted [
+36 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-wasm32-wasi'
+36 silly reify ]
+37 silly audit bulk request {
+37 silly audit   '@alloc/quick-lru': [ '5.2.0' ],
+37 silly audit   '@biomejs/biome': [ '2.2.0' ],
+37 silly audit   '@biomejs/cli-darwin-arm64': [ '2.2.0' ],
+37 silly audit   '@biomejs/cli-darwin-x64': [ '2.2.0' ],
+37 silly audit   '@biomejs/cli-linux-arm64': [ '2.2.0' ],
+37 silly audit   '@biomejs/cli-linux-arm64-musl': [ '2.2.0' ],
+37 silly audit   '@biomejs/cli-linux-x64': [ '2.2.0' ],
+37 silly audit   '@biomejs/cli-linux-x64-musl': [ '2.2.0' ],
+37 silly audit   '@biomejs/cli-win32-arm64': [ '2.2.0' ],
+37 silly audit   '@biomejs/cli-win32-x64': [ '2.2.0' ],
+37 silly audit   '@emnapi/runtime': [ '1.10.0' ],
+37 silly audit   '@img/colour': [ '1.1.0' ],
+37 silly audit   '@img/sharp-darwin-arm64': [ '0.34.5' ],
+37 silly audit   '@img/sharp-darwin-x64': [ '0.34.5' ],
+37 silly audit   '@img/sharp-libvips-darwin-arm64': [ '1.2.4' ],
+37 silly audit   '@img/sharp-libvips-darwin-x64': [ '1.2.4' ],
+37 silly audit   '@img/sharp-libvips-linux-arm': [ '1.2.4' ],
+37 silly audit   '@img/sharp-libvips-linux-arm64': [ '1.2.4' ],
+37 silly audit   '@img/sharp-libvips-linux-ppc64': [ '1.2.4' ],
+37 silly audit   '@img/sharp-libvips-linux-riscv64': [ '1.2.4' ],
+37 silly audit   '@img/sharp-libvips-linux-s390x': [ '1.2.4' ],
+37 silly audit   '@img/sharp-libvips-linux-x64': [ '1.2.4' ],
+37 silly audit   '@img/sharp-libvips-linuxmusl-arm64': [ '1.2.4' ],
+37 silly audit   '@img/sharp-libvips-linuxmusl-x64': [ '1.2.4' ],
+37 silly audit   '@img/sharp-linux-arm': [ '0.34.5' ],
+37 silly audit   '@img/sharp-linux-arm64': [ '0.34.5' ],
+37 silly audit   '@img/sharp-linux-ppc64': [ '0.34.5' ],
+37 silly audit   '@img/sharp-linux-riscv64': [ '0.34.5' ],
+37 silly audit   '@img/sharp-linux-s390x': [ '0.34.5' ],
+37 silly audit   '@img/sharp-linux-x64': [ '0.34.5' ],
+37 silly audit   '@img/sharp-linuxmusl-arm64': [ '0.34.5' ],
+37 silly audit   '@img/sharp-linuxmusl-x64': [ '0.34.5' ],
+37 silly audit   '@img/sharp-wasm32': [ '0.34.5' ],
+37 silly audit   '@img/sharp-win32-arm64': [ '0.34.5' ],
+37 silly audit   '@img/sharp-win32-ia32': [ '0.34.5' ],
+37 silly audit   '@img/sharp-win32-x64': [ '0.34.5' ],
+37 silly audit   '@jridgewell/gen-mapping': [ '0.3.13' ],
+37 silly audit   '@jridgewell/remapping': [ '2.3.5' ],
+37 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+37 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ],
+37 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+37 silly audit   '@next/env': [ '16.1.7' ],
+37 silly audit   '@next/swc-darwin-arm64': [ '16.1.7' ],
+37 silly audit   '@next/swc-darwin-x64': [ '16.1.7' ],
+37 silly audit   '@next/swc-linux-arm64-gnu': [ '16.1.7' ],
+37 silly audit   '@next/swc-linux-arm64-musl': [ '16.1.7' ],
+37 silly audit   '@next/swc-linux-x64-gnu': [ '16.1.7' ],
+37 silly audit   '@next/swc-linux-x64-musl': [ '16.1.7' ],
+37 silly audit   '@next/swc-win32-arm64-msvc': [ '16.1.7' ],
+37 silly audit   '@next/swc-win32-x64-msvc': [ '16.1.7' ],
+37 silly audit   '@swc/helpers': [ '0.5.15' ],
+37 silly audit   '@tailwindcss/node': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-android-arm64': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-darwin-arm64': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-darwin-x64': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-freebsd-x64': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-linux-arm-gnueabihf': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-linux-arm64-gnu': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-linux-arm64-musl': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-linux-x64-gnu': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-linux-x64-musl': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-win32-arm64-msvc': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/oxide-win32-x64-msvc': [ '4.2.4' ],
+37 silly audit   '@tailwindcss/postcss': [ '4.2.4' ],
+37 silly audit   '@types/node': [ '20.19.39' ],
+37 silly audit   '@types/react': [ '19.2.14' ],
+37 silly audit   '@types/react-dom': [ '19.2.3' ],
+37 silly audit   'baseline-browser-mapping': [ '2.10.23' ],
+37 silly audit   'caniuse-lite': [ '1.0.30001791' ],
+37 silly audit   'client-only': [ '0.0.1' ],
+37 silly audit   csstype: [ '3.2.3' ],
+37 silly audit   'detect-libc': [ '2.1.2' ],
+37 silly audit   'enhanced-resolve': [ '5.21.0' ],
+37 silly audit   'framer-motion': [ '12.38.0' ],
+37 silly audit   'graceful-fs': [ '4.2.11' ],
+37 silly audit   jiti: [ '2.6.1' ],
+37 silly audit   lightningcss: [ '1.32.0' ],
+37 silly audit   'lightningcss-android-arm64': [ '1.32.0' ],
+37 silly audit   'lightningcss-darwin-arm64': [ '1.32.0' ],
+37 silly audit   'lightningcss-darwin-x64': [ '1.32.0' ],
+37 silly audit   'lightningcss-freebsd-x64': [ '1.32.0' ],
+37 silly audit   'lightningcss-linux-arm-gnueabihf': [ '1.32.0' ],
+37 silly audit   'lightningcss-linux-arm64-gnu': [ '1.32.0' ],
+37 silly audit   'lightningcss-linux-arm64-musl': [ '1.32.0' ],
+37 silly audit   'lightningcss-linux-x64-gnu': [ '1.32.0' ],
+37 silly audit   'lightningcss-linux-x64-musl': [ '1.32.0' ],
+37 silly audit   'lightningcss-win32-arm64-msvc': [ '1.32.0' ],
+37 silly audit   'lightningcss-win32-x64-msvc': [ '1.32.0' ],
+37 silly audit   'magic-string': [ '0.30.21' ],
+37 silly audit   motion: [ '12.38.0' ],
+37 silly audit   'motion-dom': [ '12.38.0' ],
+37 silly audit   'motion-utils': [ '12.36.0' ],
+37 silly audit   nanoid: [ '3.3.11' ],
+37 silly audit   next: [ '16.1.7' ],
+37 silly audit   postcss: [ '8.4.31', '8.5.12' ],
+37 silly audit   picocolors: [ '1.1.1' ],
+37 silly audit   react: [ '19.2.3' ],
+37 silly audit   'react-dom': [ '19.2.3' ],
+37 silly audit   'react-icons': [ '5.6.0' ],
+37 silly audit   scheduler: [ '0.27.0' ],
+37 silly audit   semver: [ '7.7.4' ],
+37 silly audit   sharp: [ '0.34.5' ],
+37 silly audit   sonner: [ '2.0.7' ],
+37 silly audit   'source-map-js': [ '1.2.1' ],
+37 silly audit   'styled-jsx': [ '5.1.6' ],
+37 silly audit   tailwindcss: [ '4.2.4' ],
+37 silly audit   tapable: [ '2.3.3' ],
+37 silly audit   tslib: [ '2.8.1' ],
+37 silly audit   typescript: [ '5.9.3' ],
+37 silly audit   'undici-types': [ '6.21.0' ],
+37 silly audit   zustand: [ '5.0.12' ],
+37 silly audit   clsx: [ '2.1.1' ],
+37 silly audit   'tailwind-merge': [ '3.5.0' ],
+37 silly audit   '@tailwindcss/oxide-wasm32-wasi': [ '4.2.4' ]
+37 silly audit }
+38 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\lightningcss-win32-arm64-msvc
+39 silly reify mark deleted [
+39 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\lightningcss-win32-arm64-msvc'
+39 silly reify ]
+40 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\lightningcss-linux-x64-musl
+41 silly reify mark deleted [
+41 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\lightningcss-linux-x64-musl'
+41 silly reify ]
+42 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\lightningcss-linux-x64-gnu
+43 silly reify mark deleted [
+43 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\lightningcss-linux-x64-gnu'
+43 silly reify ]
+44 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\lightningcss-linux-arm64-musl
+45 silly reify mark deleted [
+45 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\lightningcss-linux-arm64-musl'
+45 silly reify ]
+46 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\lightningcss-linux-arm64-gnu
+47 silly reify mark deleted [
+47 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\lightningcss-linux-arm64-gnu'
+47 silly reify ]
+48 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\lightningcss-linux-arm-gnueabihf
+49 silly reify mark deleted [
+49 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\lightningcss-linux-arm-gnueabihf'
+49 silly reify ]
+50 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\lightningcss-freebsd-x64
+51 silly reify mark deleted [
+51 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\lightningcss-freebsd-x64'
+51 silly reify ]
+52 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\lightningcss-darwin-x64
+53 silly reify mark deleted [
+53 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\lightningcss-darwin-x64'
+53 silly reify ]
+54 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\lightningcss-darwin-arm64
+55 silly reify mark deleted [
+55 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\lightningcss-darwin-arm64'
+55 silly reify ]
+56 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\lightningcss-android-arm64
+57 silly reify mark deleted [
+57 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\lightningcss-android-arm64'
+57 silly reify ]
+58 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-win32-arm64-msvc
+59 silly reify mark deleted [
+59 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-win32-arm64-msvc'
+59 silly reify ]
+60 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-linux-x64-musl
+61 silly reify mark deleted [
+61 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-linux-x64-musl'
+61 silly reify ]
+62 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-linux-x64-gnu
+63 silly reify mark deleted [
+63 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-linux-x64-gnu'
+63 silly reify ]
+64 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-linux-arm64-musl
+65 silly reify mark deleted [
+65 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-linux-arm64-musl'
+65 silly reify ]
+66 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-linux-arm64-gnu
+67 silly reify mark deleted [
+67 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-linux-arm64-gnu'
+67 silly reify ]
+68 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-linux-arm-gnueabihf
+69 silly reify mark deleted [
+69 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-linux-arm-gnueabihf'
+69 silly reify ]
+70 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-freebsd-x64
+71 silly reify mark deleted [
+71 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-freebsd-x64'
+71 silly reify ]
+72 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-darwin-x64
+73 silly reify mark deleted [
+73 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-darwin-x64'
+73 silly reify ]
+74 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-darwin-arm64
+75 silly reify mark deleted [
+75 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-darwin-arm64'
+75 silly reify ]
+76 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@tailwindcss\oxide-android-arm64
+77 silly reify mark deleted [
+77 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@tailwindcss\\oxide-android-arm64'
+77 silly reify ]
+78 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@next\swc-win32-arm64-msvc
+79 silly reify mark deleted [
+79 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@next\\swc-win32-arm64-msvc'
+79 silly reify ]
+80 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@next\swc-linux-x64-musl
+81 silly reify mark deleted [
+81 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@next\\swc-linux-x64-musl'
+81 silly reify ]
+82 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@next\swc-linux-x64-gnu
+83 silly reify mark deleted [
+83 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@next\\swc-linux-x64-gnu'
+83 silly reify ]
+84 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@next\swc-linux-arm64-musl
+85 silly reify mark deleted [
+85 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@next\\swc-linux-arm64-musl'
+85 silly reify ]
+86 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@next\swc-linux-arm64-gnu
+87 silly reify mark deleted [
+87 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@next\\swc-linux-arm64-gnu'
+87 silly reify ]
+88 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@next\swc-darwin-x64
+89 silly reify mark deleted [
+89 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@next\\swc-darwin-x64'
+89 silly reify ]
+90 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@next\swc-darwin-arm64
+91 silly reify mark deleted [
+91 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@next\\swc-darwin-arm64'
+91 silly reify ]
+92 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-win32-ia32
+93 silly reify mark deleted [
+93 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-win32-ia32'
+93 silly reify ]
+94 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-win32-arm64
+95 silly reify mark deleted [
+95 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-win32-arm64'
+95 silly reify ]
+96 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-wasm32
+97 silly reify mark deleted [
+97 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-wasm32'
+97 silly reify ]
+98 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-linuxmusl-x64
+99 silly reify mark deleted [
+99 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-linuxmusl-x64'
+99 silly reify ]
+100 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-linuxmusl-arm64
+101 silly reify mark deleted [
+101 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-linuxmusl-arm64'
+101 silly reify ]
+102 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-linux-x64
+103 silly reify mark deleted [
+103 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-linux-x64'
+103 silly reify ]
+104 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-linux-s390x
+105 silly reify mark deleted [
+105 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-linux-s390x'
+105 silly reify ]
+106 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-linux-riscv64
+107 silly reify mark deleted [
+107 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-linux-riscv64'
+107 silly reify ]
+108 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-linux-ppc64
+109 silly reify mark deleted [
+109 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-linux-ppc64'
+109 silly reify ]
+110 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-linux-arm64
+111 silly reify mark deleted [
+111 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-linux-arm64'
+111 silly reify ]
+112 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-linux-arm
+113 silly reify mark deleted [
+113 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-linux-arm'
+113 silly reify ]
+114 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-libvips-linuxmusl-x64
+115 silly reify mark deleted [
+115 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-libvips-linuxmusl-x64'
+115 silly reify ]
+116 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-libvips-linuxmusl-arm64
+117 silly reify mark deleted [
+117 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-libvips-linuxmusl-arm64'
+117 silly reify ]
+118 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-libvips-linux-x64
+119 silly reify mark deleted [
+119 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-libvips-linux-x64'
+119 silly reify ]
+120 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-libvips-linux-s390x
+121 silly reify mark deleted [
+121 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-libvips-linux-s390x'
+121 silly reify ]
+122 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-libvips-linux-riscv64
+123 silly reify mark deleted [
+123 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-libvips-linux-riscv64'
+123 silly reify ]
+124 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-libvips-linux-ppc64
+125 silly reify mark deleted [
+125 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-libvips-linux-ppc64'
+125 silly reify ]
+126 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-libvips-linux-arm64
+127 silly reify mark deleted [
+127 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-libvips-linux-arm64'
+127 silly reify ]
+128 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-libvips-linux-arm
+129 silly reify mark deleted [
+129 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-libvips-linux-arm'
+129 silly reify ]
+130 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-libvips-darwin-x64
+131 silly reify mark deleted [
+131 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-libvips-darwin-x64'
+131 silly reify ]
+132 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-libvips-darwin-arm64
+133 silly reify mark deleted [
+133 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-libvips-darwin-arm64'
+133 silly reify ]
+134 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-darwin-x64
+135 silly reify mark deleted [
+135 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-darwin-x64'
+135 silly reify ]
+136 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@img\sharp-darwin-arm64
+137 silly reify mark deleted [
+137 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@img\\sharp-darwin-arm64'
+137 silly reify ]
+138 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@biomejs\cli-win32-arm64
+139 silly reify mark deleted [
+139 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@biomejs\\cli-win32-arm64'
+139 silly reify ]
+140 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@biomejs\cli-linux-x64-musl
+141 silly reify mark deleted [
+141 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@biomejs\\cli-linux-x64-musl'
+141 silly reify ]
+142 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@biomejs\cli-linux-x64
+143 silly reify mark deleted [
+143 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@biomejs\\cli-linux-x64'
+143 silly reify ]
+144 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@biomejs\cli-linux-arm64-musl
+145 silly reify mark deleted [
+145 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@biomejs\\cli-linux-arm64-musl'
+145 silly reify ]
+146 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@biomejs\cli-linux-arm64
+147 silly reify mark deleted [
+147 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@biomejs\\cli-linux-arm64'
+147 silly reify ]
+148 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@biomejs\cli-darwin-x64
+149 silly reify mark deleted [
+149 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@biomejs\\cli-darwin-x64'
+149 silly reify ]
+150 verbose reify failed optional dependency E:\smweb\paygentic-3\frontend\node_modules\@biomejs\cli-darwin-arm64
+151 silly reify mark deleted [
+151 silly reify   'E:\\smweb\\paygentic-3\\frontend\\node_modules\\@biomejs\\cli-darwin-arm64'
+151 silly reify ]
+152 http cache clsx@https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz 1ms (cache hit)
+153 http cache motion-utils@https://registry.npmmirror.com/motion-utils/-/motion-utils-12.36.0.tgz 0ms (cache hit)
+154 http cache tailwind-merge@https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.5.0.tgz 0ms (cache hit)
+155 http cache motion@https://registry.npmmirror.com/motion/-/motion-12.38.0.tgz 0ms (cache hit)
+156 http cache typescript@https://registry.npmmirror.com/typescript/-/typescript-5.9.3.tgz 0ms (cache hit)
+157 http cache @emnapi/runtime@https://registry.npmmirror.com/@emnapi/runtime/-/runtime-1.10.0.tgz 0ms (cache hit)
+158 http cache @biomejs/biome@https://registry.npmmirror.com/@biomejs/biome/-/biome-2.2.0.tgz 0ms (cache hit)
+159 http cache semver@https://registry.npmmirror.com/semver/-/semver-7.7.4.tgz 0ms (cache hit)
+160 http cache next@https://registry.npmmirror.com/next/-/next-16.1.7.tgz 0ms (cache hit)
+161 http cache nanoid@https://registry.npmmirror.com/nanoid/-/nanoid-3.3.11.tgz 0ms (cache hit)
+162 http cache baseline-browser-mapping@https://registry.npmmirror.com/baseline-browser-mapping/-/baseline-browser-mapping-2.10.23.tgz 0ms (cache hit)
+163 http cache jiti@https://registry.npmmirror.com/jiti/-/jiti-2.6.1.tgz 0ms (cache hit)
+164 http cache motion-dom@https://registry.npmmirror.com/motion-dom/-/motion-dom-12.38.0.tgz 0ms (cache hit)
+165 http cache framer-motion@https://registry.npmmirror.com/framer-motion/-/framer-motion-12.38.0.tgz 0ms (cache hit)
+166 silly tarball no local data for clsx@https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz. Extracting by manifest.
+167 silly tarball no local data for motion-utils@https://registry.npmmirror.com/motion-utils/-/motion-utils-12.36.0.tgz. Extracting by manifest.
+168 silly tarball no local data for tailwind-merge@https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.5.0.tgz. Extracting by manifest.
+169 silly tarball no local data for motion@https://registry.npmmirror.com/motion/-/motion-12.38.0.tgz. Extracting by manifest.
+170 silly tarball no local data for typescript@https://registry.npmmirror.com/typescript/-/typescript-5.9.3.tgz. Extracting by manifest.
+171 silly tarball no local data for @emnapi/runtime@https://registry.npmmirror.com/@emnapi/runtime/-/runtime-1.10.0.tgz. Extracting by manifest.
+172 silly tarball no local data for @biomejs/biome@https://registry.npmmirror.com/@biomejs/biome/-/biome-2.2.0.tgz. Extracting by manifest.
+173 silly tarball no local data for semver@https://registry.npmmirror.com/semver/-/semver-7.7.4.tgz. Extracting by manifest.
+174 silly tarball no local data for next@https://registry.npmmirror.com/next/-/next-16.1.7.tgz. Extracting by manifest.
+175 silly tarball no local data for nanoid@https://registry.npmmirror.com/nanoid/-/nanoid-3.3.11.tgz. Extracting by manifest.
+176 silly tarball no local data for baseline-browser-mapping@https://registry.npmmirror.com/baseline-browser-mapping/-/baseline-browser-mapping-2.10.23.tgz. Extracting by manifest.
+177 silly tarball no local data for jiti@https://registry.npmmirror.com/jiti/-/jiti-2.6.1.tgz. Extracting by manifest.
+178 silly tarball no local data for motion-dom@https://registry.npmmirror.com/motion-dom/-/motion-dom-12.38.0.tgz. Extracting by manifest.
+179 silly tarball no local data for framer-motion@https://registry.npmmirror.com/framer-motion/-/framer-motion-12.38.0.tgz. Extracting by manifest.
+180 http fetch GET 200 https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz 223ms (cache miss)
+181 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 602ms
+182 silly audit report {
+182 silly audit report   next: [
+182 silly audit report     {
+182 silly audit report       id: 1116375,
+182 silly audit report       url: 'https://github.com/advisories/GHSA-q4gf-8mx6-v5v3',
+182 silly audit report       title: 'Next.js has a Denial of Service with Server Components',
+182 silly audit report       severity: 'high',
+182 silly audit report       vulnerable_versions: '>=16.0.0-beta.0 <16.2.3',
+182 silly audit report       cwe: [Array],
+182 silly audit report       cvss: [Object]
+182 silly audit report     }
+182 silly audit report   ],
+182 silly audit report   postcss: [
+182 silly audit report     {
+182 silly audit report       id: 1117015,
+182 silly audit report       url: 'https://github.com/advisories/GHSA-qx2v-qp2m-jg93',
+182 silly audit report       title: 'PostCSS has XSS via Unescaped </style> in its CSS Stringify Output',
+182 silly audit report       severity: 'moderate',
+182 silly audit report       vulnerable_versions: '<8.5.10',
+182 silly audit report       cwe: [Array],
+182 silly audit report       cvss: [Object]
+182 silly audit report     }
+182 silly audit report   ]
+182 silly audit report }
+183 silly packumentCache corgi:https://registry.npmjs.org/next cache-miss
+184 silly packumentCache corgi:https://registry.npmjs.org/postcss cache-miss
+185 http fetch GET 200 https://registry.npmjs.org/postcss 548ms (cache miss)
+186 silly packumentCache corgi:https://registry.npmjs.org/postcss set size:undefined disposed:false
+187 http fetch GET 200 https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.5.0.tgz 1593ms (cache miss)
+188 http fetch GET 200 https://cdn.npmmirror.com/packages/baseline-browser-mapping/2.10.23/baseline-browser-mapping-2.10.23.tgz 1839ms (cache miss)
+189 http fetch GET 200 https://cdn.npmmirror.com/packages/nanoid/3.3.11/nanoid-3.3.11.tgz 1957ms (cache miss)
+190 http fetch GET 200 https://cdn.npmmirror.com/packages/%40biomejs/biome/2.2.0/biome-2.2.0.tgz 2671ms (cache miss)
+191 http fetch GET 200 https://cdn.npmmirror.com/packages/%40emnapi/runtime/1.10.0/runtime-1.10.0.tgz 3454ms (cache miss)
+192 http fetch GET 200 https://cdn.npmmirror.com/packages/motion-utils/12.36.0/motion-utils-12.36.0.tgz 3518ms (cache miss)
+193 http fetch GET 200 https://cdn.npmmirror.com/packages/motion/12.38.0/motion-12.38.0.tgz 3872ms (cache miss)
+194 http fetch GET 200 https://cdn.npmmirror.com/packages/jiti/2.6.1/jiti-2.6.1.tgz 3881ms (cache miss)
+195 http fetch GET 200 https://cdn.npmmirror.com/packages/semver/7.7.4/semver-7.7.4.tgz 4241ms (cache miss)
+196 http fetch GET 200 https://registry.npmjs.org/next 4370ms (cache miss)
+197 silly packumentCache corgi:https://registry.npmjs.org/next set size:undefined disposed:false
+198 http fetch GET 200 https://cdn.npmmirror.com/packages/typescript/5.9.3/typescript-5.9.3.tgz 11625ms (cache miss)
+199 http fetch GET 200 https://cdn.npmmirror.com/packages/framer-motion/12.38.0/framer-motion-12.38.0.tgz 12134ms (cache miss)
+200 http fetch GET 200 https://cdn.npmmirror.com/packages/motion-dom/12.38.0/motion-dom-12.38.0.tgz 12226ms (cache miss)
+201 http fetch GET 200 https://cdn.npmmirror.com/packages/next/16.1.7/next-16.1.7.tgz 51782ms (cache miss)
+202 silly ADD node_modules/tailwind-merge
+203 silly ADD node_modules/clsx
+204 silly ADD node_modules/motion-utils
+205 silly ADD node_modules/motion
+206 silly ADD
+207 silly ADD
+208 silly ADD
+209 silly ADD
+210 silly ADD
+211 silly ADD
+212 silly ADD
+213 silly ADD
+214 silly ADD
+215 silly ADD
+216 silly ADD
+217 silly ADD
+218 silly ADD
+219 silly ADD
+220 silly ADD
+221 silly ADD
+222 silly ADD
+223 silly ADD
+224 silly ADD
+225 silly ADD
+226 silly ADD
+227 silly ADD
+228 silly ADD
+229 silly ADD
+230 silly ADD
+231 silly ADD
+232 silly ADD
+233 silly ADD
+234 silly ADD
+235 silly ADD
+236 silly ADD
+237 silly ADD
+238 silly ADD
+239 silly ADD
+240 silly ADD
+241 silly ADD
+242 silly ADD
+243 silly ADD
+244 silly ADD
+245 silly ADD
+246 silly ADD
+247 silly ADD
+248 silly ADD
+249 silly ADD
+250 silly ADD
+251 silly ADD
+252 silly ADD
+253 silly ADD
+254 silly ADD
+255 silly ADD
+256 silly ADD
+257 silly ADD node_modules/@emnapi/runtime
+258 silly ADD
+259 silly ADD
+260 silly ADD
+261 silly ADD
+262 silly ADD
+263 silly ADD
+264 silly ADD
+265 silly CHANGE node_modules/@biomejs/biome
+266 silly CHANGE node_modules/typescript
+267 silly CHANGE node_modules/semver
+268 silly CHANGE node_modules/next
+269 silly CHANGE node_modules/nanoid
+270 silly CHANGE node_modules/jiti
+271 silly CHANGE node_modules/baseline-browser-mapping
+272 silly CHANGE node_modules/motion-dom
+273 silly CHANGE node_modules/framer-motion
+274 verbose cwd E:\smweb\paygentic-3\frontend
+275 verbose os Windows_NT 10.0.22621
+276 verbose node v22.20.0
+277 verbose npm  v10.9.3
+278 notice
+278 notice New major version of npm available! 10.9.3 -> 11.13.0
+278 notice Changelog: https://github.com/npm/cli/releases/tag/v11.13.0
+278 notice To update run: npm install -g npm@11.13.0
+278 notice  { force: true, [Symbol(proc-log.meta)]: true }
+279 verbose exit 0
+280 info ok

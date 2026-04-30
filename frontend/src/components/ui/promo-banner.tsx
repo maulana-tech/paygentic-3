@@ -31,7 +31,7 @@ export function PromoBanner() {
   };
 
   return (
-    <StickyBanner className="bg-gradient-to-b from-blue-500 to-blue-600" hideOnScroll hideClose>
+    <StickyBanner className="bg-gradient-to-b from-blue-500 to-blue-600" hideOnScroll>
       <p className="mx-0 max-w-[90%] text-white drop-shadow-md">
         {!claimed ? (
           <>

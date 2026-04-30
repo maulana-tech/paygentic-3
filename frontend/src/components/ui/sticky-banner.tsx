@@ -7,12 +7,10 @@ export const StickyBanner = ({
   className,
   children,
   hideOnScroll = false,
-  hideClose = false,
 }: {
   className?: string;
   children: React.ReactNode;
   hideOnScroll?: boolean;
-  hideClose?: boolean;
 }) => {
   const [open, setOpen] = useState(true);
   const { scrollY } = useScroll();
@@ -46,20 +44,18 @@ export const StickyBanner = ({
     >
       {children}
 
-      {!hideClose && (
-        <motion.button
-          initial={{
-            scale: 0,
-          }}
-          animate={{
-            scale: 1,
-          }}
-          className="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer"
-          onClick={() => setOpen(!open)}
-        >
-          <CloseIcon className="h-5 w-5 text-white" />
-        </motion.button>
-      )}
+      <motion.button
+        initial={{
+          scale: 0,
+        }}
+        animate={{
+          scale: 1,
+        }}
+        className="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer"
+        onClick={() => setOpen(!open)}
+      >
+        <CloseIcon className="h-5 w-5 text-white" />
+      </motion.button>
     </motion.div>
   );
 };

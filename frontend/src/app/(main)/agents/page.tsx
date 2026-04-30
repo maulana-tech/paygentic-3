@@ -9,8 +9,6 @@ import {
   getAgentModelLabel,
   getAgentType,
   getAgentTypeColor,
-  getListingById,
-  getAgentById,
 } from "@/data/store";
 
 interface AgentCard {
@@ -43,26 +41,9 @@ export default function AgentsPage() {
     try {
       const res = await fetch(`/api/service-access?userId=${userId}`);
       const data = await res.json();
-      const accesses = data.accesses || [];
-      for (const a of accesses) {
-        addOwnedAgent({
-          id: a.id,
-          purchaseId: a.purchaseId,
-          listingId: a.listingId,
-          sellerAgentId: a.sellerAgentId,
-          accessToken: a.accessToken,
-          status: a.status,
-          expiresAt: a.expiresAt,
-          accessTokenCreated: a.accessTokenCreated,
-        });
-      }
-      buildAgentCards(accesses);
+      buildAgentCards(data.accesses || []);
     } catch {
-      if (ownedAgents.length > 0) {
-        buildAgentCardsFromZustand(ownedAgents);
-      } else {
-        setAgents([]);
-      }
+      setAgents([]);
     }
   };
 
@@ -85,32 +66,6 @@ export default function AgentsPage() {
           modelLabel: getAgentModelLabel(modelId),
           expiresAt: access.expiresAt,
           createdAt: access.accessTokenCreated,
-        };
-      });
-    setAgents(cards);
-  };
-
-  const buildAgentCardsFromZustand = (agentList: Array<{ id: string; purchaseId: string; listingId: string; sellerAgentId: string; accessToken: string; status: string; expiresAt: string; accessTokenCreated: string }>) => {
-    const cards: AgentCard[] = agentList
-      .filter((a) => a.status === "ACTIVE")
-      .map((a) => {
-        const listing = getListingById(a.listingId);
-        const seller = listing ? getAgentById(listing.agentId || listing.userId) : null;
-        const category = listing?.category || "";
-        const modelId = getAgentModel(category);
-        return {
-          accessId: a.id,
-          accessToken: a.accessToken,
-          listingId: a.listingId,
-          title: listing?.title || "Unknown Service",
-          sellerName: seller?.name || "Unknown",
-          category,
-          agentType: getAgentType(category),
-          agentTypeColor: getAgentTypeColor(getAgentType(category)),
-          modelId,
-          modelLabel: getAgentModelLabel(modelId),
-          expiresAt: a.expiresAt,
-          createdAt: a.accessTokenCreated,
         };
       });
     setAgents(cards);
