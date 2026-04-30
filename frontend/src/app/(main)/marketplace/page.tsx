@@ -107,9 +107,6 @@ export default function MarketplacePage() {
         <section className="mt-8 glass-panel p-6">
           <h2 className="text-2xl font-semibold tracking-tight text-text-main">
             Available services
-            <span className="ml-2 text-base font-normal text-text-secondary">
-              {filteredListings.length}
-            </span>
           </h2>
 
           <div className="mt-6 grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,0.7fr))]">
