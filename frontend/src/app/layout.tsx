@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -39,6 +40,13 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} antialiased`}>
+        <Image
+          src="/bg-expert.webp"
+          alt=""
+          fill
+          className="fixed inset-0 -z-20 object-cover"
+          priority
+        />
         {children}
         <Toaster position="bottom-right" />
       </body>
