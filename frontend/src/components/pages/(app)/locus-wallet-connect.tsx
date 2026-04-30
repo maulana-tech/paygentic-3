@@ -8,6 +8,7 @@ const LOCUS_WALLET_URL = process.env.NEXT_PUBLIC_LOCUS_WALLET_URL || 'https://be
 
 export function LocusWalletConnect() {
   const { user, setUser, isConnected, disconnect } = useUserStore();
+  const [mounted, setMounted] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showBalance, setShowBalance] = useState(false);
   const [balance, setBalance] = useState<string | null>(null);
@@ -16,6 +17,10 @@ export function LocusWalletConnect() {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -109,25 +114,22 @@ export function LocusWalletConnect() {
     }
   };
 
-  if (isConnected && user) {
+  if (mounted && isConnected && user) {
     return (
       <div className="relative" ref={dropdownRef}>
         <button
           type="button"
           onClick={() => setShowBalance(!showBalance)}
-          className="focus-ring top-nav-shell flex cursor-pointer items-center gap-2 rounded-full px-3 py-2 transition-colors duration-200"
+          className="focus-ring surface-card-soft flex h-11 w-[11.5rem] cursor-pointer items-center justify-between gap-2 rounded-full px-3 py-2 transition-colors duration-200 hover:bg-white/80 dark:hover:bg-slate-800/80"
         >
-          <div className="h-2 w-2 rounded-full bg-emerald-500" />
-          <span className="text-sm font-mono text-text-main">
-            {user.walletAddress.slice(0, 6)}...{user.walletAddress.slice(-4)}
-          </span>
-          {balance !== null && (
-            <span className="wallet-balance-badge rounded-full px-2 py-0.5 text-xs font-semibold">
-              {balance} USDC
+          <div className="flex min-w-0 items-center gap-2">
+            <div className="h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
+            <span className="truncate text-sm font-mono text-text-main">
+              {user.walletAddress.slice(0, 6)}...{user.walletAddress.slice(-4)}
             </span>
-          )}
+          </div>
           <svg
-            className={`h-3.5 w-3.5 text-text-secondary transition-transform duration-200 ${showBalance ? "rotate-180" : ""}`}
+            className={`h-3.5 w-3.5 shrink-0 text-text-secondary transition-transform duration-200 ${showBalance ? "rotate-180" : ""}`}
             fill="none" viewBox="0 0 24 24" stroke="currentColor"
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -135,10 +137,10 @@ export function LocusWalletConnect() {
         </button>
 
         {showBalance && (
-          <div className="glass-panel-strong absolute right-0 top-full z-50 mt-3 w-72 rounded-[1.5rem] overflow-hidden">
+          <div className="glass-panel-strong absolute right-0 top-full z-50 mt-3 w-72 overflow-hidden rounded-[1rem]">
             <div className="flex items-center justify-between border-b border-border-main px-4 py-3">
               <div className="flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-brand">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand">
                   <span className="text-xs font-bold text-white">L</span>
                 </div>
                 <div>
@@ -155,14 +157,14 @@ export function LocusWalletConnect() {
             <div className="px-4 py-3">
               <p className="mb-1.5 text-xs text-text-secondary">Wallet Address</p>
               <div className="flex items-center gap-2">
-                <code className="field-shell flex-1 truncate rounded-xl px-2.5 py-1.5 text-xs font-mono text-text-main">
+                <code className="field-shell flex-1 truncate rounded-[0.875rem] px-2.5 py-1.5 text-xs font-mono text-text-main">
                   {user.walletAddress}
                 </code>
                 <button
                   type="button"
                   onClick={copyAddress}
                   title="Copy address"
-                  className="focus-ring surface-card cursor-pointer rounded-xl p-1.5 text-text-secondary transition-colors duration-150 hover:text-text-main"
+                  className="focus-ring surface-card cursor-pointer rounded-[0.875rem] p-1.5 text-text-secondary transition-colors duration-150 hover:text-text-main"
                 >
                   {copied ? (
                     <svg className="h-3.5 w-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -188,7 +190,7 @@ export function LocusWalletConnect() {
               <button
                 type="button"
                 onClick={() => { disconnect(); setBalance(null); setShowBalance(false); }}
-                className="focus-ring flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl py-2 text-xs font-medium text-text-secondary transition-colors duration-150 hover:text-text-main"
+                className="focus-ring flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-[0.875rem] py-2 text-xs font-medium text-text-secondary transition-colors duration-150 hover:text-text-main"
               >
                 <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -207,15 +209,15 @@ export function LocusWalletConnect() {
       <button
         type="button"
         onClick={() => setShowDropdown(!showDropdown)}
-        className="focus-ring rounded-full border border-brand bg-brand px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-brand-hover"
+        className="focus-ring flex h-11 w-[11.5rem] items-center justify-center rounded-full border border-brand bg-brand px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-brand-hover"
       >
-        Connect Wallet
+        {mounted ? "Connect Wallet" : "Loading Wallet"}
       </button>
 
       {showDropdown && (
-        <div className="glass-panel-strong absolute right-0 top-full z-50 mt-3 w-80 rounded-[1.5rem] overflow-hidden">
+        <div className="glass-panel-strong absolute right-0 top-full z-50 mt-3 w-80 overflow-hidden rounded-[1rem]">
           <div className="flex items-center gap-3 border-b border-border-main px-4 py-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand">
               <svg className="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2L2 7l10 5 10-5-10-5z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s-2-4-2-8c0-3.31 2.69-6 6-6s6 2.69 6 6c0 4-2 8-2 8z" />
@@ -232,7 +234,7 @@ export function LocusWalletConnect() {
               type="button"
               onClick={handleLocusConnect}
               disabled={loading}
-              className="focus-ring mb-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-brand px-4 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50"
+              className="focus-ring mb-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -264,7 +266,7 @@ export function LocusWalletConnect() {
                 value={walletInput}
                 onChange={(e) => { setWalletInput(e.target.value); setError(null); }}
                 placeholder="0x742d35Cc6634C0532925..."
-                className={`field-shell focus-ring w-full rounded-2xl px-3 py-2.5 pr-10 text-xs font-mono ${
+                className={`field-shell focus-ring w-full rounded-xl px-3 py-2.5 pr-10 text-xs font-mono ${
                   error ? "border-red-400" : ""
                 }`}
               />
@@ -285,7 +287,7 @@ export function LocusWalletConnect() {
               <button
                 type="button"
                 onClick={handleDemoConnect}
-                className="focus-ring surface-card-soft flex-1 cursor-pointer rounded-2xl px-3 py-2.5 text-xs font-medium text-text-secondary transition-colors duration-150 hover:text-text-main"
+                className="focus-ring surface-card-soft flex-1 cursor-pointer rounded-xl px-3 py-2.5 text-xs font-medium text-text-secondary transition-colors duration-150 hover:text-text-main"
               >
                 Demo Mode
               </button>
@@ -293,7 +295,7 @@ export function LocusWalletConnect() {
                 type="button"
                 onClick={handleManualConnect}
                 disabled={!walletInput.trim()}
-                className="focus-ring flex-1 cursor-pointer rounded-2xl bg-brand px-3 py-2.5 text-xs font-semibold text-white transition-colors duration-150 hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-40"
+                className="focus-ring flex-1 cursor-pointer rounded-xl bg-brand px-3 py-2.5 text-xs font-semibold text-white transition-colors duration-150 hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Connect
               </button>

@@ -54,7 +54,7 @@ export function SubscriptionPanel({ listing }: SubscriptionPanelProps) {
 
   if (subscribed) {
     return (
-      <div className="glass-panel rounded-[1.5rem] border border-emerald-200/70 p-4 dark:border-emerald-900/70">
+      <div className="glass-panel rounded-[1rem] border border-emerald-200/70 p-4 dark:border-emerald-900/70">
         <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
           <span>✓</span>
           <span className="font-semibold">Subscribed</span>
@@ -65,7 +65,7 @@ export function SubscriptionPanel({ listing }: SubscriptionPanelProps) {
   }
 
   return (
-    <div className="glass-inset rounded-[1.5rem] p-5">
+    <div className="glass-inset rounded-[1rem] p-5">
       <h3 className="font-semibold text-text-main">Subscribe & Save</h3>
       <p className="mt-1 text-sm text-text-secondary">Get ongoing access with discounted rates.</p>
 
@@ -84,7 +84,7 @@ export function SubscriptionPanel({ listing }: SubscriptionPanelProps) {
             saving: `Save $${annualSavings}/yr`,
           },
         ].map((plan) => (
-          <label key={plan.key} className="field-shell flex cursor-pointer items-center justify-between rounded-[1.25rem] p-4">
+          <label key={plan.key} className="field-shell flex cursor-pointer items-center justify-between rounded-[0.875rem] p-4">
             <div className="flex items-center gap-3">
               <input type="radio" name="plan" checked={planType === plan.key} onChange={() => setPlanType(plan.key)} className="accent-brand" />
               <div>

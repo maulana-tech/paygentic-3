@@ -298,8 +298,8 @@ export function ActivityLogPanel({ maxItems = 50, showFilters = true }: Props) {
 
   if (!isConnected) {
     return (
-      <div className="glass-panel rounded-[1.75rem] p-8 text-center">
-        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100">
+      <div className="glass-panel rounded-[1.25rem] p-8 text-center">
+        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100">
           <svg
             className="h-6 w-6 text-gray-400"
             fill="none"
@@ -323,7 +323,7 @@ export function ActivityLogPanel({ maxItems = 50, showFilters = true }: Props) {
 
   if (loading) {
     return (
-      <div className="glass-panel rounded-[1.75rem] p-6">
+      <div className="glass-panel rounded-[1.25rem] p-6">
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 animate-pulse rounded-full bg-brand" />
           <div className="h-2 w-2 animate-pulse rounded-full bg-brand [animation-delay:150ms]" />
@@ -334,7 +334,7 @@ export function ActivityLogPanel({ maxItems = 50, showFilters = true }: Props) {
   }
 
   return (
-    <section className="glass-panel overflow-hidden rounded-[1.75rem]">
+    <section className="glass-panel overflow-hidden rounded-[1.25rem]">
       <div className="flex items-center justify-between border-b border-slate-200/80 px-5 py-4">
         <div className="flex items-center gap-3">
           <svg
@@ -402,7 +402,7 @@ export function ActivityLogPanel({ maxItems = 50, showFilters = true }: Props) {
       <div className="max-h-[30rem] overflow-y-auto">
         {filteredLogs.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
-            <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100">
+            <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100">
               <svg
                 className="h-6 w-6 text-gray-400"
                 fill="none"
@@ -446,7 +446,7 @@ export function ActivityLogPanel({ maxItems = 50, showFilters = true }: Props) {
                 >
                   <div className="flex items-start gap-3 px-4 py-3">
                     <div
-                      className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl ${iconData.bg} ${iconData.text}`}
+                      className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${iconData.bg} ${iconData.text}`}
                     >
                       {iconData.icon}
                     </div>

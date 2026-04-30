@@ -53,8 +53,8 @@ export default function DashboardPage() {
       <div className="dashboard-shell min-h-screen bg-main-bg">
         <Header />
         <main className="relative mx-auto max-w-5xl px-6 pb-16 pt-12 sm:px-8">
-          <div className="glass-panel-strong rounded-[2rem] p-8 text-center sm:p-12">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[1.75rem] bg-brand-light ring-1 ring-blue-100">
+          <div className="glass-panel-strong rounded-[1.5rem] p-8 text-center sm:p-12">
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[1.25rem] bg-brand-light ring-1 ring-blue-100">
               <svg
                 className="h-10 w-10 text-brand"
                 fill="none"
@@ -92,7 +92,7 @@ export default function DashboardPage() {
     <div className="dashboard-shell min-h-screen bg-main-bg">
       <Header />
       <main className="relative mx-auto max-w-7xl px-6 pb-16 pt-6 sm:px-8">
-        <section className="glass-panel-strong mb-6 rounded-[2rem] p-6 sm:p-8">
+        <section className="glass-panel-strong mb-6 rounded-[1.5rem] p-6 sm:p-8">
           <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
             <div className="max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">
@@ -124,7 +124,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="glass-inset rounded-[1.5rem] p-4">
+            <div className="glass-inset rounded-[1rem] p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
                 Tracked volume
               </p>
@@ -135,7 +135,7 @@ export default function DashboardPage() {
                 Purchases and subscriptions combined.
               </p>
             </div>
-            <div className="glass-inset rounded-[1.5rem] p-4">
+            <div className="glass-inset rounded-[1rem] p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
                 Automation rules
               </p>
@@ -146,7 +146,7 @@ export default function DashboardPage() {
                 Auto-buy and auto-list controls currently enabled.
               </p>
             </div>
-            <div className="glass-inset rounded-[1.5rem] p-4">
+            <div className="glass-inset rounded-[1rem] p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
                 Recurring services
               </p>
@@ -173,7 +173,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <section className="glass-panel mt-8 overflow-hidden rounded-[2rem]">
+        <section className="glass-panel mt-8 overflow-hidden rounded-[1.5rem]">
           <div className="border-b border-slate-200/80 px-4 py-4 sm:px-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -243,7 +243,7 @@ export default function DashboardPage() {
             {activeTab === "purchases" ? (
               myPurchases.length === 0 ? (
                 <div className="py-14 text-center">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[1.5rem] bg-slate-100">
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[1rem] bg-slate-100">
                     <svg
                       className="h-8 w-8 text-gray-400"
                       fill="none"
@@ -279,10 +279,10 @@ export default function DashboardPage() {
                     return (
                       <div
                         key={purchase.id}
-                        className="glass-inset flex flex-col gap-4 rounded-[1.5rem] p-4 md:flex-row md:items-center md:justify-between"
+                        className="glass-inset flex flex-col gap-4 rounded-[1rem] p-4 md:flex-row md:items-center md:justify-between"
                       >
                         <div className="flex items-center gap-4">
-                          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-light">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-light">
                             <span className="text-sm font-bold text-brand">
                               ${purchase.amount}
                             </span>
@@ -317,7 +317,7 @@ export default function DashboardPage() {
             ) : activeTab === "listings" ? (
               myListings.length === 0 ? (
                 <div className="py-14 text-center">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[1.5rem] bg-slate-100">
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[1rem] bg-slate-100">
                     <svg
                       className="h-8 w-8 text-gray-400"
                       fill="none"
@@ -351,10 +351,10 @@ export default function DashboardPage() {
                   {myListings.map((listing) => (
                     <div
                       key={listing.id}
-                      className="glass-inset flex flex-col gap-4 rounded-[1.5rem] p-4 md:flex-row md:items-center md:justify-between"
+                      className="glass-inset flex flex-col gap-4 rounded-[1rem] p-4 md:flex-row md:items-center md:justify-between"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-light">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-light">
                           <span className="text-sm font-bold text-brand">
                             ${listing.priceUSDC}
                           </span>
@@ -388,7 +388,7 @@ export default function DashboardPage() {
               )
             ) : mySubscriptions.length === 0 ? (
               <div className="py-14 text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[1.5rem] bg-slate-100">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[1rem] bg-slate-100">
                   <svg
                     className="h-8 w-8 text-gray-400"
                     fill="none"
@@ -425,10 +425,10 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={subscription.id}
-                      className="glass-inset flex flex-col gap-4 rounded-[1.5rem] p-4 md:flex-row md:items-center md:justify-between"
+                      className="glass-inset flex flex-col gap-4 rounded-[1rem] p-4 md:flex-row md:items-center md:justify-between"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-light">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-light">
                           <span className="text-sm font-bold text-brand">
                             ${subscription.amount}
                           </span>

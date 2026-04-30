@@ -39,7 +39,7 @@ export default function MarketplacePage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const fieldClass = "focus-ring field-shell rounded-2xl px-4 py-3 text-sm";
+  const fieldClass = "focus-ring field-shell rounded-xl px-4 py-3 text-sm";
 
   const filteredListings = useMemo(() => {
     let result = [...listings];
@@ -104,7 +104,7 @@ export default function MarketplacePage() {
       <main className="mx-auto max-w-6xl px-6 pb-16 pt-4 sm:px-8">
         <HeroBanner />
 
-        <section className="mt-8 glass-panel rounded-[2rem] p-6">
+        <section className="mt-8 glass-panel rounded-[1.5rem] p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <h2 className="text-2xl font-semibold tracking-tight text-text-main">
@@ -203,7 +203,7 @@ export default function MarketplacePage() {
             </div>
           </div>
         ) : paginatedListings.length === 0 ? (
-          <div className="mt-10 glass-panel rounded-[1.75rem] p-10 text-center">
+          <div className="mt-10 glass-panel rounded-[1.25rem] p-10 text-center">
             <p className="text-lg font-medium text-text-main">
               No services found
             </p>
@@ -227,7 +227,7 @@ export default function MarketplacePage() {
                 <Link
                   key={listing.id}
                   href={`/marketplace/listing/${listing.id}`}
-                  className="group glass-panel block rounded-[1.75rem] p-5 transition-transform duration-200 hover:scale-[1.01]"
+                  className="group glass-panel block rounded-[1.25rem] p-5 transition-transform duration-200 hover:scale-[1.01]"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1">

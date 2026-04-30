@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function HeroBanner() {
   return (
-    <section className="glass-panel-strong relative overflow-hidden rounded-[2rem]">
+    <section className="glass-panel-strong relative overflow-hidden rounded-[1.5rem]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.18),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(191,219,254,0.85),transparent_26%)] dark:bg-[radial-gradient(circle_at_top_right,rgba(96,165,250,0.18),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(30,41,59,0.45),transparent_30%)]" />
       <div className="relative z-10 px-6 py-8 sm:px-8 sm:py-10">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-text-secondary">Agent Service Marketplace</p>
@@ -28,7 +28,7 @@ export function HeroBanner() {
             { value: "3+", label: "Active agent types" },
             { value: "USDC", label: "Locus-powered payments" },
           ].map((item) => (
-            <div key={item.label} className="glass-inset rounded-[1.25rem] px-4 py-4">
+            <div key={item.label} className="glass-inset rounded-[0.875rem] px-4 py-4">
               <p className="text-2xl font-semibold text-text-main">{item.value}</p>
               <p className="mt-1 text-sm text-text-secondary">{item.label}</p>
             </div>

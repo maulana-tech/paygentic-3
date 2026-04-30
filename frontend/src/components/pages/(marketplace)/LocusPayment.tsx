@@ -141,7 +141,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
 
   if (result?.success) {
     return (
-      <div className="glass-panel rounded-[1.75rem] border border-emerald-200/70">
+      <div className="glass-panel rounded-[1.25rem] border border-emerald-200/70">
         <div className="border-b border-emerald-200/70 px-5 py-4 dark:border-emerald-900/70">
           <div className="flex items-center gap-2">
             <svg className="h-5 w-5 text-emerald-700 dark:text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -163,20 +163,20 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-emerald-800 dark:text-emerald-300">Access token</p>
             <div className="mt-2 flex items-center gap-2">
-              <code className="field-shell flex-1 rounded-2xl px-3 py-3 text-xs font-mono text-text-main">
+              <code className="field-shell flex-1 rounded-xl px-3 py-3 text-xs font-mono text-text-main">
                 {result.accessToken}
               </code>
               <button
                 type="button"
                 onClick={() => navigator.clipboard.writeText(result.accessToken || "")}
-                className="focus-ring rounded-2xl border border-emerald-600 bg-emerald-600 px-3 py-3 text-xs font-medium text-white hover:bg-emerald-700"
+                className="focus-ring rounded-xl border border-emerald-600 bg-emerald-600 px-3 py-3 text-xs font-medium text-white hover:bg-emerald-700"
               >
                 Copy
               </button>
             </div>
           </div>
 
-          <div className="glass-inset rounded-[1.25rem] p-4">
+          <div className="glass-inset rounded-[0.875rem] p-4">
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-text-secondary">Next steps</p>
             <ol className="mt-3 list-inside list-decimal space-y-1 text-sm text-text-secondary">
               <li>Go to My Agents to start chatting.</li>
@@ -200,11 +200,11 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
   }
 
   if (sessionId) {
-    return <iframe src={`${CHECKOUT_URL}/${sessionId}`} className="w-full rounded-[1.5rem] border border-border-main" style={{ minHeight: "600px" }} title="Locus Checkout" />;
+    return <iframe src={`${CHECKOUT_URL}/${sessionId}`} className="w-full rounded-[1rem] border border-border-main" style={{ minHeight: "600px" }} title="Locus Checkout" />;
   }
 
   return (
-    <div className="glass-inset rounded-[1.75rem] p-6">
+    <div className="glass-inset rounded-[0.875rem] p-6">
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-lg font-semibold text-text-main">Purchase this service</p>

@@ -24,7 +24,7 @@ export function ThemeToggle() {
       aria-label={`Switch to ${activeTheme === "light" ? "dark" : "light"} mode`}
       aria-pressed={activeTheme === "dark"}
       onClick={toggleTheme}
-      className="focus-ring top-nav-shell inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-text-main transition-colors duration-200"
+      className="focus-ring surface-card-soft inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-text-main transition-colors duration-200 hover:bg-white/80 dark:hover:bg-slate-800/80"
     >
       {activeTheme === "light" ? (
         <svg className="theme-icon-enter h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

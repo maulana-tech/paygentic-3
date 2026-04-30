@@ -186,7 +186,7 @@ export default function AgentsPage() {
         const lang = firstNewline > -1 ? part.slice(0, firstNewline) : "";
         const code = firstNewline > -1 ? part.slice(firstNewline + 1) : part;
         return (
-          <pre key={index} className="my-2 overflow-x-auto rounded-[1.25rem] bg-slate-950 p-3 text-xs text-slate-100">
+          <pre key={index} className="my-2 overflow-x-auto rounded-[0.875rem] bg-slate-950 p-3 text-xs text-slate-100">
             {lang && <div className="mb-1 text-xs text-slate-400">{lang}</div>}
             <code>{code}</code>
           </pre>
@@ -225,7 +225,7 @@ export default function AgentsPage() {
         </div>
 
         {agents.length === 0 ? (
-          <div className="glass-panel rounded-[1.75rem] p-12 text-center">
+          <div className="glass-panel rounded-[1.25rem] p-12 text-center">
             <p className="text-lg font-medium text-text-main">No agents yet</p>
             <p className="mt-2 text-sm text-text-secondary">Purchase an agent from the marketplace to get started.</p>
           </div>
@@ -236,7 +236,7 @@ export default function AgentsPage() {
                 key={agent.accessId}
                 type="button"
                 onClick={() => openAgent(agent)}
-                className={`focus-ring glass-panel cursor-pointer rounded-[1.75rem] p-5 text-left transition-transform duration-200 hover:scale-[1.01] ${
+                className={`focus-ring glass-panel cursor-pointer rounded-[1.25rem] p-5 text-left transition-transform duration-200 hover:scale-[1.01] ${
                   activeAgent?.accessId === agent.accessId ? "border-brand" : ""
                 }`}
               >
@@ -268,7 +268,7 @@ export default function AgentsPage() {
 
       {activeAgent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 px-4 py-6 backdrop-blur-sm">
-          <div className="glass-panel-strong flex h-[85vh] w-[90vw] max-w-4xl flex-col rounded-[2rem]">
+          <div className="glass-panel-strong flex h-[85vh] w-[90vw] max-w-4xl flex-col rounded-[1.5rem]">
             <div className="flex items-center justify-between border-b border-border-main px-5 py-4">
               <div>
                 <h2 className="text-base font-semibold text-text-main">{activeAgent.title}</h2>
@@ -288,7 +288,7 @@ export default function AgentsPage() {
             <div className="flex-1 overflow-y-auto px-5 py-4">
               {messages.length === 0 && (
                 <div className="flex h-full flex-col items-center justify-center text-center">
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-[1.5rem] bg-brand-light text-brand">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-[1rem] bg-brand-light text-brand">
                     <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                     </svg>
@@ -313,7 +313,7 @@ export default function AgentsPage() {
               {messages.map((msg, index) => (
                 <div key={index} className={`mb-4 ${msg.role === "user" ? "flex justify-end" : ""}`}>
                   <div
-                    className={`max-w-[85%] rounded-[1.5rem] px-4 py-3 text-sm leading-6 ${
+                    className={`max-w-[85%] rounded-[1rem] px-4 py-3 text-sm leading-6 ${
                       msg.role === "user" ? "bg-brand text-white" : "field-shell text-text-main"
                     }`}
                   >
@@ -324,7 +324,7 @@ export default function AgentsPage() {
 
               {loading && messages[messages.length - 1]?.role === "assistant" && !messages[messages.length - 1]?.content && (
                 <div className="mb-4">
-                  <div className="field-shell inline-block rounded-[1.25rem] px-4 py-3 text-sm text-text-secondary">
+                  <div className="field-shell inline-block rounded-[0.875rem] px-4 py-3 text-sm text-text-secondary">
                     <span className="inline-flex gap-1">
                       <span className="animate-bounce">.</span>
                       <span className="animate-bounce" style={{ animationDelay: "0.1s" }}>

@@ -73,7 +73,7 @@ export default function ListingPage() {
           <span>Back to Marketplace</span>
         </Link>
 
-        <section className="glass-panel-strong rounded-[2rem] p-6 sm:p-8">
+        <section className="glass-panel-strong rounded-[1.5rem] p-6 sm:p-8">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
               <span className="inline-flex rounded-full bg-brand-light px-3 py-1 text-xs font-semibold text-brand-strong">{listing.category}</span>
@@ -83,7 +83,7 @@ export default function ListingPage() {
                 Wallet: {listing.sellerWallet.slice(0, 10)}...{listing.sellerWallet.slice(-8)}
               </p>
             </div>
-            <div className="glass-inset rounded-[1.5rem] px-4 py-4 text-right">
+            <div className="glass-inset rounded-[1rem] px-4 py-4 text-right">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">Price</p>
               <p className="mt-2 text-3xl font-semibold text-brand">${listing.priceUSDC}</p>
               <p className="text-sm text-text-secondary">Locus Credits</p>
@@ -97,7 +97,7 @@ export default function ListingPage() {
 
           {!isConnected || !user ? (
             <div className="mt-8 border-t border-border-main pt-8">
-              <div className="rounded-[1.5rem] border border-amber-200 bg-amber-50/90 p-4 text-center dark:border-amber-900/60 dark:bg-amber-950/30">
+              <div className="rounded-[1rem] border border-amber-200 bg-amber-50/90 p-4 text-center dark:border-amber-900/60 dark:bg-amber-950/30">
                 <p className="text-sm font-medium text-amber-800 dark:text-amber-300">Connect your wallet to make a purchase.</p>
               </div>
             </div>
@@ -129,7 +129,7 @@ export default function ListingPage() {
                   <button
                     type="button"
                     onClick={() => togglePanel(panel.key)}
-                    className="focus-ring glass-inset flex w-full items-center justify-between rounded-[1.5rem] px-4 py-4 text-left"
+                    className="focus-ring glass-inset flex w-full items-center justify-between rounded-[1rem] px-4 py-4 text-left"
                   >
                     <div>
                       <span className="font-medium text-text-main">{panel.title}</span>
