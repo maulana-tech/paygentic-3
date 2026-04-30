@@ -1,5 +1,16 @@
 export type SessionStatus = 'PENDING' | 'PAID' | 'EXPIRED' | 'CANCELLED';
 
+export interface OwnedAgent {
+  id: string;
+  purchaseId: string;
+  listingId: string;
+  sellerAgentId: string;
+  accessToken: string;
+  status: 'ACTIVE' | 'REVOKED';
+  expiresAt: string;
+  accessTokenCreated: string;
+}
+
 export interface CheckoutSuccessData {
   sessionId: string;
   amount: string;
