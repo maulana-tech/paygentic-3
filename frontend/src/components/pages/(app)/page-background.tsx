@@ -7,7 +7,7 @@ export function PageBackground() {
       className="pointer-events-none fixed inset-0 -z-20 overflow-hidden"
     >
       <Image
-        src="/bg-marketplace.webp"
+        src="/bg-expert.webp"
         alt=""
         fill
         priority

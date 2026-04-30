@@ -236,7 +236,7 @@ export default function AgentsPage() {
                 key={agent.accessId}
                 type="button"
                 onClick={() => openAgent(agent)}
-                className={`focus-ring glass-panel cursor-pointer rounded-[1.25rem] p-5 text-left transition-transform duration-200 hover:scale-[1.01] ${
+                className={`focus-ring glass-panel cursor-pointer p-5 text-left transition-transform duration-200 hover:scale-[1.01] ${
                   activeAgent?.accessId === agent.accessId ? "border-brand" : ""
                 }`}
               >

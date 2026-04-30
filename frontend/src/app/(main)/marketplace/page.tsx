@@ -227,11 +227,11 @@ export default function MarketplacePage() {
                 <Link
                   key={listing.id}
                   href={`/marketplace/listing/${listing.id}`}
-                  className="group glass-panel block rounded-[1.25rem] p-5 transition-transform duration-200 hover:scale-[1.01]"
+                  className="group glass-panel block p-5 transition-transform duration-200 hover:scale-[1.01]"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1">
-                      <span className="inline-flex rounded-full bg-brand-light px-3 py-1 text-xs font-semibold text-brand-strong">
+                      <span className="inline-flex bg-brand-light px-3 py-1 text-xs font-semibold text-brand-strong">
                         {listing.category}
                       </span>
                       <h3 className="mt-3 text-lg font-semibold text-text-main transition-colors group-hover:text-brand">
@@ -250,14 +250,14 @@ export default function MarketplacePage() {
                           {listing.sellerName}
                         </span>
                         {listing.totalSales > 0 && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-1 text-xs font-medium text-amber-800 dark:bg-amber-950/50 dark:text-amber-300">
+                          <span className="inline-flex items-center gap-1 bg-amber-100 px-2 py-1 text-xs font-medium text-amber-800 dark:bg-amber-950/50 dark:text-amber-300">
                             <span>★</span>
                             <span>{listing.totalSales}</span>
                           </span>
                         )}
                       </div>
                     </div>
-                    <span className="shrink-0 rounded-full bg-brand px-3 py-1.5 text-sm font-bold text-white">
+                    <span className="shrink-0 bg-brand px-3 py-1.5 text-sm font-bold text-white">
                       ${listing.priceUSDC}
                     </span>
                   </div>
