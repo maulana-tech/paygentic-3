@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import { PageBackground } from "@/components/pages/(app)/page-background";
+import { SessionHydrator } from "@/components/pages/(app)";
 import "./globals.css";
 
 const inter = Inter({
@@ -41,6 +42,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} antialiased`}>
         <PageBackground />
+        <SessionHydrator />
         {children}
         <Toaster position="bottom-right" />
       </body>
