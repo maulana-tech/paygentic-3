@@ -48,6 +48,7 @@ export default function RootLayout({
             backgroundRepeat: "no-repeat",
           }}
         />
+        <div className="fixed inset-0 -z-10 bg-white/30 dark:bg-black/60 transition-colors duration-300" />
         <PromoBanner />
         {children}
         <Toaster position="bottom-right" />
