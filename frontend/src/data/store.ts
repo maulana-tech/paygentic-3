@@ -51,6 +51,7 @@ export interface Purchase {
   listingId: string;
   sellerAgentId: string;
   buyerUserId: string;
+  sessionId?: string;
   transactionId?: string;
   status: 'PENDING' | 'CONFIRMED' | 'FAILED';
   amount: string;
@@ -837,7 +838,9 @@ export function hydrateServiceAccesses(accesses: Pick<ServiceAccess, 'id' | 'pur
   }
 }
 
-export function createServiceAccess(data: Omit<ServiceAccess, 'id' | 'accessToken' | 'accessTokenCreated' | 'expiresAt'>): ServiceAccess {
+export function createServiceAccess(data: Omit<ServiceAccess, 'id' | 'accessToken' | 'accessTokenCreated' | 'expiresAt'>): ServiceAccess | null {
+  const existing = serviceAccesses.find(a => a.purchaseId === data.purchaseId && a.buyerUserId === data.buyerUserId);
+  if (existing) return existing;
   const access: ServiceAccess = {
     ...data,
     id: `acc_${crypto.randomUUID().slice(0, 8)}`,

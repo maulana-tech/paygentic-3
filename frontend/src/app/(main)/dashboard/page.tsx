@@ -8,14 +8,11 @@ import { StatsPanel } from "@/components/pages/(app)/stats-panel";
 import { PreferencesPanel } from "@/components/pages/(app)/preferences-panel";
 import { ActivityLogPanel } from "@/components/pages/(app)/activity-log";
 import {
-  Listing,
   Purchase,
   Subscription,
+  Listing,
   getAgentById,
   getListingById,
-  getListingsByUser,
-  getPurchasesByUser,
-  getSubscriptionsByUser,
 } from "@/data/store";
 
 export default function DashboardPage() {
@@ -28,13 +25,40 @@ export default function DashboardPage() {
   const [mySubscriptions, setMySubscriptions] = useState<Subscription[]>([]);
 
   useEffect(() => {
-    if (!isConnected || !user) {
-      return;
-    }
+    if (!isConnected || !user) return;
 
-    setMyListings(getListingsByUser(user.id));
-    setMyPurchases(getPurchasesByUser(user.id));
-    setMySubscriptions(getSubscriptionsByUser(user.id));
+    (async () => {
+      try {
+        const [listingsRes, purchasesRes, subsRes] = await Promise.all([
+          fetch("/api/marketplace/listings"),
+          fetch("/api/service-access?userId=" + user.id),
+          fetch("/api/subscriptions?userId=" + user.id),
+        ]);
+
+        const listingsData = await listingsRes.json();
+        const userListings = (listingsData.listings || []).filter(
+          (l: Listing) => l.userId === user!.id,
+        );
+        setMyListings(userListings);
+
+        const accessData = await purchasesRes.json();
+        const accesses = accessData.accesses || [];
+        const purchases: Purchase[] = accesses.map((a: { purchaseId: string; listingId: string; sellerAgentId: string; buyerUserId: string; amount?: string; status: string; createdAt: string }) => ({
+          id: a.purchaseId || a.listingId,
+          listingId: a.listingId,
+          sellerAgentId: a.sellerAgentId,
+          buyerUserId: a.buyerUserId,
+          amount: "0",
+          status: a.status === "ACTIVE" ? "CONFIRMED" as const : "PENDING" as const,
+          autoPurchased: false,
+          createdAt: a.createdAt || new Date().toISOString(),
+        }));
+        setMyPurchases(purchases);
+
+        const subsData = await subsRes.json();
+        setMySubscriptions(subsData.subscriptions || []);
+      } catch {}
+    })();
   }, [user, isConnected]);
 
   const totalTrackedVolume = [...myPurchases, ...mySubscriptions].reduce(
@@ -99,27 +123,11 @@ export default function DashboardPage() {
                 Agent control center
               </p>
               <h1 className="mt-3 text-3xl font-semibold tracking-tight text-text-main sm:text-4xl">
-                A cleaner command view for buying, selling, and monitoring.
+                Your marketplace activity at a glance.
               </h1>
               <p className="mt-4 max-w-xl text-base leading-7 text-text-secondary">
-                Track marketplace flow, tune automation, and review agent
-                activity from one dashboard with clearer structure and stronger
-                accessibility.
+                Track purchases, monitor agent performance, and manage your Locus merchant activity from one place.
               </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href="/marketplace"
-                className="focus-ring rounded-full border border-slate-200 bg-white/80 px-5 py-3 text-sm font-medium text-text-main transition-colors hover:bg-slate-50 dark:border-slate-700/50 dark:bg-slate-800/70 dark:text-slate-100 dark:hover:bg-slate-700"
-              >
-                Browse Services
-              </Link>
-              <Link
-                href="/dashboard/listing/new"
-                className="focus-ring rounded-full border border-brand bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-hover"
-              >
-                Create Listing
-              </Link>
             </div>
           </div>
 
