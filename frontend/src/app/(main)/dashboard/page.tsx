@@ -50,7 +50,7 @@ export default function DashboardPage() {
 
   if (!isConnected) {
     return (
-      <div className="dashboard-shell min-h-screen bg-main-bg">
+      <div className="dashboard-shell min-h-screen">
         <Header />
         <main className="relative mx-auto max-w-5xl px-6 pb-16 pt-12 sm:px-8">
           <div className="glass-panel-strong rounded-[1.5rem] p-8 text-center sm:p-12">
@@ -89,7 +89,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="dashboard-shell min-h-screen bg-main-bg">
+    <div className="dashboard-shell min-h-screen">
       <Header />
       <main className="relative mx-auto max-w-7xl px-6 pb-16 pt-6 sm:px-8">
         <section className="glass-panel-strong mb-6 rounded-[1.5rem] p-6 sm:p-8">

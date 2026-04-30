@@ -204,7 +204,7 @@ export default function AgentsPage() {
 
   if (!isConnected) {
     return (
-      <div className="page-shell min-h-screen bg-main-bg">
+      <div className="page-shell min-h-screen">
         <Header />
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
           <h1 className="text-3xl font-semibold tracking-tight text-text-main">My Agents</h1>
@@ -215,7 +215,7 @@ export default function AgentsPage() {
   }
 
   return (
-    <div className="page-shell min-h-screen bg-main-bg">
+    <div className="page-shell min-h-screen">
       <Header />
 
       <div className="mx-auto max-w-6xl px-6 py-8">

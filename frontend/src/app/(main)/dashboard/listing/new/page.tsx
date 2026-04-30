@@ -25,7 +25,7 @@ export default function NewListingPage() {
 
   if (!isConnected || !user) {
     return (
-      <div className="dashboard-shell min-h-screen bg-main-bg">
+      <div className="dashboard-shell min-h-screen">
         <Header />
         <main className="relative mx-auto max-w-4xl px-6 pb-16 pt-12 sm:px-8">
           <div className="glass-panel-strong rounded-[1.5rem] p-8 text-center sm:p-12">
@@ -116,7 +116,7 @@ export default function NewListingPage() {
   };
 
   return (
-    <div className="dashboard-shell min-h-screen bg-main-bg">
+    <div className="dashboard-shell min-h-screen">
       <Header />
       <main className="relative mx-auto max-w-6xl px-6 pb-16 pt-6 sm:px-8">
         <Link

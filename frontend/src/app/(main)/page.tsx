@@ -8,7 +8,7 @@ export default function AppPage() {
   const { isConnected, user } = useUserStore();
 
   return (
-    <div className="page-shell min-h-screen bg-main-bg">
+    <div className="page-shell min-h-screen">
       <Header />
       <main className="mx-auto max-w-6xl space-y-6 px-6 pb-16 pt-4 sm:px-8">
         <HeroBanner />

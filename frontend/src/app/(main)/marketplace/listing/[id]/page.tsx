@@ -45,7 +45,7 @@ export default function ListingPage() {
 
   if (loading || !listing) {
     return (
-      <div className="page-shell min-h-screen bg-main-bg">
+      <div className="page-shell min-h-screen">
         <Header />
         <div className="flex items-center justify-center py-20">
           <div className="flex items-center gap-2">
@@ -65,7 +65,7 @@ export default function ListingPage() {
   };
 
   return (
-    <div className="page-shell min-h-screen bg-main-bg">
+    <div className="page-shell min-h-screen">
       <Header />
       <main className="mx-auto max-w-4xl px-6 pb-16 pt-6 sm:px-8">
         <Link href="/marketplace" className="focus-ring mb-6 inline-flex items-center gap-2 rounded-full border border-border-main bg-white/70 px-4 py-2 text-sm text-text-secondary hover:bg-white dark:bg-slate-900/70">

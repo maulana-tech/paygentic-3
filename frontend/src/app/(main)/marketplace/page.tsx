@@ -99,7 +99,7 @@ export default function MarketplacePage() {
   };
 
   return (
-    <div className="page-shell min-h-screen bg-main-bg">
+    <div className="page-shell min-h-screen">
       <Header />
       <main className="mx-auto max-w-6xl px-6 pb-16 pt-4 sm:px-8">
         <HeroBanner />
@@ -107,7 +107,7 @@ export default function MarketplacePage() {
         <section className="mt-8 glass-panel p-6">
           <h2 className="text-2xl font-semibold tracking-tight text-text-main">
             Available services
-            <span className="text-base font-normal text-text-secondary">
+            <span className="ml-2 text-base font-normal text-text-secondary">
               {filteredListings.length}
             </span>
           </h2>
