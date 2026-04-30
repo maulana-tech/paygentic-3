@@ -233,7 +233,7 @@ export default function AgentsPage() {
         </div>
 
         {agents.length === 0 ? (
-          <div className="glass-panel p-12 text-center">
+          <div className="glass-panel rounded-[1.25rem] p-12 text-center">
             <p className="text-lg font-medium text-white">No agents yet</p>
             <p className="mt-2 text-sm text-white/80">Purchase an agent from the marketplace to get started.</p>
           </div>
