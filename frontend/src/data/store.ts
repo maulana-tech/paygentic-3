@@ -829,6 +829,14 @@ export function addMessageToTask(taskId: string, message: AgentMessage): AgentTa
 
 export const serviceAccesses: ServiceAccess[] = [];
 
+export function hydrateServiceAccesses(accesses: Pick<ServiceAccess, 'id' | 'purchaseId' | 'listingId' | 'buyerUserId' | 'sellerAgentId' | 'accessToken' | 'accessTokenCreated' | 'expiresAt' | 'status'>[]): void {
+  for (const a of accesses) {
+    if (!serviceAccesses.some((existing) => existing.id === a.id)) {
+      serviceAccesses.push(a);
+    }
+  }
+}
+
 export function createServiceAccess(data: Omit<ServiceAccess, 'id' | 'accessToken' | 'accessTokenCreated' | 'expiresAt'>): ServiceAccess {
   const access: ServiceAccess = {
     ...data,
