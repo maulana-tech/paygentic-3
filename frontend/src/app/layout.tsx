@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import { PromoBanner } from "@/components/ui/promo-banner";
+import { SessionHydrator } from "@/components/pages/(app)";
 import "./globals.css";
 
 const inter = Inter({
@@ -49,6 +50,7 @@ export default function RootLayout({
           priority
         />
         <PromoBanner />
+        <SessionHydrator />
         {children}
         <Toaster position="bottom-right" />
       </body>

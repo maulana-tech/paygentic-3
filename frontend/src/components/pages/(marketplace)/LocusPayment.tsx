@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useUserStore } from "@/store/user";
 
 interface Listing {
   id: string;
@@ -29,6 +30,7 @@ interface PurchaseResult {
 }
 
 export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
+  const addOwnedAgent = useUserStore((s) => s.addOwnedAgent);
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -114,14 +116,16 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
 
   const handleSuccess = async (purchaseId?: string) => {
     let accessToken: string | undefined;
+    let serverId: string | undefined;
 
     if (purchaseId) {
       try {
         const res = await fetch(`/api/service-access?userId=${buyerAgentId}`);
         const data = await res.json();
-        const latest = data.accesses?.find((item: { purchaseId: string }) => item.purchaseId === purchaseId);
+        const latest = data.accesses?.find((item: { purchaseId: string; id: string; accessToken: string }) => item.purchaseId === purchaseId);
         if (latest) {
           accessToken = latest.accessToken;
+          serverId = latest.id;
         }
       } catch {}
     }
@@ -129,6 +133,18 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
     if (!accessToken) {
       accessToken = `cusygen_${listing.id}_${crypto.randomUUID().slice(0, 12)}`;
     }
+
+    const now = new Date().toISOString();
+    addOwnedAgent({
+      id: serverId ?? `acc_${crypto.randomUUID().slice(0, 8)}`,
+      purchaseId: purchaseId || '',
+      listingId: listing.id,
+      sellerAgentId,
+      accessToken,
+      status: 'ACTIVE',
+      expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+      accessTokenCreated: now,
+    });
 
     setResult({
       success: true,
