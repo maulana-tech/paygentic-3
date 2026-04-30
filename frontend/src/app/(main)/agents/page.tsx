@@ -41,22 +41,7 @@ export default function AgentsPage() {
     try {
       const res = await fetch(`/api/service-access?userId=${userId}`);
       const data = await res.json();
-      const accesses = data.accesses || [];
-
-      if (accesses.length === 0) {
-        await fetch('/api/service-access', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId })
-        });
-        const retry = await fetch(`/api/service-access?userId=${userId}`);
-        const retryData = await retry.json();
-        const retryAccesses = retryData.accesses || [];
-        buildAgentCards(retryAccesses);
-        return;
-      }
-
-      buildAgentCards(accesses);
+      buildAgentCards(data.accesses || []);
     } catch {
       setAgents([]);
     }

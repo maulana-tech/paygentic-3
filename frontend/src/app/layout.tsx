@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
+import { PromoBanner } from "@/components/ui/promo-banner";
 import "./globals.css";
 
 const inter = Inter({
@@ -47,6 +48,7 @@ export default function RootLayout({
           className="fixed inset-0 -z-20 object-cover"
           priority
         />
+        <PromoBanner />
         {children}
         <Toaster position="bottom-right" />
       </body>
