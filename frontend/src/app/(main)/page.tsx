@@ -13,7 +13,7 @@ export default function AppPage() {
       <main className="mx-auto max-w-6xl space-y-6 px-6 pb-16 pt-4 sm:px-8">
         <HeroBanner />
 
-        <section className="glass-panel rounded-[2rem] p-6 sm:p-8">
+        <section className="glass-panel rounded-[1.5rem] p-6 sm:p-8">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">
               Personal orchestration
@@ -63,9 +63,9 @@ export default function AppPage() {
           ].map((item, index) => (
             <article
               key={item.title}
-              className="glass-panel rounded-[1.75rem] p-5"
+              className="glass-panel rounded-[1.25rem] p-5"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-[1.25rem] bg-brand-light text-brand">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-[0.875rem] bg-brand-light text-brand">
                 <svg
                   className="h-5 w-5"
                   fill="none"
@@ -99,7 +99,7 @@ export default function AppPage() {
         </section>
 
         {isConnected && user && (
-          <section className="glass-panel rounded-[1.75rem] border border-emerald-200/70 p-6 dark:border-emerald-900/70">
+          <section className="glass-panel rounded-[1.25rem] border border-emerald-200/70 p-6 dark:border-emerald-900/70">
             <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">
               Wallet connected: {user.walletAddress.slice(0, 10)}...
               {user.walletAddress.slice(-8)}
