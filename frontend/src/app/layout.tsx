@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import { PromoBanner } from "@/components/ui/promo-banner";
@@ -41,12 +40,13 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} antialiased`}>
-        <Image
-          src="/bg-expert.webp"
-          alt=""
-          fill
-          className="fixed inset-0 -z-20 object-cover"
-          priority
+        <div
+          className="fixed inset-0 -z-20"
+          style={{
+            backgroundImage: "url('/bg-expert.webp')",
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+          }}
         />
         <PromoBanner />
         {children}
