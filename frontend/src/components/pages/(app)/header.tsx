@@ -40,7 +40,9 @@ export function Header() {
               />
             </div>
             <div>
-              <span className="block text-sm font-semibold tracking-[0.18em] text-text-muted">CUSYGEN</span>
+              <span className="block text-sm font-semibold tracking-[0.18em] text-text-muted">
+                CUSYGEN
+              </span>
             </div>
           </Link>
 
