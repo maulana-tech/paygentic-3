@@ -5,13 +5,10 @@ import { Header } from "@/components/pages/(app)";
 import { useUserStore } from "@/store/user";
 import {
   AgentMessage,
-  getAgentById,
   getAgentModel,
   getAgentModelLabel,
   getAgentType,
   getAgentTypeColor,
-  getListingById,
-  getServiceAccessesByUser,
 } from "@/data/store";
 
 interface AgentCard {
@@ -40,22 +37,43 @@ export default function AgentsPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
-  useEffect(() => {
-    if (!isConnected || !user) return;
-    const accesses = getServiceAccessesByUser(user.id);
+  const fetchAgents = async (userId: string) => {
+    try {
+      const res = await fetch(`/api/service-access?userId=${userId}`);
+      const data = await res.json();
+      const accesses = data.accesses || [];
+
+      if (accesses.length === 0) {
+        await fetch('/api/service-access', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId })
+        });
+        const retry = await fetch(`/api/service-access?userId=${userId}`);
+        const retryData = await retry.json();
+        const retryAccesses = retryData.accesses || [];
+        buildAgentCards(retryAccesses);
+        return;
+      }
+
+      buildAgentCards(accesses);
+    } catch {
+      setAgents([]);
+    }
+  };
+
+  const buildAgentCards = (accesses: Array<{ id: string; accessToken: string; listingId: string; expiresAt: string; accessTokenCreated: string; sellerName?: string; category?: string; title?: string; status: string }>) => {
     const cards: AgentCard[] = accesses
       .filter((access) => access.status === "ACTIVE")
       .map((access) => {
-        const listing = getListingById(access.listingId);
-        const seller = listing ? getAgentById(listing.agentId || listing.userId) : null;
-        const category = listing?.category || "";
+        const category = access.category || "";
         const modelId = getAgentModel(category);
         return {
           accessId: access.id,
           accessToken: access.accessToken,
           listingId: access.listingId,
-          title: listing?.title || "Unknown Service",
-          sellerName: seller?.name || "Unknown",
+          title: access.title || "Unknown Service",
+          sellerName: access.sellerName || "Unknown",
           category,
           agentType: getAgentType(category),
           agentTypeColor: getAgentTypeColor(getAgentType(category)),
@@ -66,6 +84,11 @@ export default function AgentsPage() {
         };
       });
     setAgents(cards);
+  };
+
+  useEffect(() => {
+    if (!isConnected || !user) return;
+    fetchAgents(user.id);
   }, [user, isConnected]);
 
   useEffect(() => {
