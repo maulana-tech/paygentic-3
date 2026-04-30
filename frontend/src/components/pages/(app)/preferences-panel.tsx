@@ -24,7 +24,7 @@ export function PreferencesPanel() {
 
   if (!isConnected || !user) {
     return (
-      <div className="glass-panel rounded-[1.75rem] p-6 text-center">
+      <div className="glass-panel rounded-[1.25rem] p-6 text-center">
         <p className="text-sm text-text-secondary">
           Connect wallet to manage preferences
         </p>
@@ -86,13 +86,13 @@ export function PreferencesPanel() {
   };
 
   const panelInputClass =
-    "focus-ring field-shell mt-2 w-full rounded-2xl px-3 py-2.5 text-sm text-text-main";
-  const segmentClass = "glass-inset rounded-[1.25rem] p-4";
+    "focus-ring field-shell mt-2 w-full rounded-xl px-3 py-2.5 text-sm text-text-main";
+  const segmentClass = "glass-inset rounded-[0.875rem] p-4";
   const switchBaseClass =
     "focus-ring relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out";
 
   return (
-    <section className="glass-panel rounded-[1.75rem] p-4 sm:p-5">
+    <section className="glass-panel rounded-[1.25rem] p-4 sm:p-5">
       <div className="border-b border-slate-200/80 px-2 pb-4">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-text-secondary">
           Controls
@@ -142,7 +142,7 @@ export function PreferencesPanel() {
                 <label className="text-xs font-medium uppercase tracking-[0.18em] text-text-secondary">
                   Max per transaction
                 </label>
-                <div className="glass-inset mt-2 flex items-center rounded-2xl px-3">
+                <div className="glass-inset mt-2 flex items-center rounded-xl px-3">
                   <span className="text-sm text-text-secondary">$</span>
                   <input
                     type="number"
@@ -158,7 +158,7 @@ export function PreferencesPanel() {
                 <label className="text-xs font-medium uppercase tracking-[0.18em] text-text-secondary">
                   Auto-approve under
                 </label>
-                <div className="glass-inset mt-2 flex items-center rounded-2xl px-3">
+                <div className="glass-inset mt-2 flex items-center rounded-xl px-3">
                   <span className="text-sm text-text-secondary">$</span>
                   <input
                     type="number"
@@ -211,7 +211,7 @@ export function PreferencesPanel() {
               <label className="text-xs font-medium uppercase tracking-[0.18em] text-text-secondary">
                 Minimum price
               </label>
-              <div className="glass-inset mt-2 flex items-center rounded-2xl px-3">
+              <div className="glass-inset mt-2 flex items-center rounded-xl px-3">
                 <span className="text-sm text-text-secondary">$</span>
                 <input
                   type="number"
@@ -231,7 +231,7 @@ export function PreferencesPanel() {
           <p className="mt-1 text-sm leading-5 text-text-secondary">
             Set a hard ceiling for total monthly spend across all purchases.
           </p>
-          <div className="glass-inset mt-3 flex items-center rounded-2xl px-3">
+          <div className="glass-inset mt-3 flex items-center rounded-xl px-3">
             <span className="text-sm text-text-secondary">$</span>
             <input
               type="number"
@@ -291,7 +291,7 @@ export function PreferencesPanel() {
               onClick={handleAddInterest}
               disabled={!newInterest}
               type="button"
-              className="focus-ring rounded-2xl border border-brand bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-300"
+              className="focus-ring rounded-xl border border-brand bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-300"
             >
               Add
             </button>
@@ -337,7 +337,7 @@ export function PreferencesPanel() {
             ].map((option) => (
               <label
                 key={option.value}
-                className="glass-inset flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-3"
+                className="glass-inset flex cursor-pointer items-center gap-3 rounded-xl px-3 py-3"
               >
                 <input
                   type="radio"
