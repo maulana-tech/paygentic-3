@@ -70,6 +70,11 @@
 
 body {
   background: var(--color-main-bg);
+  background-image: var(--bg-expert-url);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--color-text-main);
   font-family:
     var(--font-sans),
