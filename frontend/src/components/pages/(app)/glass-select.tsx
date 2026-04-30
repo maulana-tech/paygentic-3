@@ -45,7 +45,7 @@ export function GlassSelect({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="focus-ring field-shell flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm text-text-main hover:bg-white/40 dark:hover:bg-slate-800/40"
+        className="focus-ring field-shell flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm text-text-main hover:bg-white/40 dark:hover:bg-slate-800/40"
       >
         <span
           className={selectedOption ? "text-text-main" : "text-text-secondary"}
@@ -68,7 +68,7 @@ export function GlassSelect({
       </button>
 
       {isOpen && (
-        <div className="glass-panel-strong absolute z-50 mt-2 max-h-60 w-full overflow-y-auto rounded-[1.25rem] py-2 shadow-xl outline-none">
+        <div className="glass-panel-strong absolute z-50 mt-2 max-h-60 w-full overflow-y-auto rounded-[0.875rem] py-2 shadow-xl outline-none">
           {options.length === 0 ? (
             <div className="px-4 py-2 text-sm text-text-secondary">
               No options available
