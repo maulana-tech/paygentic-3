@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
-import { PageBackground } from "@/components/pages/(app)/page-background";
+import { PromoBanner } from "@/components/ui/promo-banner";
 import { SessionHydrator } from "@/components/pages/(app)";
 import "./globals.css";
 
@@ -41,7 +42,14 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} antialiased`}>
-        <PageBackground />
+        <Image
+          src="/bg-expert.webp"
+          alt=""
+          fill
+          className="fixed inset-0 -z-20 object-cover"
+          priority
+        />
+        <PromoBanner />
         <SessionHydrator />
         {children}
         <Toaster position="bottom-right" />

@@ -5,13 +5,12 @@ import { Header } from "@/components/pages/(app)";
 import { useUserStore } from "@/store/user";
 import {
   AgentMessage,
-  getAgentById,
   getAgentModel,
   getAgentModelLabel,
   getAgentType,
   getAgentTypeColor,
   getListingById,
-  getServiceAccessesByUser,
+  getAgentById,
 } from "@/data/store";
 
 interface AgentCard {
@@ -30,7 +29,7 @@ interface AgentCard {
 }
 
 export default function AgentsPage() {
-  const { user, isConnected } = useUserStore();
+  const { user, isConnected, ownedAgents, addOwnedAgent } = useUserStore();
   const [agents, setAgents] = useState<AgentCard[]>([]);
   const [activeAgent, setActiveAgent] = useState<AgentCard | null>(null);
   const [messages, setMessages] = useState<AgentMessage[]>([]);
@@ -40,22 +39,45 @@ export default function AgentsPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
-  useEffect(() => {
-    if (!isConnected || !user) return;
-    const accesses = getServiceAccessesByUser(user.id);
+  const fetchAgents = async (userId: string) => {
+    try {
+      const res = await fetch(`/api/service-access?userId=${userId}`);
+      const data = await res.json();
+      const accesses = data.accesses || [];
+      for (const a of accesses) {
+        addOwnedAgent({
+          id: a.id,
+          purchaseId: a.purchaseId,
+          listingId: a.listingId,
+          sellerAgentId: a.sellerAgentId,
+          accessToken: a.accessToken,
+          status: a.status,
+          expiresAt: a.expiresAt,
+          accessTokenCreated: a.accessTokenCreated,
+        });
+      }
+      buildAgentCards(accesses);
+    } catch {
+      if (ownedAgents.length > 0) {
+        buildAgentCardsFromZustand(ownedAgents);
+      } else {
+        setAgents([]);
+      }
+    }
+  };
+
+  const buildAgentCards = (accesses: Array<{ id: string; accessToken: string; listingId: string; expiresAt: string; accessTokenCreated: string; sellerName?: string; category?: string; title?: string; status: string }>) => {
     const cards: AgentCard[] = accesses
       .filter((access) => access.status === "ACTIVE")
       .map((access) => {
-        const listing = getListingById(access.listingId);
-        const seller = listing ? getAgentById(listing.agentId || listing.userId) : null;
-        const category = listing?.category || "";
+        const category = access.category || "";
         const modelId = getAgentModel(category);
         return {
           accessId: access.id,
           accessToken: access.accessToken,
           listingId: access.listingId,
-          title: listing?.title || "Unknown Service",
-          sellerName: seller?.name || "Unknown",
+          title: access.title || "Unknown Service",
+          sellerName: access.sellerName || "Unknown",
           category,
           agentType: getAgentType(category),
           agentTypeColor: getAgentTypeColor(getAgentType(category)),
@@ -66,6 +88,37 @@ export default function AgentsPage() {
         };
       });
     setAgents(cards);
+  };
+
+  const buildAgentCardsFromZustand = (agentList: Array<{ id: string; purchaseId: string; listingId: string; sellerAgentId: string; accessToken: string; status: string; expiresAt: string; accessTokenCreated: string }>) => {
+    const cards: AgentCard[] = agentList
+      .filter((a) => a.status === "ACTIVE")
+      .map((a) => {
+        const listing = getListingById(a.listingId);
+        const seller = listing ? getAgentById(listing.agentId || listing.userId) : null;
+        const category = listing?.category || "";
+        const modelId = getAgentModel(category);
+        return {
+          accessId: a.id,
+          accessToken: a.accessToken,
+          listingId: a.listingId,
+          title: listing?.title || "Unknown Service",
+          sellerName: seller?.name || "Unknown",
+          category,
+          agentType: getAgentType(category),
+          agentTypeColor: getAgentTypeColor(getAgentType(category)),
+          modelId,
+          modelLabel: getAgentModelLabel(modelId),
+          expiresAt: a.expiresAt,
+          createdAt: a.accessTokenCreated,
+        };
+      });
+    setAgents(cards);
+  };
+
+  useEffect(() => {
+    if (!isConnected || !user) return;
+    fetchAgents(user.id);
   }, [user, isConnected]);
 
   useEffect(() => {
@@ -204,30 +257,30 @@ export default function AgentsPage() {
 
   if (!isConnected) {
     return (
-      <div className="page-shell min-h-screen bg-main-bg">
+      <div className="page-shell min-h-screen">
         <Header />
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
-          <h1 className="text-3xl font-semibold tracking-tight text-text-main">My Agents</h1>
-          <p className="mt-4 text-text-secondary">Connect your wallet to view your purchased agents.</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-white">My Agents</h1>
+          <p className="mt-4 text-white/80">Connect your wallet to view your purchased agents.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="page-shell min-h-screen bg-main-bg">
+    <div className="page-shell min-h-screen">
       <Header />
 
       <div className="mx-auto max-w-6xl px-6 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold tracking-tight text-text-main">My Agents</h1>
-          <p className="mt-2 text-sm text-text-secondary">Your purchased AI agents ready to execute tasks.</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-white">My Agents</h1>
+          <p className="mt-2 text-sm text-white/80">Your purchased AI agents ready to execute tasks.</p>
         </div>
 
         {agents.length === 0 ? (
           <div className="glass-panel rounded-[1.25rem] p-12 text-center">
-            <p className="text-lg font-medium text-text-main">No agents yet</p>
-            <p className="mt-2 text-sm text-text-secondary">Purchase an agent from the marketplace to get started.</p>
+            <p className="text-lg font-medium text-white">No agents yet</p>
+            <p className="mt-2 text-sm text-white/80">Purchase an agent from the marketplace to get started.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -236,20 +289,20 @@ export default function AgentsPage() {
                 key={agent.accessId}
                 type="button"
                 onClick={() => openAgent(agent)}
-                className={`focus-ring glass-panel cursor-pointer p-5 text-left transition-transform duration-200 hover:scale-[1.01] ${
+                className={`focus-ring glass-panel rounded-[1rem] cursor-pointer p-5 text-left transition-transform duration-200 hover:scale-[1.01] ${
                   activeAgent?.accessId === agent.accessId ? "border-brand" : ""
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1">
-                    <h3 className="text-base font-semibold text-text-main">{agent.title}</h3>
-                    <p className="mt-1 text-xs text-text-secondary">by {agent.sellerName}</p>
+                    <h3 className="text-base font-semibold text-white">{agent.title}</h3>
+                    <p className="mt-1 text-xs text-white/80">by {agent.sellerName}</p>
                   </div>
                   <span className={`rounded-full border px-2.5 py-1 text-xs font-medium ${agent.agentTypeColor}`}>{agent.agentType}</span>
                 </div>
 
-                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-text-secondary">
-                  <span className="rounded-full bg-slate-100 px-2.5 py-1 dark:bg-slate-800">{agent.category}</span>
+                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-white/80">
+                  <span className="rounded-full bg-white/10 px-2.5 py-1">{agent.category}</span>
                   <span className="rounded-full bg-brand-light px-2.5 py-1 text-brand-strong">{agent.modelLabel}</span>
                   <span>Expires {new Date(agent.expiresAt).toLocaleDateString()}</span>
                 </div>

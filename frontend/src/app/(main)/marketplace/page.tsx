@@ -99,32 +99,15 @@ export default function MarketplacePage() {
   };
 
   return (
-    <div className="page-shell min-h-screen bg-main-bg">
+    <div className="page-shell min-h-screen">
       <Header />
       <main className="mx-auto max-w-6xl px-6 pb-16 pt-4 sm:px-8">
         <HeroBanner />
 
-        <section className="mt-8 glass-panel rounded-[1.5rem] p-6">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-text-main">
-                Available services
-              </h2>
-              <p className="mt-2 text-sm text-text-secondary">
-                {filteredListings.length} services found
-              </p>
-            </div>
-            {isConnected && user && (
-              <div className="glass-inset rounded-full px-4 py-2 text-sm">
-                <span className="text-emerald-700 dark:text-emerald-300">
-                  Connected:{" "}
-                </span>
-                <span className="font-semibold text-text-main">
-                  {user.walletAddress.slice(0, 8)}...
-                </span>
-              </div>
-            )}
-          </div>
+        <section className="mt-8 glass-panel p-6">
+          <h2 className="text-2xl font-semibold tracking-tight text-text-main">
+            Available services
+          </h2>
 
           <div className="mt-6 grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,0.7fr))]">
             <input

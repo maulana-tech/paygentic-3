@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { LocusCheckout } from "@withlocus/checkout-react";
 import { useUserStore } from "@/store/user";
 
 interface Listing {
@@ -16,7 +17,7 @@ interface Props {
   buyerAgentId: string;
 }
 
-const CHECKOUT_URL = "https://beta-checkout.paywithlocus.com";
+const CHECKOUT_URL = process.env.NEXT_PUBLIC_LOCUS_CHECKOUT_URL || "https://beta-checkout.paywithlocus.com";
 
 interface PurchaseResult {
   success: boolean;
@@ -33,6 +34,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
   const addOwnedAgent = useUserStore((s) => s.addOwnedAgent);
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [purchaseId, setPurchaseId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<PurchaseResult | null>(null);
 
@@ -61,28 +63,26 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
         return;
       }
 
-      if (data.checkoutUrl && (data.manual || !data.transactionId)) {
-        setSessionId(data.sessionId);
-        setLoading(false);
+      if (data.transactionId || data.status === "CONFIRMED") {
+        pollPayment(data.transactionId, data.purchaseId, data.demo);
         return;
       }
 
-      if (data.sessionId && data.status !== "CONFIRMED" && data.checkoutUrl) {
+      if (data.sessionId) {
         setSessionId(data.sessionId);
+        setPurchaseId(data.purchaseId || null);
       }
 
-      if (data.transactionId || data.status === "CONFIRMED") {
-        pollPayment(data.transactionId, data.purchaseId, data.demo);
-      }
+      setLoading(false);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Payment failed");
       setLoading(false);
     }
   };
 
-  const pollPayment = async (txId: string | undefined, purchaseId: string | undefined, demo?: boolean) => {
+  const pollPayment = async (txId: string | undefined, pId: string | undefined, demo?: boolean) => {
     if (demo || !txId) {
-      handleSuccess(purchaseId);
+      handleSuccess(pId);
       return;
     }
 
@@ -95,7 +95,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
         const data = await res.json();
 
         if (data.status === "CONFIRMED") {
-          handleSuccess(purchaseId);
+          handleSuccess(pId);
           return;
         }
 
@@ -114,15 +114,15 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
     setLoading(false);
   };
 
-  const handleSuccess = async (purchaseId?: string) => {
+  const handleSuccess = async (pId?: string) => {
     let accessToken: string | undefined;
     let serverId: string | undefined;
 
-    if (purchaseId) {
+    if (pId) {
       try {
         const res = await fetch(`/api/service-access?userId=${buyerAgentId}`);
         const data = await res.json();
-        const latest = data.accesses?.find((item: { purchaseId: string; id: string; accessToken: string }) => item.purchaseId === purchaseId);
+        const latest = data.accesses?.find((item: { purchaseId: string; id: string; accessToken: string }) => item.purchaseId === pId);
         if (latest) {
           accessToken = latest.accessToken;
           serverId = latest.id;
@@ -137,7 +137,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
     const now = new Date().toISOString();
     addOwnedAgent({
       id: serverId ?? `acc_${crypto.randomUUID().slice(0, 8)}`,
-      purchaseId: purchaseId || '',
+      purchaseId: pId || '',
       listingId: listing.id,
       sellerAgentId,
       accessToken,
@@ -148,7 +148,7 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
 
     setResult({
       success: true,
-      purchaseId,
+      purchaseId: pId,
       accessToken,
       status: "CONFIRMED",
     });
@@ -216,7 +216,23 @@ export function LocusPayment({ listing, sellerAgentId, buyerAgentId }: Props) {
   }
 
   if (sessionId) {
-    return <iframe src={`${CHECKOUT_URL}/${sessionId}`} className="w-full rounded-[1rem] border border-border-main" style={{ minHeight: "600px" }} title="Locus Checkout" />;
+    return (
+      <LocusCheckout
+        sessionId={sessionId}
+        mode="embedded"
+        checkoutUrl={CHECKOUT_URL}
+        onSuccess={() => handleSuccess(purchaseId || undefined)}
+        onCancel={() => {
+          setSessionId(null);
+          setPurchaseId(null);
+        }}
+        onError={(err) => {
+          setError(err.message);
+          setSessionId(null);
+        }}
+        style={{ minHeight: "600px" }}
+      />
+    );
   }
 
   return (

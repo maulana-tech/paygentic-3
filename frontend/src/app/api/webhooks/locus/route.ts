@@ -40,20 +40,20 @@ export async function POST(req: Request) {
       });
 
       // Find purchase by transaction ID or session ID
-      const purchase = purchases.find(p => 
-        p.transactionId === sessionId || 
+      const purchase = purchases.find(p =>
+        p.sessionId === sessionId ||
         (metadata?.purchaseId && p.id === metadata.purchaseId)
       );
 
+      let serviceCreated = false;
+
       if (purchase) {
-        // Update purchase status
         purchase.status = 'CONFIRMED';
         purchase.transactionId = paymentTxHash || purchase.transactionId;
 
         const listing = getListingById(purchase.listingId);
         const seller = listing ? getAgentById(listing.agentId || listing.userId) : null;
 
-        // Create service access for buyer
         const serviceAccess = createServiceAccess({
           purchaseId: purchase.id,
           listingId: purchase.listingId,
@@ -62,32 +62,24 @@ export async function POST(req: Request) {
           status: 'ACTIVE'
         });
 
-        // Log activity
-        addActivityLog(purchase.buyerUserId, 'PURCHASE', 
-          `Purchased ${listing?.title || 'service'} from ${seller?.name || 'agent'}`, {
-            amount: purchase.amount,
-            serviceAccess: serviceAccess.accessToken,
-            seller: seller?.name || 'unknown'
-          }
-        );
-
-        // Notify seller (log for now)
-        if (seller) {
-          addActivityLog(seller.id, 'SALE', 
-            `New sale: ${listing?.title || 'service'} to buyer`, {
+        if (serviceAccess) {
+          serviceCreated = true;
+          addActivityLog(purchase.buyerUserId, 'PURCHASE', 
+            `Purchased ${listing?.title || 'service'} from ${seller?.name || 'agent'}`, {
               amount: purchase.amount,
-              buyer: payerAddress?.slice(0, 10) + '...'
+              serviceAccess: serviceAccess.accessToken,
+              seller: seller?.name || 'unknown'
             }
           );
-        }
 
-        console.log('Service access created:', serviceAccess.accessToken);
+          console.log('Service access created:', serviceAccess.accessToken);
+        }
       }
 
       return NextResponse.json({ 
         success: true,
         purchaseId: purchase?.id || null,
-        serviceCreated: !!purchase
+        serviceCreated
       });
     }
 
@@ -97,7 +89,7 @@ export async function POST(req: Request) {
       console.log('Session expired:', sessionId);
 
       // Find and update purchase
-      const purchase = purchases.find(p => p.transactionId === sessionId);
+      const purchase = purchases.find(p => p.sessionId === sessionId);
       if (purchase) {
         purchase.status = 'FAILED';
       }

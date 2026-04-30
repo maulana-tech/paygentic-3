@@ -22,6 +22,7 @@ export async function POST(req: Request) {
       listingId,
       sellerAgentId: listing.agentId || listing.userId,
       buyerUserId,
+      sessionId: undefined,
       transactionId: undefined,
       status: 'PENDING',
       amount,
@@ -46,7 +47,7 @@ export async function POST(req: Request) {
         amount,
         seller: seller.name,
         auto: 'false',
-        accessToken: serviceAccess.accessToken
+        accessToken: serviceAccess?.accessToken || ''
       });
 
       addActivityLog(listing.agentId || listing.userId, 'SALE', `Sold ${listing.title} for $${amount}`, {
@@ -61,7 +62,7 @@ export async function POST(req: Request) {
         checkoutUrl: `https://beta-checkout.paywithlocus.com/demo`,
         demo: true,
         status: 'CONFIRMED',
-        accessToken: serviceAccess.accessToken
+        accessToken: serviceAccess?.accessToken
       });
     }
 
@@ -86,6 +87,7 @@ export async function POST(req: Request) {
     const session = await createRes.json();
     const sessionId = session.data?.id;
     const checkoutUrl = session.data?.checkoutUrl;
+    purchase.sessionId = sessionId;
 
     const preflightRes = await fetch(`${LOCUS_API_BASE}/checkout/agent/preflight/${sessionId}`, {
       headers: { 'Authorization': `Bearer ${LOCUS_API_KEY}` }
